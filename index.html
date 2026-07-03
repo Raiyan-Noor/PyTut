@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brainrot Translator — Python Assignment</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f0f0f;
+    --surface: #1a1a1a;
+    --surface2: #242424;
+    --border: #2e2e2e;
+    --text: #f0f0ef;
+    --muted: #888;
+    --purple: #7f77dd;
+    --purple-light: #EEEDFE;
+    --purple-dark: #3C3489;
+    --green: #1D9E75;
+    --green-light: #E1F5EE;
+    --green-dark: #085041;
+    --amber: #EF9F27;
+    --amber-light: #FAEEDA;
+    --amber-dark: #633806;
+    --coral: #D85A30;
+    --coral-light: #FAECE7;
+    --coral-dark: #712B13;
+    --blue: #378ADD;
+    --mono: 'Courier New', monospace;
+  }
+  body { background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; min-height: 100vh; }
+
+  /* NAV */
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-size: 13px; font-weight: 500; color: var(--purple); letter-spacing: 0.05em; text-transform: uppercase; }
+  .nav-pages { display: flex; gap: 4px; }
+  .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); border: none; cursor: pointer; transition: background 0.2s; }
+  .nav-dot.active { background: var(--purple); }
+  .nav-arrows { display: flex; gap: 8px; }
+  .nav-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: border-color 0.15s; }
+  .nav-btn:hover { border-color: var(--purple); }
+  .nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+  /* PAGES */
+  .page { display: none; max-width: 680px; margin: 0 auto; padding: 40px 24px 60px; }
+  .page.active { display: block; }
+
+  /* TYPOGRAPHY */
+  .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  h1 { font-size: 28px; font-weight: 500; line-height: 1.25; margin-bottom: 10px; }
+  h2 { font-size: 20px; font-weight: 500; margin-bottom: 14px; margin-top: 32px; }
+  h3 { font-size: 15px; font-weight: 500; margin-bottom: 8px; margin-top: 20px; }
+  p { font-size: 14px; line-height: 1.7; color: #ccc; margin-bottom: 12px; }
+  strong { color: var(--text); font-weight: 500; }
+
+  /* CARDS */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
+  .card-accent-purple { border-left: 3px solid var(--purple); border-radius: 0 10px 10px 0; }
+  .card-accent-green { border-left: 3px solid var(--green); border-radius: 0 10px 10px 0; }
+  .card-accent-amber { border-left: 3px solid var(--amber); border-radius: 0 10px 10px 0; }
+  .card-accent-coral { border-left: 3px solid var(--coral); border-radius: 0 10px 10px 0; }
+
+  /* CODE BLOCKS */
+  .code { background: #111; border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; font-family: var(--mono); font-size: 12.5px; line-height: 1.85; margin: 12px 0; overflow-x: auto; white-space: pre; }
+  .kw { color: #9f8fff; }
+  .st { color: #6fcf97; }
+  .fn { color: #f2994a; }
+  .cm { color: #555; font-style: italic; }
+  .nm { color: #56ccf2; }
+  .hl { background: #1e2a1e; display: block; margin: 0 -16px; padding: 0 16px; }
+
+  /* PILLS */
+  .pill { display: inline-block; font-size: 11px; padding: 2px 10px; border-radius: 100px; font-weight: 500; margin-right: 5px; margin-bottom: 4px; }
+  .pill-p { background: #1e1c3a; color: #9f8fff; }
+  .pill-g { background: #0d2820; color: #6fcf97; }
+  .pill-a { background: #2a1e06; color: var(--amber); }
+  .pill-c { background: #2a1008; color: #f2994a; }
+
+  /* QUIZ / INTERACT */
+  .quiz-q { font-size: 14px; color: var(--text); margin-bottom: 10px; font-weight: 500; }
+  .quiz-opts { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .quiz-opt { background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; padding: 10px 14px; font-size: 13px; cursor: pointer; color: #ccc; text-align: left; transition: border-color 0.15s; }
+  .quiz-opt:hover { border-color: var(--purple); color: var(--text); }
+  .quiz-opt.correct { border-color: var(--green); background: #0d2820; color: #6fcf97; }
+  .quiz-opt.wrong { border-color: var(--coral); background: #2a1008; color: #f2994a; }
+  .quiz-feedback { font-size: 13px; padding: 10px 14px; border-radius: 7px; margin-top: 8px; display: none; }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background: #0d2820; color: #6fcf97; border: 1px solid var(--green); }
+  .quiz-feedback.bad { background: #2a1008; color: #f2994a; border: 1px solid var(--coral); }
+
+  /* TRY IT */
+  .tryit { background: #111; border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin: 14px 0; }
+  .tryit textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: var(--mono); font-size: 12.5px; padding: 10px 12px; resize: vertical; min-height: 60px; outline: none; }
+  .tryit textarea:focus { border-color: var(--purple); }
+  .tryit-btn { margin-top: 10px; background: var(--purple-dark); border: none; color: #fff; padding: 8px 18px; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: 500; }
+  .tryit-btn:hover { background: var(--purple); }
+  .tryit-output { margin-top: 12px; font-family: var(--mono); font-size: 13px; color: #6fcf97; background: #0d2820; border: 1px solid var(--green); border-radius: 6px; padding: 10px 12px; display: none; min-height: 36px; white-space: pre-wrap; word-break: break-word; }
+  .tryit-output.show { display: block; }
+
+  /* LEVEL BADGE */
+  .level-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 100px; margin-bottom: 12px; }
+  .lb-1 { background: #0d2820; color: #6fcf97; border: 1px solid var(--green); }
+  .lb-2 { background: #2a1e06; color: var(--amber); border: 1px solid var(--amber); }
+  .lb-3 { background: #2a1008; color: #f2994a; border: 1px solid var(--coral); }
+
+  /* DISCORD */
+  .discord-box { background: #36393f; border-radius: 10px; padding: 18px 20px; margin: 14px 0; }
+  .discord-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .discord-icon { width: 32px; height: 32px; background: #5865F2; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: white; font-weight: 700; }
+  .discord-name { font-size: 13px; font-weight: 500; color: #fff; }
+  .discord-msg { font-size: 13px; color: #dcddde; line-height: 1.6; }
+  .discord-code { background: #2f3136; border-radius: 4px; padding: 10px 14px; font-family: var(--mono); font-size: 12px; color: #dcddde; margin-top: 8px; white-space: pre; overflow-x: auto; }
+
+  /* PROGRESS BAR */
+  .progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 28px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--purple); border-radius: 2px; transition: width 0.4s ease; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #ccc; padding: 6px 0; border-bottom: 1px solid var(--border); line-height: 1.5; }
+  .checklist li:last-child { border-bottom: none; }
+  .check-box { width: 16px; height: 16px; border: 1px solid var(--border); border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+
+  /* CONGRATS */
+  .star-row { display: flex; gap: 6px; margin-bottom: 16px; }
+  .star { width: 28px; height: 28px; background: #2a1e06; border: 1px solid var(--amber); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--amber); }
+
+  /* PAGE TITLE ACCENT */
+  .accent-bar { width: 36px; height: 3px; background: var(--purple); border-radius: 2px; margin-bottom: 20px; }
+
+  /* NEXT BTN */
+  .next-page-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--purple-dark); border: none; color: #fff; padding: 10px 22px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 500; margin-top: 20px; }
+  .next-page-btn:hover { background: var(--purple); }
+
+  /* TOOLTIP */
+  .explain { font-size: 12px; color: var(--muted); font-style: italic; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-logo">Brainrot Translator</span>
+  <div class="nav-pages" id="nav-dots"></div>
+  <div class="nav-arrows">
+    <button class="nav-btn" id="prev-btn" onclick="changePage(-1)" disabled>&#8592; back</button>
+    <button class="nav-btn" id="next-btn" onclick="changePage(1)">next &#8594;</button>
+  </div>
+</nav>
+
+<!-- ============================================================ PAGE 1: INTRO ============================================================ -->
+<div class="page active" id="page-1">
+  <div class="progress-bar"><div class="progress-fill" style="width:14%"></div></div>
+  <div class="eyebrow">Take-home assignment</div>
+  <h1>The Brainrot Translator</h1>
+  <div class="accent-bar"></div>
+  <p>Yo Aariz and Afraz — this week's mission is to build a real Python program that takes a boring normal sentence and translates it into full Gen Alpha brainrot mode.</p>
+  <p>By the end of this you'll have a working translator you can run on your friends, your parents, your teachers — anyone. And you'll have learned a brand new Python trick to do it.</p>
+
+  <div class="card card-accent-purple">
+    <h3>What you'll build</h3>
+    <p style="margin-bottom:8px;">A program that does this:</p>
+    <div class="code"><span class="fn">input</span>  → <span class="st">"I had a good day at school"</span>
+<span class="fn">output</span> → <span class="st">"I had a bussin day at school fr fr"</span></div>
+    <p style="margin:8px 0 0;">You'll build it in 3 levels, getting more cooked each time.</p>
+  </div>
+
+  <div class="card card-accent-green">
+    <h3>What's in this assignment</h3>
+    <ul class="checklist">
+      <li><div class="check-box"></div>Quick recap — strings, maths, conditionals</li>
+      <li><div class="check-box"></div>New skill: the <code style="font-family:var(--mono);font-size:12px;color:#9f8fff;">replace()</code> function</li>
+      <li><div class="check-box"></div>Level 1 — basic translator (5 word swaps)</li>
+      <li><div class="check-box"></div>Level 2 — add your own words + conditionals</li>
+      <li><div class="check-box"></div>Level 3 — brainrot intensity slider</li>
+      <li><div class="check-box"></div>How to send your code on Discord</li>
+    </ul>
+  </div>
+
+  <button class="next-page-btn" onclick="changePage(1)">let's go &#8594;</button>
+</div>
+
+<!-- ============================================================ PAGE 2: RECAP STRINGS ============================================================ -->
+<div class="page" id="page-2">
+  <div class="progress-bar"><div class="progress-fill" style="width:28%"></div></div>
+  <div class="eyebrow">Recap — page 1 of 3</div>
+  <h1>Strings</h1>
+  <div class="accent-bar"></div>
+  <p>A <strong>string</strong> is any text inside quotes. You've used these before — the roast machine was full of strings.</p>
+
+  <div class="code"><span class="cm"># strings go inside quotes</span>
+name = <span class="st">"Aariz"</span>
+word = <span class="st">"bussin"</span>
+
+<span class="cm"># you can stick strings together with +</span>
+<span class="fn">print</span>(<span class="st">"Yo "</span> + name + <span class="st">" that outfit is "</span> + word)</div>
+
+  <p>When you run that, Python prints: <span style="font-family:var(--mono);font-size:12px;color:#6fcf97;">Yo Aariz that outfit is bussin</span></p>
+
+  <h3>Two string tricks you already know</h3>
+  <div class="code">name = <span class="st">"Afraz"</span>
+
+<span class="cm"># len() — how many letters?</span>
+<span class="fn">print</span>(<span class="fn">len</span>(name))     <span class="cm"># prints 5</span>
+
+<span class="cm"># .upper() — SHOUT IT</span>
+<span class="fn">print</span>(name.upper())  <span class="cm"># prints AFRAZ</span></div>
+
+  <div class="tryit">
+    <p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Try it — type your name and see what .upper() does to it:</p>
+    <textarea id="t2" placeholder="Type any word here..."></textarea>
+    <button class="tryit-btn" onclick="runUppercase()">run it</button>
+    <div class="tryit-output" id="o2"></div>
+  </div>
+
+  <div class="card card-accent-amber">
+    <p class="quiz-q">Quick check: which of these is a string?</p>
+    <div class="quiz-opts">
+      <button class="quiz-opt" onclick="quiz(this,'wrong','page2')">42</button>
+      <button class="quiz-opt" onclick="quiz(this,'correct','page2')">"rizz"</button>
+      <button class="quiz-opt" onclick="quiz(this,'wrong','page2')">True</button>
+    </div>
+    <div class="quiz-feedback" id="page2-fb"></div>
+  </div>
+
+  <button class="next-page-btn" onclick="changePage(1)">got it &#8594;</button>
+</div>
+
+<!-- ============================================================ PAGE 3: RECAP MATHS ============================================================ -->
+<div class="page" id="page-3">
+  <div class="progress-bar"><div class="progress-fill" style="width:42%"></div></div>
+  <div class="eyebrow">Recap — page 2 of 3</div>
+  <h1>Maths &amp; variables</h1>
+  <div class="accent-bar"></div>
+  <p>Variables are boxes that hold stuff. Numbers go in without quotes. You can do maths on them directly.</p>
+
+  <div class="code"><span class="cm"># variables hold values</span>
+aura_points = <span class="nm">100</span>
+wins        = <span class="nm">3</span>
+Ls          = <span class="nm">1</span>
+
+<span class="cm"># maths — just like a calculator</span>
+total = (wins * <span class="nm">100</span>) - (Ls * <span class="nm">75</span>)
+<span class="fn">print</span>(<span class="st">"Aura score: "</span> + <span class="fn">str</span>(total))</div>
+
+  <p>Remember: when you want to print a number inside a sentence you have to wrap it in <span style="font-family:var(--mono);font-size:12px;color:#9f8fff;">str()</span> — otherwise Python gets confused and crashes.</p>
+
+  <div class="card card-accent-purple">
+    <p class="quiz-q">Afraz has 4 wins and 2 Ls. What's his aura score using (wins × 100) − (Ls × 75)?</p>
+    <div class="quiz-opts">
+      <button class="quiz-opt" onclick="quiz(this,'wrong','page3')">200</button>
+      <button class="quiz-opt" onclick="quiz(this,'correct','page3')">250</button>
+      <button class="quiz-opt" onclick="quiz(this,'wrong','page3')">300</button>
+    </div>
+    <div class="quiz-feedback" id="page3-fb"></div>
+  </div>
+
+  <button class="next-page-btn" onclick="changePage(1)">next &#8594;</button>
+</div>
+
+<!-- ============================================================ PAGE 4: RECAP CONDITIONALS ============================================================ -->
+<div class="page" id="page-4">
+  <div class="progress-bar"><div class="progress-fill" style="width:56%"></div></div>
+  <div class="eyebrow">Recap — page 3 of 3</div>
+  <h1>if / elif / else</h1>
+  <div class="accent-bar"></div>
+  <p>Conditionals let Python make decisions. Think of it as Python asking itself "is this true? if yes, do this. if not, do that."</p>
+
+  <div class="code">aura = <span class="nm">250</span>
+
+<span class="kw">if</span> aura >= <span class="nm">300</span>:
+    <span class="fn">print</span>(<span class="st">"Sigma. Built different."</span>)
+<span class="kw">elif</span> aura >= <span class="nm">100</span>:
+    <span class="fn">print</span>(<span class="st">"Du bist gut genug. Keep going."</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"Mid era ngl."</span>)</code></div>
+
+  <p>With <code style="font-family:var(--mono);font-size:12px;color:#9f8fff;">aura = 250</code>, which line prints?</p>
+
+  <div class="card card-accent-green">
+    <div class="quiz-opts">
+      <button class="quiz-opt" onclick="quiz(this,'wrong','page4')">"Sigma. Built different."</button>
+      <button class="quiz-opt" onclick="quiz(this,'correct','page4')">"Du bist gut genug. Keep going."</button>
+      <button class="quiz-opt" onclick="quiz(this,'wrong','page4')">"Mid era ngl."</button>
+    </div>
+    <div class="quiz-feedback" id="page4-fb"></div>
+  </div>
+
+  <p>Remember: the <strong>colon</strong> at the end of <code style="font-family:var(--mono);font-size:12px;color:#9f8fff;">if</code> and the <strong>indent</strong> (tab key) before the code inside it — both are required. Python will crash without them.</p>
+
+  <button class="next-page-btn" onclick="changePage(1)">ok I'm ready &#8594;</button>
+</div>
+
+<!-- ============================================================ PAGE 5: REPLACE() ============================================================ -->
+<div class="page" id="page-5">
+  <div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div>
+  <div class="eyebrow">New skill</div>
+  <h1>Meet .replace()</h1>
+  <div class="accent-bar"></div>
+  <p>Here's the one new thing you're learning today. It's called <strong>.replace()</strong> and it's a string method — meaning it's something you can do <em>to</em> a string.</p>
+
+  <div class="card card-accent-purple">
+    <h3>How it works</h3>
+    <div class="code">sentence = <span class="st">"I had a good day"</span>
+
+result = sentence.replace(<span class="st">"good"</span>, <span class="st">"bussin"</span>)
+
+<span class="fn">print</span>(result)
+<span class="cm"># prints: I had a bussin day</span></div>
+    <p>You give it two things: the word to find, and the word to swap it with. Python finds every single one of that word in the string and swaps them all.</p>
+  </div>
+
+  <h3>You can chain them together</h3>
+  <p>This is the real trick. You can do multiple replacements one after another on the same line — or line by line:</p>
+
+  <div class="code">sentence = <span class="st">"That was bad and weird ngl"</span>
+
+result = sentence
+result = result.replace(<span class="st">"bad"</span>,   <span class="st">"mid"</span>)
+result = result.replace(<span class="st">"weird"</span>, <span class="st">"Ohio"</span>)
+
+<span class="fn">print</span>(result)
+<span class="cm"># prints: That was mid and Ohio ngl</span></div>
+
+  <div class="tryit">
+    <p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Try it — type a sentence with the word "good" or "bad" in it:</p>
+    <textarea id="t5" placeholder='e.g. "I had a good day and it was bad at the end"'></textarea>
+    <button class="tryit-btn" onclick="runReplace()">translate it</button>
+    <div class="tryit-output" id="o5"></div>
+  </div>
+
+  <div class="card card-accent-amber">
+    <p class="quiz-q">What does <code style="font-family:var(--mono);font-size:12px;">"hello world".replace("world", "Aariz")</code> return?</p>
+    <div class="quiz-opts">
+      <button class="quiz-opt" onclick="quiz(this,'wrong','page5')">"hello world"</button>
+      <button class="quiz-opt" onclick="quiz(this,'correct','page5')">"hello Aariz"</button>
+      <button class="quiz-opt" onclick="quiz(this,'wrong','page5')">an error</button>
+    </div>
+    <div class="quiz-feedback" id="page5-fb"></div>
+  </div>
+
+  <button class="next-page-btn" onclick="changePage(1)">let's build &#8594;</button>
+</div>
+
+<!-- ============================================================ PAGE 6: LEVEL 1 ============================================================ -->
+<div class="page" id="page-6">
+  <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+  <div class="eyebrow">Build it</div>
+  <h1>The translator</h1>
+  <div class="accent-bar"></div>
+
+  <div class="level-badge lb-1">Level 1 — basic translator</div>
+  <p>Open Thonny. Create a new file called <code style="font-family:var(--mono);font-size:12px;color:#9f8fff;">translator.py</code>. Type this out — don't copy paste.</p>
+
+  <div class="code"><span class="cm"># The Brainrot Translator — Level 1</span>
+<span class="cm"># by Aariz / Afraz</span>
+
+sentence = <span class="fn">input</span>(<span class="st">"Type a sentence: "</span>)
+
+result = sentence
+result = result.replace(<span class="st">"good"</span>,    <span class="st">"bussin"</span>)
+result = result.replace(<span class="st">"bad"</span>,     <span class="st">"mid"</span>)
+result = result.replace(<span class="st">"crazy"</span>,   <span class="st">"cooked"</span>)
+result = result.replace(<span class="st">"cool"</span>,    <span class="st">"rizz"</span>)
+result = result.replace(<span class="st">"weird"</span>,   <span class="st">"Ohio"</span>)
+
+<span class="fn">print</span>(<span class="st">"Brainrot version: "</span> + result)</div>
+
+  <div class="card card-accent-green">
+    <h3>Test it with these sentences</h3>
+    <ul class="checklist">
+      <li><div class="check-box"></div>"I had a good day"</li>
+      <li><div class="check-box"></div>"That test was bad and weird"</li>
+      <li><div class="check-box"></div>"Bro is so cool it's crazy"</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <div class="level-badge lb-2">Level 2 — make it yours</div>
+  <p>Now add at least <strong>5 more word swaps</strong> of your own. Pick words you actually use. Some ideas:</p>
+  <div style="margin-bottom:14px;">
+    <span class="pill pill-p">amazing → no cap bussin</span>
+    <span class="pill pill-g">friend → twin</span>
+    <span class="pill pill-a">tired → cooked</span>
+    <span class="pill pill-c">angry → salty</span>
+    <span class="pill pill-p">food → fanum</span>
+    <span class="pill pill-g">scared → not bussin</span>
+  </div>
+  <p>Then add this at the end to make it feel more alive:</p>
+
+  <div class="code"><span class="cm"># add after your replace lines</span>
+words = <span class="fn">len</span>(result.split())
+
+<span class="kw">if</span> words <= <span class="nm">3</span>:
+    <span class="fn">print</span>(<span class="st">"Short king energy fr."</span>)
+<span class="kw">elif</span> words <= <span class="nm">8</span>:
+    <span class="fn">print</span>(<span class="st">"Mid length. Giving NPC dialogue."</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"Essay mode. Bro is cooked."</span>)</div>
+
+  <hr class="divider">
+
+  <div class="level-badge lb-3">Level 3 — brainrot intensity</div>
+  <p>Add a second input at the top that asks for a brainrot intensity level (1, 2 or 3). Use it to decide how unhinged the replacements get:</p>
+
+  <div class="code">sentence = <span class="fn">input</span>(<span class="st">"Type a sentence: "</span>)
+level    = <span class="fn">int</span>(<span class="fn">input</span>(<span class="st">"Brainrot level (1, 2 or 3): "</span>))
+
+result = sentence
+
+<span class="kw">if</span> level == <span class="nm">1</span>:
+    result = result.replace(<span class="st">"good"</span>, <span class="st">"bussin"</span>)
+    result = result.replace(<span class="st">"bad"</span>,  <span class="st">"mid"</span>)
+
+<span class="kw">elif</span> level == <span class="nm">2</span>:
+    result = result.replace(<span class="st">"good"</span>, <span class="st">"bussin fr fr"</span>)
+    result = result.replace(<span class="st">"bad"</span>,  <span class="st">"actually so Ohio"</span>)
+    result = result.replace(<span class="st">"cool"</span>, <span class="st">"rizz overload"</span>)
+
+<span class="kw">else</span>:
+    result = result.replace(<span class="st">"good"</span>, <span class="st">"NO CAP BUSSIN BRO WHAT"</span>)
+    result = result.replace(<span class="st">"bad"</span>,  <span class="st">"COOKED. OHIO. SEEK HELP."</span>)
+    result = result.replace(<span class="st">"cool"</span>, <span class="st">"ABSOLUTE SIGMA RIZZ LORD"</span>)
+
+<span class="fn">print</span>(<span class="st">"Level "</span> + <span class="fn">str</span>(level) + <span class="st">" brainrot: "</span> + result)</div>
+
+  <button class="next-page-btn" onclick="changePage(1)">I'm done — how do I submit? &#8594;</button>
+</div>
+
+<!-- ============================================================ PAGE 7: DISCORD SUBMIT ============================================================ -->
+<div class="page" id="page-7">
+  <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+  <div class="eyebrow">Submitting your work</div>
+  <h1>Send it on Discord</h1>
+  <div class="accent-bar"></div>
+  <p>When you're done, send your code in the Discord channel. Don't just paste it as plain text — use a <strong>code block</strong> so it looks clean and is easy to read.</p>
+
+  <h3>How to send a code block on Discord</h3>
+
+  <div class="card card-accent-purple">
+    <p style="margin-bottom:10px;">Wrap your code with three backticks and the word <code style="font-family:var(--mono);font-size:12px;color:#9f8fff;">python</code> — like this:</p>
+    <div class="code">```python
+your code goes here
+```</div>
+    <p class="explain">The backtick key is usually top-left on your keyboard, next to the 1 key.</p>
+  </div>
+
+  <h3>What it looks like on Discord</h3>
+  <div class="discord-box">
+    <div class="discord-header">
+      <div class="discord-icon">A</div>
+      <span class="discord-name">Aariz</span>
+    </div>
+    <div class="discord-msg">here's my level 3 translator
+      <div class="discord-code">sentence = input("Type a sentence: ")
+level    = int(input("Brainrot level (1, 2 or 3): "))
+
+result = sentence
+
+if level == 1:
+    result = result.replace("good", "bussin")
+    result = result.replace("bad",  "mid")
+
+elif level == 2:
+    result = result.replace("good", "bussin fr fr")
+    result = result.replace("bad",  "actually so Ohio")
+
+else:
+    result = result.replace("good", "NO CAP BUSSIN BRO WHAT")
+    result = result.replace("bad",  "COOKED. OHIO. SEEK HELP.")
+
+print("Level " + str(level) + " brainrot: " + result)</div>
+    </div>
+  </div>
+
+  <h3>Also include</h3>
+  <div class="card card-accent-green">
+    <ul class="checklist">
+      <li><div class="check-box"></div>A screenshot of it running (so we can see the output)</li>
+      <li><div class="check-box"></div>One funny sentence you tested it on and the result</li>
+      <li><div class="check-box"></div>Which level you reached (1, 2 or 3)</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <div class="star-row">
+    <div class="star">1</div>
+    <div class="star">2</div>
+    <div class="star">3</div>
+  </div>
+
+  <div class="card card-accent-amber">
+    <h3>You're done. No cap.</h3>
+    <p>You just built a real text manipulation program using <code style="font-family:var(--mono);font-size:12px;color:#9f8fff;">input()</code>, <code style="font-family:var(--mono);font-size:12px;color:#9f8fff;">replace()</code>, string operations, and conditionals. That's genuinely bussin.</p>
+    <p style="margin-top:8px;">Du bist gut genug. Keep going.</p>
+  </div>
+</div>
+
+<script>
+  const TOTAL_PAGES = 7;
+  let current = 1;
+
+  function buildDots() {
+    const c = document.getElementById('nav-dots');
+    for (let i = 1; i <= TOTAL_PAGES; i++) {
+      const d = document.createElement('button');
+      d.className = 'nav-dot' + (i === 1 ? ' active' : '');
+      d.setAttribute('aria-label', 'Page ' + i);
+      d.onclick = () => goTo(i);
+      c.appendChild(d);
+    }
+  }
+
+  function goTo(n) {
+    document.getElementById('page-' + current).classList.remove('active');
+    document.querySelectorAll('.nav-dot')[current - 1].classList.remove('active');
+    current = n;
+    document.getElementById('page-' + current).classList.add('active');
+    document.querySelectorAll('.nav-dot')[current - 1].classList.add('active');
+    document.getElementById('prev-btn').disabled = current === 1;
+    document.getElementById('next-btn').disabled = current === TOTAL_PAGES;
+    window.scrollTo(0, 0);
+  }
+
+  function changePage(dir) { goTo(Math.min(Math.max(current + dir, 1), TOTAL_PAGES)); }
+
+  function quiz(btn, result, page) {
+    const opts = btn.parentElement.querySelectorAll('.quiz-opt');
+    opts.forEach(o => { o.onclick = null; });
+    const fb = document.getElementById(page + '-fb');
+    if (result === 'correct') {
+      btn.classList.add('correct');
+      fb.textContent = 'Correct! W.';
+      fb.className = 'quiz-feedback show ok';
+    } else {
+      btn.classList.add('wrong');
+      fb.textContent = 'Not quite — try reading the code block again.';
+      fb.className = 'quiz-feedback show bad';
+      opts.forEach(o => { if (o !== btn) o.onclick = function(){ quiz(this, o.onclick ? 'retry' : 'correct', page); }; });
+    }
+  }
+
+  function runUppercase() {
+    const val = document.getElementById('t2').value.trim();
+    if (!val) return;
+    const out = document.getElementById('o2');
+    out.textContent = val.toUpperCase();
+    out.classList.add('show');
+  }
+
+  function runReplace() {
+    let val = document.getElementById('t5').value.trim();
+    if (!val) return;
+    val = val.replace(/good/gi, 'bussin').replace(/bad/gi, 'mid').replace(/weird/gi, 'Ohio').replace(/crazy/gi, 'cooked').replace(/cool/gi, 'rizz');
+    const out = document.getElementById('o5');
+    out.textContent = 'Brainrot version: ' + val;
+    out.classList.add('show');
+  }
+
+  buildDots();
+</script>
+</body>
+</html>
