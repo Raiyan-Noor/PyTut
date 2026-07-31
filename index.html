@@ -3,163 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lists & Loops — Advanced Assignment</title>
+<title>Aariz's Habit Tracker — Code Completion Assignment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg: #0f0f0f; --surface: #1a1a1a; --surface2: #242424; --surface3: #2e2e2e;
-  --border: #2e2e2e; --border2: #3a3a3a;
-  --text: #f0f0ef; --muted: #666; --muted2: #888;
-  --purple: #9f8fff; --purple-bg: #1e1c3a; --purple-border: #3d3870;
-  --green: #6fcf97; --green-bg: #0d2820; --green-border: #1a4a35;
-  --amber: #f2c94c; --amber-bg: #2a200a; --amber-border: #5a4010;
-  --coral: #f2994a; --coral-bg: #2a1608; --coral-border: #6a3010;
-  --blue: #56ccf2; --blue-bg: #0a1e2a; --blue-border: #0d4060;
-  --pink: #eb5757; --pink-bg: #2a0e0e; --pink-border: #6a1a1a;
+  --bg: #FDF8F0; --surface: #FFFFFF; --surface2: #FBF6FF; --surface3: #F5EFFC;
+  --border: #EFE4F9; --border2: #E2D1F5;
+  --text: #4A3F55; --muted: #C7BBD9; --muted2: #9A8CAE;
+  --purple: #8A63D2; --purple-bg: #F1EAFC; --purple-border: #DCC5F2;
+  --green: #3EAE87; --green-bg: #E5F8F0; --green-border: #BCEBD9;
+  --amber: #D6941F; --amber-bg: #FFF3DC; --amber-border: #FBE0A6;
+  --coral: #E67E56; --coral-bg: #FFEEE5; --coral-border: #FBD2BC;
+  --blue: #4796C4; --blue-bg: #E7F4FB; --blue-border: #C4E4F5;
+  --pink: #E17B9E; --pink-bg: #FFECF2; --pink-border: #FBCEDF;
   --mono: 'Courier New', monospace;
+  --heading-font: 'Quicksand', system-ui, sans-serif;
+  --body-font: 'Nunito', system-ui, -apple-system, sans-serif;
 }
-body { background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, sans-serif; min-height: 100vh; }
+body { background: var(--bg); color: var(--text); font-family: var(--body-font); min-height: 100vh; }
 
 /* NAV */
-.nav { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; gap: 12px; }
-.nav-logo { font-size: 12px; font-weight: 600; color: var(--purple); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
-.nav-pages { display: flex; gap: 4px; flex-wrap: wrap; }
-.nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border2); border: none; cursor: pointer; transition: background 0.2s; padding: 0; }
-.nav-dot.active { background: var(--purple); }
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 26px; background: var(--surface); position: sticky; top: 0; z-index: 100; gap: 12px; box-shadow: 0 2px 14px rgba(140,100,190,0.08); }
+.nav-logo { font-family: var(--heading-font); font-size: 13px; font-weight: 700; color: var(--purple); letter-spacing: 0.04em; white-space: nowrap; }
+.nav-pages { display: flex; gap: 5px; flex-wrap: wrap; }
+.nav-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border2); border: none; cursor: pointer; padding: 0; transition: background 0.2s, transform 0.2s; }
+.nav-dot.active { background: var(--purple); transform: scale(1.25); }
 .nav-dot.done { background: var(--green); }
 .nav-arrows { display: flex; gap: 8px; }
-.nav-btn { background: var(--surface2); border: 1px solid var(--border2); color: var(--text); padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; transition: border-color 0.15s; white-space: nowrap; }
-.nav-btn:hover:not(:disabled) { border-color: var(--purple); }
-.nav-btn:disabled { opacity: 0.3; cursor: default; }
+.nav-btn { background: var(--purple-bg); border: 1px solid var(--purple-border); color: var(--purple); padding: 7px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+.nav-btn:hover:not(:disabled) { background: var(--purple); color: #fff; }
+.nav-btn:disabled { opacity: 0.35; cursor: default; }
 
 /* LAYOUT */
-.page { display: none; max-width: 700px; margin: 0 auto; padding: 40px 24px 80px; }
+.page { display: none; max-width: 720px; margin: 0 auto; padding: 40px 24px 90px; }
 .page.active { display: block; }
-.progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 32px; overflow: hidden; }
-.progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--blue)); border-radius: 2px; transition: width 0.4s ease; }
-.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted2); margin-bottom: 10px; }
-h1 { font-size: 26px; font-weight: 500; line-height: 1.25; margin-bottom: 10px; }
-h2 { font-size: 18px; font-weight: 500; margin-bottom: 12px; margin-top: 28px; }
-h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; margin-top: 20px; color: var(--text); }
-p { font-size: 14px; line-height: 1.7; color: #bbb; margin-bottom: 12px; }
-strong { color: var(--text); font-weight: 500; }
-.accent-bar { width: 32px; height: 3px; background: var(--purple); border-radius: 2px; margin-bottom: 22px; }
-hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
-ul.plain { list-style: none; }
-ul.plain li { font-size: 14px; color: #bbb; padding: 5px 0; border-bottom: 1px solid var(--border); line-height: 1.5; }
-ul.plain li:last-child { border-bottom: none; }
+.progress-bar { height: 6px; background: var(--border); border-radius: 100px; margin-bottom: 34px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--pink)); border-radius: 100px; transition: width 0.4s; }
+.eyebrow { font-family: var(--heading-font); font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted2); margin-bottom: 8px; }
+h1 { font-family: var(--heading-font); font-size: 27px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; color: #3D3350; }
+h2 { font-family: var(--heading-font); font-size: 18px; font-weight: 700; margin-bottom: 12px; margin-top: 30px; color: #3D3350; }
+h3 { font-family: var(--heading-font); font-size: 13px; font-weight: 700; margin-bottom: 10px; margin-top: 18px; color: var(--muted2); text-transform: uppercase; letter-spacing: 0.05em; }
+p { font-size: 15px; line-height: 1.75; color: #6B5F7D; margin-bottom: 10px; }
+strong { color: #3D3350; font-weight: 700; }
+.accent-bar { width: 42px; height: 5px; background: linear-gradient(90deg, var(--purple), var(--pink)); border-radius: 100px; margin-bottom: 22px; }
+hr { border: none; border-top: 2px dashed var(--border2); margin: 30px 0; }
+code { font-family: var(--mono); font-size: 12.5px; background: var(--purple-bg); padding: 2px 7px; border-radius: 6px; color: #7A4FC7; font-weight: 600; }
 
 /* CARDS */
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
-.card-p { border-left: 3px solid var(--purple); border-radius: 0 10px 10px 0; }
-.card-g { border-left: 3px solid var(--green); border-radius: 0 10px 10px 0; }
-.card-a { border-left: 3px solid var(--amber); border-radius: 0 10px 10px 0; }
-.card-c { border-left: 3px solid var(--coral); border-radius: 0 10px 10px 0; }
-.card-b { border-left: 3px solid var(--blue); border-radius: 0 10px 10px 0; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 20px 22px; margin-bottom: 16px; box-shadow: 0 3px 14px rgba(150,120,190,0.06); }
+.card-p { border-left: 5px solid var(--purple); }
+.card-g { border-left: 5px solid var(--green); }
+.card-a { border-left: 5px solid var(--amber); }
+.card-c { border-left: 5px solid var(--coral); }
+.card-b { border-left: 5px solid var(--blue); }
 
 /* CODE */
-.code { background: #090909; border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; font-family: var(--mono); font-size: 12.5px; line-height: 1.85; margin: 12px 0; overflow-x: auto; white-space: pre; }
-.kw { color: #c792ea; }
-.st { color: var(--green); }
-.fn { color: var(--coral); }
-.cm { color: #444; font-style: italic; }
-.nm { color: var(--blue); }
-.blank-line { background: #1a1a00; border-left: 3px solid var(--amber); display: block; margin: 0 -16px; padding: 0 13px; color: var(--amber); }
-
-/* GAME CHOICE */
-.game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
-.game-card { background: var(--surface); border: 2px solid var(--border2); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.2s; text-align: center; }
-.game-card:hover { border-color: var(--purple); transform: translateY(-2px); }
-.game-card.selected { border-color: var(--purple); background: var(--purple-bg); }
-.game-emoji { font-size: 36px; margin-bottom: 10px; display: block; }
-.game-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-.game-desc { font-size: 12px; color: var(--muted2); line-height: 1.5; }
-
-/* PILLS */
-.pill { display: inline-block; font-size: 11px; padding: 2px 9px; border-radius: 100px; font-weight: 500; margin-right: 4px; margin-bottom: 4px; }
-.pill-p { background: var(--purple-bg); color: var(--purple); }
-.pill-g { background: var(--green-bg); color: var(--green); }
-.pill-a { background: var(--amber-bg); color: var(--amber); }
-.pill-c { background: var(--coral-bg); color: var(--coral); }
-.pill-b { background: var(--blue-bg); color: var(--blue); }
+.code { background: #FAF6FF; border: 1px solid var(--border2); border-radius: 14px; padding: 16px 18px; font-family: var(--mono); font-size: 12.5px; line-height: 1.9; margin: 12px 0; overflow-x: auto; white-space: pre; color: #5B4E6E; }
+.kw { color: #9455D3; font-weight: 700; }
+.st { color: #2E9E76; }
+.fn { color: #D67A45; }
+.cm { color: #B3A5C4; font-style: italic; }
+.nm { color: #3C87B8; }
+.pass-line { background: var(--amber-bg); display: block; margin: 0 -18px; padding: 2px 18px; color: #B5791A; font-weight: 700; border-radius: 8px; }
 
 /* CHECKLIST */
-.checklist { list-style: none; }
-.checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #bbb; padding: 8px 0; border-bottom: 1px solid var(--border); line-height: 1.5; }
+.checklist { list-style: none; margin: 10px 0; }
+.checklist li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #6B5F7D; padding: 9px 0; border-bottom: 1px dashed var(--border); line-height: 1.55; }
 .checklist li:last-child { border-bottom: none; }
-.cb { width: 16px; height: 16px; border: 1.5px solid var(--border2); border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+.cb { width: 17px; height: 17px; border: 2px solid var(--border2); border-radius: 6px; flex-shrink: 0; margin-top: 2px; background: var(--surface); }
 
-/* CHALLENGE CARDS */
-.challenge { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 12px; }
-.challenge-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-.challenge-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
-.challenge-title { font-size: 14px; font-weight: 600; color: var(--text); margin: 0; }
-.challenge-sub { font-size: 12px; color: var(--muted2); margin: 0; }
-.hint-btn { background: none; border: 1px solid var(--border2); color: var(--muted2); font-size: 12px; padding: 5px 12px; border-radius: 6px; cursor: pointer; margin-top: 10px; transition: all 0.15s; }
-.hint-btn:hover { border-color: var(--amber); color: var(--amber); }
-.hint { background: var(--amber-bg); border: 1px solid var(--amber-border); border-radius: 6px; padding: 10px 14px; font-size: 13px; color: var(--amber); margin-top: 8px; display: none; line-height: 1.6; }
+/* PILLS */
+.pill { display: inline-block; font-size: 11px; padding: 4px 12px; border-radius: 100px; font-weight: 700; margin-right: 5px; margin-bottom: 5px; }
+.pp { background: var(--purple-bg); color: var(--purple); }
+.pg { background: var(--green-bg); color: var(--green); }
+.pa { background: var(--amber-bg); color: var(--amber); }
+.pc { background: var(--coral-bg); color: var(--coral); }
+.pb { background: var(--blue-bg); color: var(--blue); }
+
+/* FUNCTION CARDS */
+.func-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 20px 22px; margin-bottom: 18px; box-shadow: 0 3px 14px rgba(150,120,190,0.06); }
+.func-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.func-num { width: 30px; height: 30px; border-radius: 50%; background: var(--purple-bg); border: 2px solid var(--purple-border); color: var(--purple); display: flex; align-items: center; justify-content: center; font-family: var(--heading-font); font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.func-name { font-family: var(--mono); font-size: 14px; font-weight: 700; color: #3D3350; }
+.func-desc { font-size: 14px; color: #6B5F7D; line-height: 1.65; margin-bottom: 10px; }
+.contract { background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 12px; padding: 10px 14px; font-size: 12.5px; color: #2E7196; margin: 10px 0; line-height: 1.6; }
+.contract strong { color: #2E7196; }
+
+/* HINTS */
+.hint-btn { background: var(--surface2); border: 1.5px solid var(--border2); color: var(--muted2); font-size: 12.5px; font-weight: 600; padding: 6px 14px; border-radius: 999px; cursor: pointer; margin-top: 10px; transition: all 0.15s; }
+.hint-btn:hover { border-color: var(--amber); color: var(--amber); background: var(--amber-bg); }
+.hint { background: var(--amber-bg); border: 1px solid var(--amber-border); border-radius: 12px; padding: 12px 16px; font-size: 13.5px; color: #A5691A; margin-top: 10px; display: none; line-height: 1.65; }
 .hint.show { display: block; }
 
-/* LEVEL BADGE */
-.lbadge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 100px; margin-bottom: 14px; }
-.lb1 { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-.lb2 { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
-.lb3 { background: var(--coral-bg); color: var(--coral); border: 1px solid var(--coral-border); }
+/* BUTTONS */
+.next-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--purple), #B48CE8); border: none; color: #fff; padding: 12px 26px; border-radius: 999px; font-size: 14.5px; font-weight: 700; cursor: pointer; margin-top: 22px; transition: all 0.15s; box-shadow: 0 4px 14px rgba(138,99,210,0.3); }
+.next-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(138,99,210,0.4); }
 
-/* QUIZ */
-.quiz-opts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
-.qopt { background: var(--surface2); border: 1px solid var(--border2); border-radius: 7px; padding: 10px 14px; font-size: 13px; cursor: pointer; color: #bbb; text-align: left; transition: all 0.15s; }
-.qopt:hover { border-color: var(--purple); color: var(--text); }
-.qopt.correct { border-color: var(--green); background: var(--green-bg); color: var(--green); }
-.qopt.wrong { border-color: var(--pink); background: var(--pink-bg); color: var(--pink); }
-.qfb { font-size: 13px; padding: 10px 14px; border-radius: 7px; margin-top: 8px; display: none; line-height: 1.5; }
-.qfb.show { display: block; }
-.qfb.ok { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-.qfb.bad { background: var(--pink-bg); color: var(--pink); border: 1px solid var(--pink-border); }
+/* WARN / TIP */
+.warn { background: var(--coral-bg); border: 1px solid var(--coral-border); border-radius: 14px; padding: 14px 18px; font-size: 13.5px; color: #B85A34; margin: 14px 0; line-height: 1.65; }
+.tip { background: var(--green-bg); border: 1px solid var(--green-border); border-radius: 14px; padding: 14px 18px; font-size: 13.5px; color: #257A5B; margin: 14px 0; line-height: 1.65; }
 
-/* DISCORD */
-.discord-box { background: #36393f; border-radius: 10px; padding: 18px 20px; margin: 14px 0; }
+/* LIVE CLOCK */
+.clock-box { background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 20px; padding: 22px; margin: 16px 0; text-align: center; }
+.clock-time { font-family: var(--mono); font-size: 30px; font-weight: 700; color: #2E7196; letter-spacing: 0.05em; }
+.clock-sub { font-size: 12.5px; color: #5A93B3; margin-top: 8px; font-weight: 600; }
+.clock-calc { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; text-align: left; }
+.clock-stat { background: var(--surface); border-radius: 12px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(70,140,180,0.08); }
+.clock-stat-label { font-size: 10px; color: #6FA5C2; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; font-weight: 700; }
+.clock-stat-val { font-family: var(--mono); font-size: 16px; color: #2E9E76; font-weight: 700; }
+
+/* DISCORD (kept true to actual Discord dark UI on purpose) */
+.discord-box { background: #36393f; border-radius: 16px; padding: 20px 22px; margin: 16px 0; }
 .discord-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-.discord-av { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: white; }
+.discord-av { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: white; background: #5865F2; }
 .discord-name { font-size: 13px; font-weight: 600; color: #fff; }
 .discord-msg { font-size: 13px; color: #dcddde; line-height: 1.6; }
-.discord-code { background: #2f3136; border-radius: 4px; padding: 10px 14px; font-family: var(--mono); font-size: 12px; color: #dcddde; margin-top: 8px; white-space: pre; overflow-x: auto; line-height: 1.7; }
+.discord-code { background: #2f3136; border-radius: 8px; padding: 12px 14px; font-family: var(--mono); font-size: 12px; color: #dcddde; margin-top: 8px; white-space: pre; overflow-x: auto; line-height: 1.7; }
 
-/* NEXT BTN */
-.next-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--purple-bg); border: 1px solid var(--purple-border); color: var(--purple); padding: 10px 22px; border-radius: 8px; font-size: 14px; cursor: pointer; font-weight: 500; margin-top: 20px; transition: all 0.15s; }
-.next-btn:hover { background: var(--purple); color: #fff; }
+/* REFLECTION */
+.reflect-q { font-size: 13.5px; color: #3D3350; margin-bottom: 6px; font-weight: 700; }
+textarea.reflect-box { width: 100%; background: var(--surface2); border: 1.5px solid var(--border2); border-radius: 14px; color: var(--text); font-family: var(--body-font); font-size: 14px; padding: 14px 16px; resize: vertical; min-height: 100px; outline: none; margin-bottom: 18px; line-height: 1.6; }
+textarea.reflect-box:focus { border-color: var(--purple); }
+.copy-btn { background: var(--green-bg); border: 1.5px solid var(--green-border); color: var(--green); padding: 10px 22px; border-radius: 999px; font-size: 13.5px; font-weight: 700; cursor: pointer; margin-top: 6px; transition: all 0.15s; }
+.copy-btn:hover { background: var(--green); color: #fff; }
+.copy-status { font-size: 12.5px; color: var(--green); margin-left: 10px; display: none; font-weight: 600; }
+.copy-status.show { display: inline; }
 
-/* TRINKET */
-.trinket-box { background: var(--surface); border: 1px solid var(--purple-border); border-radius: 10px; padding: 16px 20px; margin: 14px 0; }
-.trinket-step { display: flex; gap: 12px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: #bbb; line-height: 1.5; }
-.trinket-step:last-child { border-bottom: none; }
-.step-num { width: 22px; height: 22px; background: var(--purple-bg); border: 1px solid var(--purple-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--purple); flex-shrink: 0; margin-top: 1px; }
-
-/* CONCEPT RECAP */
-.concept-row { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border); }
-.concept-row:last-child { border-bottom: none; }
-.concept-label { font-size: 13px; font-weight: 500; color: var(--text); min-width: 130px; flex-shrink: 0; }
-.concept-desc { font-size: 13px; color: #bbb; line-height: 1.5; }
-
-/* WARNING */
-.warn { background: var(--amber-bg); border: 1px solid var(--amber-border); border-radius: 8px; padding: 12px 16px; font-size: 13px; color: var(--amber); margin: 12px 0; line-height: 1.6; }
-
-/* GAME PREVIEW */
-.terminal { background: #000; border: 1px solid var(--border2); border-radius: 10px; padding: 16px 18px; font-family: var(--mono); font-size: 13px; line-height: 2; margin: 12px 0; }
-.t-dim { color: #555; }
-.t-green { color: var(--green); }
-.t-amber { color: var(--amber); }
-.t-red { color: var(--pink); }
-.t-blue { color: var(--blue); }
-.t-purple { color: var(--purple); }
-.t-white { color: #fff; }
-
+.only-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--pink-bg); border: 1px solid var(--pink-border); color: var(--pink); font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 999px; margin-bottom: 16px; letter-spacing: 0.03em; text-transform: uppercase; }
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <span class="nav-logo">Lists & Loops</span>
+  <span class="nav-logo">Habit Tracker</span>
   <div class="nav-pages" id="nav-dots"></div>
   <div class="nav-arrows">
     <button class="nav-btn" id="prev-btn" onclick="changePage(-1)" disabled>&#8592; back</button>
@@ -167,536 +146,426 @@ ul.plain li:last-child { border-bottom: none; }
   </div>
 </nav>
 
-<!-- PAGE 1: INTRO + GAME PICK -->
+<!-- PAGE 1: INTRO -->
 <div class="page active" id="page-1">
-  <div class="progress-bar"><div class="progress-fill" style="width:10%"></div></div>
-  <div class="eyebrow">Advanced take-home assignment</div>
-  <h1>Build a real game.<br>From scratch.</h1>
+  <div class="progress-bar"><div class="progress-fill" style="width:9%"></div></div>
+  <span class="only-tag">🔒 For Aariz only</span>
+  <div class="eyebrow">Code completion assignment</div>
+  <h1>Build your own Habit Tracker</h1>
   <div class="accent-bar"></div>
-  <p>Aariz. Afraz. This one's different. No scaffold to fill in. No starter code handed to you. You're building a full game using <strong>lists and loops</strong> — the two things you learned this week.</p>
-  <p>You're allowed to use AI to help. But here's the thing — we made the challenges hard enough that even with AI, you'll have to actually understand what's happening to get it working. So don't just copy. Read every line. Know what it does.</p>
+  <p>Aariz — this one's just for you. You track a lot of stuff already: piano, football, basketball. Let's build a real program that tracks it for you.</p>
+  <p>This isn't a "type what I show you" assignment. Every function below is already defined — the name, the inputs, what it's supposed to do. Your job is to write the logic that goes inside. Where you see <code>pass</code>, that's where your code goes.</p>
 
   <div class="card card-p">
-    <h3>Pick your game</h3>
-    <p style="margin-bottom:14px;">You're building one of these two. Pick whichever sounds more fun to you:</p>
-    <div class="game-grid">
-      <div class="game-card" id="gc-hang" onclick="pickGame('hangman')">
-        <span class="game-emoji">💀</span>
-        <p class="game-title">Brainrot Hangman</p>
-        <p class="game-desc">Guess a secret Gen Alpha word one letter at a time. Too many wrong guesses and it's an L.</p>
-      </div>
-      <div class="game-card" id="gc-scram" onclick="pickGame('scramble')">
-        <span class="game-emoji">🔀</span>
-        <p class="game-title">Word Scramble</p>
-        <p class="game-desc">Unscramble shuffled brainrot words before you run out of attempts. 5 rounds, high score wins.</p>
-      </div>
-    </div>
-    <p id="game-prompt" style="font-size:13px;color:var(--muted2);margin-top:4px;">Pick one above to continue ↑</p>
+    <h3>Why it's built this way</h3>
+    <p style="margin:0;">Raiyan is building a proper UI for this app separately — buttons, screens, the whole thing. Your functions are the engine underneath it. That means each function needs to <strong>return</strong> the right thing, not just print — because the UI will grab whatever your function hands back and display it.</p>
   </div>
 
   <div class="card card-g">
-    <h3>What you'll need</h3>
+    <h3>What's in this assignment</h3>
     <ul class="checklist">
-      <li><div class="cb"></div>A Trinket.io account (free — <strong>trinket.io</strong>)</li>
-      <li><div class="cb"></div>Thonny for testing locally before pasting to Trinket</li>
-      <li><div class="cb"></div>This assignment open on your phone or second tab</li>
-      <li><div class="cb"></div>Your brain. Mostly.</li>
+      <li><div class="cb"></div>New knowledge: reading the device clock, two new maths operators</li>
+      <li><div class="cb"></div>8 functions to complete — logic only, structure is given</li>
+      <li><div class="cb"></div>A finished <code>main()</code> function — I wrote this one, you just paste it in</li>
+      <li><div class="cb"></div>Testing + submission on Discord</li>
+      <li><div class="cb"></div>A reflection — explain your logic in your own words</li>
     </ul>
   </div>
 
-  <button class="next-btn" onclick="changePage(1)">I picked my game, let's go &#8594;</button>
+  <div class="warn">⚠️ No dictionaries this time — everything is built with lists, functions, loops, and if/elif/else. Stuff you already know.</div>
+
+  <button class="next-btn" onclick="changePage(1)">let's go &#8594;</button>
 </div>
 
-<!-- PAGE 2: CONCEPT RECAP -->
+<!-- PAGE 2: KNOWLEDGE - DEVICE TIME -->
 <div class="page" id="page-2">
-  <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
-  <div class="eyebrow">Concept recap</div>
-  <h1>Lists & loops — fast refresh</h1>
+  <div class="progress-bar"><div class="progress-fill" style="width:18%"></div></div>
+  <div class="eyebrow">New knowledge</div>
+  <h1>Reading the clock on your device</h1>
   <div class="accent-bar"></div>
-  <p>You covered this in class. Here's the cheat sheet version — everything you need for this assignment.</p>
+  <p>One of your functions needs to know what time it is right now, and calculate how many hours are left until midnight. Python has a built-in way to check the device clock.</p>
 
-  <div class="card card-p">
-    <div class="concept-row">
-      <span class="concept-label">List</span>
-      <span class="concept-desc">Holds multiple values in one variable. <code style="font-family:var(--mono);font-size:12px;">words = ["bussin", "mid", "rizz"]</code></span>
-    </div>
-    <div class="concept-row">
-      <span class="concept-label">Index</span>
-      <span class="concept-desc"><code style="font-family:var(--mono);font-size:12px;">words[0]</code> → "bussin". Starts at 0, not 1.</span>
-    </div>
-    <div class="concept-row">
-      <span class="concept-label">for loop</span>
-      <span class="concept-desc"><code style="font-family:var(--mono);font-size:12px;">for w in words:</code> — runs once for each item in the list.</span>
-    </div>
-    <div class="concept-row">
-      <span class="concept-label">while loop</span>
-      <span class="concept-desc">Keeps running until a condition becomes False. <code style="font-family:var(--mono);font-size:12px;">while lives > 0:</code></span>
-    </div>
-    <div class="concept-row">
-      <span class="concept-label">break</span>
-      <span class="concept-desc">Exits the loop immediately. Used when the player wins mid-loop.</span>
-    </div>
-    <div class="concept-row">
-      <span class="concept-label">append()</span>
-      <span class="concept-desc"><code style="font-family:var(--mono);font-size:12px;">guessed.append("a")</code> — adds "a" to the end of the list.</span>
-    </div>
-    <div class="concept-row">
-      <span class="concept-label">in</span>
-      <span class="concept-desc"><code style="font-family:var(--mono);font-size:12px;">"a" in guessed</code> — returns True if "a" is in the list. Super useful for checking guesses.</span>
-    </div>
-    <div class="concept-row">
-      <span class="concept-label">random.choice()</span>
-      <span class="concept-desc"><code style="font-family:var(--mono);font-size:12px;">random.choice(words)</code> — picks a random item from a list.</span>
+  <div class="code"><span class="kw">import</span> datetime
+
+now = datetime.datetime.now()
+
+<span class="fn">print</span>(now.hour)     <span class="cm"># current hour, 0 to 23</span>
+<span class="fn">print</span>(now.minute)   <span class="cm"># current minute, 0 to 59</span></div>
+
+  <p>That's it. <code>datetime.datetime.now()</code> grabs the current time from your computer. <code>.hour</code> and <code>.minute</code> pull out the two numbers you need.</p>
+
+  <h3>Live demo — this is your actual browser time right now</h3>
+  <div class="clock-box">
+    <div class="clock-time" id="live-clock">--:--:--</div>
+    <div class="clock-sub">your device's current time</div>
+    <div class="clock-calc">
+      <div class="clock-stat">
+        <div class="clock-stat-label">minutes passed today</div>
+        <div class="clock-stat-val" id="mins-passed">--</div>
+      </div>
+      <div class="clock-stat">
+        <div class="clock-stat-label">minutes left till midnight</div>
+        <div class="clock-stat-val" id="mins-left">--</div>
+      </div>
+      <div class="clock-stat">
+        <div class="clock-stat-label">hours left</div>
+        <div class="clock-stat-val" id="hours-left">--</div>
+      </div>
+      <div class="clock-stat">
+        <div class="clock-stat-label">+ minutes left</div>
+        <div class="clock-stat-val" id="mins-left-final">--</div>
+      </div>
     </div>
   </div>
+  <p style="font-size:12px;color:var(--muted2);">(This box uses JavaScript just to show you the idea live in your browser. Your actual code will do this same maths in Python.)</p>
 
-  <h3>Quick check — don't skip this</h3>
-  <div class="card card-a">
-    <p class="quiz-q" style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:10px;">What does <code style="font-family:var(--mono);font-size:12px;">"x" in ["a","b","x","c"]</code> return?</p>
-    <div class="quiz-opts">
-      <button class="qopt" onclick="quiz(this,'wrong','q1')">2</button>
-      <button class="qopt" onclick="quiz(this,'correct','q1')">True</button>
-      <button class="qopt" onclick="quiz(this,'wrong','q1')">False</button>
-      <button class="qopt" onclick="quiz(this,'wrong','q1')">"x"</button>
-    </div>
-    <div class="qfb" id="q1"></div>
+  <h3>Turning hour + minute into "time left"</h3>
+  <p>Here's the maths, step by step:</p>
+
+  <div class="code"><span class="cm"># step 1: how many minutes have passed since midnight?</span>
+minutes_passed = now.hour * <span class="nm">60</span> + now.minute
+
+<span class="cm"># step 2: how many minutes are left until midnight?</span>
+minutes_left = (<span class="nm">24</span> * <span class="nm">60</span>) - minutes_passed
+
+<span class="cm"># step 3: convert minutes_left into hours + minutes</span>
+hours_left = minutes_left <span class="kw">//</span> <span class="nm">60</span>
+mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></div>
+
+  <div class="card card-b">
+    <h3>Two new symbols</h3>
+    <p style="margin-bottom:6px;"><code>//</code> — <strong>floor division.</strong> Normal division but it throws away the decimal. <code>130 // 60</code> gives <code>2</code> (2 whole hours, ignoring the remainder).</p>
+    <p style="margin:0;"><code>%</code> — <strong>modulo.</strong> Gives you the leftover after dividing. <code>130 % 60</code> gives <code>10</code> (10 minutes left over after those 2 hours).</p>
   </div>
 
-  <div class="card card-a">
-    <p class="quiz-q" style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:10px;">You have <code style="font-family:var(--mono);font-size:12px;">letters = ["b","u","s","s","i","n"]</code>. What does <code style="font-family:var(--mono);font-size:12px;">letters[4]</code> return?</p>
-    <div class="quiz-opts">
-      <button class="qopt" onclick="quiz(this,'wrong','q2')">"s"</button>
-      <button class="qopt" onclick="quiz(this,'correct','q2')">"i"</button>
-      <button class="qopt" onclick="quiz(this,'wrong','q2')">"u"</button>
-      <button class="qopt" onclick="quiz(this,'wrong','q2')">"n"</button>
-    </div>
-    <div class="qfb" id="q2"></div>
-  </div>
+  <div class="tip">Together, <code>//</code> and <code>%</code> split any number of minutes into clean hours + minutes. This trick works anywhere you need to convert a big number into two friendlier ones — you'll use it again later.</div>
 
-  <button class="next-btn" onclick="changePage(1)">I'm good, show me the game &#8594;</button>
+  <button class="next-btn" onclick="changePage(1)">got it &#8594;</button>
 </div>
 
-<!-- PAGE 3: TRINKET SETUP -->
+<!-- PAGE 3: KNOWLEDGE - LIST MUTATION -->
 <div class="page" id="page-3">
-  <div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div>
-  <div class="eyebrow">Setup</div>
-  <h1>Get Trinket ready</h1>
+  <div class="progress-bar"><div class="progress-fill" style="width:27%"></div></div>
+  <div class="eyebrow">New knowledge</div>
+  <h1>Changing a list from inside a function</h1>
   <div class="accent-bar"></div>
-  <p>Trinket runs Python in your browser — no install, works on any device. Takes 3 minutes to set up.</p>
+  <p>You'll write two functions that add and remove habits from a list. Here's something that'll feel a little different from what you're used to.</p>
 
-  <div class="trinket-box">
-    <div class="trinket-step">
-      <div class="step-num">1</div>
-      <div>Go to <strong>trinket.io</strong> and click <strong>Sign Up</strong>. Use your school email or make one up — it's free.</div>
-    </div>
-    <div class="trinket-step">
-      <div class="step-num">2</div>
-      <div>Click <strong>New Trinket</strong> → choose <strong>Python</strong>. You'll see a code editor on the left and output on the right.</div>
-    </div>
-    <div class="trinket-step">
-      <div class="step-num">3</div>
-      <div>Name your trinket: <strong>"Brainrot Hangman"</strong> or <strong>"Word Scramble"</strong> depending on which you picked.</div>
-    </div>
-    <div class="trinket-step">
-      <div class="step-num">4</div>
-      <div>Type <code style="font-family:var(--mono);font-size:12px;">print("yo it works")</code> and hit the ▶ Run button. If you see <span style="color:var(--green);">yo it works</span> in the output panel, you're good.</div>
-    </div>
-    <div class="trinket-step">
-      <div class="step-num">5</div>
-      <div>Keep this assignment open in another tab so you can read the challenges while you code.</div>
-    </div>
-  </div>
+  <div class="code">habits = [<span class="st">"Piano"</span>, <span class="st">"Football"</span>]
 
-  <div class="warn">⚠️ Trinket uses <code style="font-family:var(--mono);font-size:12px;">input()</code> just like Thonny — but the input box appears at the bottom of the output panel. Click there to type when the game asks for something.</div>
+<span class="kw">def</span> <span class="fn">add_one</span>(the_list, item):
+    the_list.append(item)
+    <span class="cm"># notice: no return!</span>
 
-  <button class="next-btn" onclick="changePage(1)">Trinket is ready &#8594;</button>
+<span class="fn">add_one</span>(habits, <span class="st">"Basketball"</span>)
+<span class="fn">print</span>(habits)  <span class="cm"># ['Piano', 'Football', 'Basketball']</span></div>
+
+  <p>Even though <code>add_one</code> never returns anything, the original <code>habits</code> list still changed. That's because lists are <strong>mutable</strong> — when you pass a list into a function, the function is working on the exact same list, not a copy. Anything you do to it inside the function sticks, even without <code>return</code>.</p>
+
+  <div class="tip">This is different from things like numbers, which get copied when passed into a function. Lists (and later, dictionaries) are handed over directly — changes inside the function are permanent.</div>
+
+  <div class="warn">⚠️ One thing to watch for with removing: if you try to <code>.remove()</code> something that isn't in the list, Python will crash. Always check <code>if item in the_list:</code> before removing it.</div>
+
+  <button class="next-btn" onclick="changePage(1)">makes sense &#8594;</button>
 </div>
 
-<!-- PAGE 4: GAME PREVIEW -->
+<!-- PAGE 4: FUNCTIONS 1-3 (list management) -->
 <div class="page" id="page-4">
-  <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
-  <div class="eyebrow">What you're building</div>
-  <h1 id="preview-title">Your game</h1>
+  <div class="progress-bar"><div class="progress-fill" style="width:38%"></div></div>
+  <div class="eyebrow">Build it — part 1</div>
+  <h1>Managing your habit list</h1>
   <div class="accent-bar"></div>
-  <p id="preview-desc">Here's what the finished game looks like when it runs in the terminal. Your job is to make Python produce this output using lists, loops, and logic.</p>
+  <p>First three functions. These handle viewing and editing your list of habits.</p>
 
-  <div id="hangman-preview">
-    <p style="margin-bottom:8px;font-size:13px;color:var(--muted2);">Brainrot Hangman — finished game preview:</p>
-    <div class="terminal">
-<span class="t-purple">╔══════════════════════════╗</span>
-<span class="t-purple">║   BRAINROT HANGMAN 💀    ║</span>
-<span class="t-purple">╚══════════════════════════╝</span>
-
-<span class="t-dim">Word:</span>  <span class="t-white">_ _ _ _ _ _</span>
-<span class="t-dim">Lives:</span> <span class="t-green">❤️ ❤️ ❤️ ❤️ ❤️ ❤️</span>
-<span class="t-dim">Wrong guesses:</span> <span class="t-amber">[]</span>
-
-<span class="t-blue">Guess a letter: </span><span class="t-white">b</span>
-
-<span class="t-green">bussin! 'b' is in the word.</span>
-<span class="t-dim">Word:</span>  <span class="t-white">b _ _ _ _ _</span>
-<span class="t-dim">Lives:</span> <span class="t-green">❤️ ❤️ ❤️ ❤️ ❤️ ❤️</span>
-
-<span class="t-blue">Guess a letter: </span><span class="t-white">z</span>
-
-<span class="t-red">L. 'z' is not in the word.</span>
-<span class="t-dim">Word:</span>  <span class="t-white">b _ _ _ _ _</span>
-<span class="t-dim">Lives:</span> <span class="t-red">❤️ ❤️ ❤️ ❤️ ❤️</span>
-<span class="t-dim">Wrong guesses:</span> <span class="t-amber">['z']</span>
-
-<span class="t-green">🏆 W. The word was: bussin</span>
+  <div class="func-card">
+    <div class="func-header">
+      <div class="func-num">1</div>
+      <span class="func-name">get_default_habits()</span>
     </div>
-  </div>
-
-  <div id="scramble-preview" style="display:none;">
-    <p style="margin-bottom:8px;font-size:13px;color:var(--muted2);">Word Scramble — finished game preview:</p>
-    <div class="terminal">
-<span class="t-purple">╔══════════════════════════╗</span>
-<span class="t-purple">║   BRAINROT SCRAMBLE 🔀   ║</span>
-<span class="t-purple">╚══════════════════════════╝</span>
-
-<span class="t-dim">Round 1 of 5</span>
-<span class="t-amber">Unscramble this: </span><span class="t-white">s i b s n u</span>
-<span class="t-dim">Attempts left: 3</span>
-
-<span class="t-blue">Your answer: </span><span class="t-white">busnsi</span>
-<span class="t-red">L. Try again.</span>
-<span class="t-dim">Attempts left: 2</span>
-
-<span class="t-blue">Your answer: </span><span class="t-white">bussin</span>
-<span class="t-green">W no cap! +10 points</span>
-
-<span class="t-dim">Round 2 of 5</span>
-<span class="t-amber">Unscramble this: </span><span class="t-white">z i r z</span>
-
-<span class="t-purple">━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
-<span class="t-amber">FINAL SCORE: 30/50</span>
-<span class="t-green">Du bist gut genug fr fr.</span>
-    </div>
-  </div>
-
-  <div class="card card-g" style="margin-top:16px;">
-    <h3>What concepts go where</h3>
-    <p style="margin-bottom:10px;font-size:13px;">Every part of the game maps to something you learned this week:</p>
-    <ul class="checklist">
-      <li><div class="cb"></div><strong>Word list</strong> — a Python list of brainrot words</li>
-      <li><div class="cb"></div><strong>Picking the word</strong> — <code style="font-family:var(--mono);font-size:12px;">random.choice()</code> on that list</li>
-      <li><div class="cb"></div><strong>Showing progress</strong> — a <code style="font-family:var(--mono);font-size:12px;">for</code> loop over each letter</li>
-      <li><div class="cb"></div><strong>Game loop</strong> — a <code style="font-family:var(--mono);font-size:12px;">while</code> loop that runs until win or lose</li>
-      <li><div class="cb"></div><strong>Tracking guesses</strong> — an empty list + <code style="font-family:var(--mono);font-size:12px;">append()</code></li>
-      <li><div class="cb"></div><strong>Checking letters</strong> — <code style="font-family:var(--mono);font-size:12px;">in</code> operator on the list</li>
-    </ul>
-  </div>
-
-  <button class="next-btn" onclick="changePage(1)">show me the challenges &#8594;</button>
-</div>
-
-<!-- PAGE 5: LEVEL 1 CHALLENGES -->
-<div class="page" id="page-5">
-  <div class="progress-bar"><div class="progress-fill" style="width:55%"></div></div>
-  <div class="eyebrow">Build it</div>
-  <h1>Level 1 — the foundation</h1>
-  <div class="accent-bar"></div>
-  <div class="lbadge lb1">Level 1 · core game · required</div>
-  <p>These four challenges build the skeleton of your game. Complete all four before moving to Level 2. Test each one before moving to the next — don't write 50 lines before checking if it works.</p>
-
-  <div class="challenge">
-    <div class="challenge-header">
-      <div class="challenge-num" style="background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border);">1</div>
-      <div>
-        <p class="challenge-title">Build the word list + pick a random word</p>
-        <p class="challenge-sub">Lists · random.choice()</p>
-      </div>
-    </div>
-    <p style="font-size:13px;color:#bbb;line-height:1.6;margin-bottom:10px;">Create a list called <code style="font-family:var(--mono);font-size:12px;">words</code> with at least <strong>10 brainrot words</strong> (bussin, rizz, mid, cooked, Ohio, sigma, glazed, aura, slay, twin…). Then use <code style="font-family:var(--mono);font-size:12px;">random.choice()</code> to pick one and store it in a variable called <code style="font-family:var(--mono);font-size:12px;">secret</code>. Print it to check it works — then remove the print before the next step.</p>
-    <div class="code"><span class="cm"># your code here</span>
-<span class="kw">import</span> random
-
-words = [<span class="blank-line">    # fill this list with at least 10 brainrot words</span>
-]
-
-secret = <span class="blank-line">    # pick a random word from the list</span>
-</div>
+    <p class="func-desc">Returns your starting list of habits: Piano, Football, Basketball. No inputs needed.</p>
+    <div class="contract"><strong>returns:</strong> a list of 3 strings</div>
+    <div class="code"><span class="kw">def</span> <span class="fn">get_default_habits</span>():
+    <span class="pass-line">    pass</span></div>
     <button class="hint-btn" onclick="toggleHint('h1')">show hint</button>
-    <div class="hint" id="h1">Use <code style="font-family:var(--mono);font-size:12px;">random.choice(words)</code> to pick from the list. Print <code style="font-family:var(--mono);font-size:12px;">secret</code> temporarily to confirm it's working.</div>
+    <div class="hint" id="h1">Just build a list with square brackets and return it: <code>return ["Piano", "Football", "Basketball"]</code></div>
   </div>
 
-  <div class="challenge">
-    <div class="challenge-header">
-      <div class="challenge-num" style="background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border);">2</div>
-      <div>
-        <p class="challenge-title">Display the word as blanks</p>
-        <p class="challenge-sub">for loop · list · string building</p>
-      </div>
+  <div class="func-card">
+    <div class="func-header">
+      <div class="func-num">2</div>
+      <span class="func-name">list_habits(habits)</span>
     </div>
-    <p style="font-size:13px;color:#bbb;line-height:1.6;margin-bottom:10px;">Convert the secret word into a list of characters using <code style="font-family:var(--mono);font-size:12px;">list(secret)</code>. Then create an empty list called <code style="font-family:var(--mono);font-size:12px;">display</code> and fill it with <code style="font-family:var(--mono);font-size:12px;">"_"</code> for every letter. Use a <code style="font-family:var(--mono);font-size:12px;">for</code> loop. Then print the display joined with spaces so it looks like: <span style="font-family:var(--mono);font-size:12px;color:var(--green);">_ _ _ _ _ _</span></p>
-    <div class="code">letters = <span class="fn">list</span>(secret)
-display = []
-
-<span class="kw">for</span> letter <span class="kw">in</span> letters:
-<span class="blank-line">    # add "_" to display for each letter</span>
-
-<span class="fn">print</span>(<span class="blank-line">    # join display with spaces and print it</span>
-)</div>
+    <p class="func-desc">Prints every habit in the list, numbered, so you can see what you're tracking. Something like "1. Piano", "2. Football".</p>
+    <div class="contract"><strong>takes:</strong> a list &nbsp;·&nbsp; <strong>returns:</strong> nothing — this one just prints</div>
+    <div class="code"><span class="kw">def</span> <span class="fn">list_habits</span>(habits):
+    <span class="pass-line">    pass</span></div>
     <button class="hint-btn" onclick="toggleHint('h2')">show hint</button>
-    <div class="hint" id="h2"><code style="font-family:var(--mono);font-size:12px;">display.append("_")</code> inside the loop. Then <code style="font-family:var(--mono);font-size:12px;">print(" ".join(display))</code> to print with spaces.</div>
+    <div class="hint" id="h2">Loop with <code>for i in range(len(habits)):</code> so you have access to a position number. Print <code>str(i + 1) + ". " + habits[i]</code> — the +1 makes it start counting from 1 instead of 0.</div>
   </div>
 
-  <div class="challenge">
-    <div class="challenge-header">
-      <div class="challenge-num" style="background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border);">3</div>
-      <div>
-        <p class="challenge-title">Build the game loop</p>
-        <p class="challenge-sub">while loop · input() · lives counter</p>
-      </div>
+  <div class="func-card">
+    <div class="func-header">
+      <div class="func-num">3</div>
+      <span class="func-name">add_habit(habits, new_habit)</span>
     </div>
-    <p style="font-size:13px;color:#bbb;line-height:1.6;margin-bottom:10px;">Create a variable <code style="font-family:var(--mono);font-size:12px;">lives = 6</code> and an empty list <code style="font-family:var(--mono);font-size:12px;">wrong = []</code>. Write a <code style="font-family:var(--mono);font-size:12px;">while</code> loop that keeps asking for a letter guess as long as lives > 0 AND the word isn't fully revealed. Inside the loop: if the guess is in <code style="font-family:var(--mono);font-size:12px;">letters</code>, update <code style="font-family:var(--mono);font-size:12px;">display</code>. If not, subtract a life and append to <code style="font-family:var(--mono);font-size:12px;">wrong</code>. Print the display and lives after every guess.</p>
-    <div class="code">lives = <span class="nm">6</span>
-wrong = []
-guessed = []
-
-<span class="kw">while</span> lives > <span class="nm">0</span> <span class="kw">and</span> <span class="blank-line">    # second condition: "_" is still in display</span>
-:
-    guess = <span class="fn">input</span>(<span class="st">"Guess a letter: "</span>).lower()
-
-    <span class="kw">if</span> guess <span class="kw">in</span> guessed:
-        <span class="fn">print</span>(<span class="st">"You already guessed that one."</span>)
-        <span class="kw">continue</span>
-
-    guessed.<span class="fn">append</span>(guess)
-
-    <span class="kw">if</span> guess <span class="kw">in</span> letters:
-<span class="blank-line">        # update every matching position in display</span>
-    <span class="kw">else</span>:
-<span class="blank-line">        # subtract a life, append to wrong</span>
-
-    <span class="fn">print</span>(<span class="st">"Word: "</span>, <span class="st">" "</span>.<span class="fn">join</span>(display))
-    <span class="fn">print</span>(<span class="st">"Lives: "</span>, lives)
-    <span class="fn">print</span>(<span class="st">"Wrong: "</span>, wrong)</div>
+    <p class="func-desc">Adds a new habit to the list.</p>
+    <div class="contract"><strong>takes:</strong> the habits list, and the new habit name &nbsp;·&nbsp; <strong>returns:</strong> nothing needed — remember page 3?</div>
+    <div class="code"><span class="kw">def</span> <span class="fn">add_habit</span>(habits, new_habit):
+    <span class="pass-line">    pass</span></div>
     <button class="hint-btn" onclick="toggleHint('h3')">show hint</button>
-    <div class="hint" id="h3">To update display: use <code style="font-family:var(--mono);font-size:12px;">for i in range(len(letters)):</code> then check <code style="font-family:var(--mono);font-size:12px;">if letters[i] == guess: display[i] = guess</code>. For the while condition: <code style="font-family:var(--mono);font-size:12px;">"_" in display</code> returns True as long as blanks remain.</div>
+    <div class="hint" id="h3">One line: <code>habits.append(new_habit)</code>. No return statement needed — the list changes in place.</div>
   </div>
 
-  <div class="challenge">
-    <div class="challenge-header">
-      <div class="challenge-num" style="background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-border);">4</div>
-      <div>
-        <p class="challenge-title">Win / lose endings</p>
-        <p class="challenge-sub">if / else · outside the loop</p>
-      </div>
+  <div class="func-card">
+    <div class="func-header">
+      <div class="func-num">4</div>
+      <span class="func-name">delete_habit(habits, habit_to_remove)</span>
     </div>
-    <p style="font-size:13px;color:#bbb;line-height:1.6;margin-bottom:10px;">After the while loop ends, check whether they won (no more blanks in display) or lost (lives ran out). Print a different message for each. Include the secret word in the lose message.</p>
-    <div class="code"><span class="cm"># after the while loop — add this</span>
-<span class="kw">if</span> <span class="blank-line">    # they won condition</span>
-:
-    <span class="fn">print</span>(<span class="st">"🏆 W. You got it fr fr."</span>)
-<span class="kw">else</span>:
-    <span class="fn">print</span>(<span class="st">"💀 L. The word was: "</span> + <span class="blank-line">    # print the secret word</span>
-)</div>
+    <p class="func-desc">Removes a habit from the list — but safely. If the habit isn't in the list, don't crash, just do nothing (or print a message).</p>
+    <div class="contract"><strong>takes:</strong> the habits list, and the habit name to remove &nbsp;·&nbsp; <strong>returns:</strong> nothing needed</div>
+    <div class="code"><span class="kw">def</span> <span class="fn">delete_habit</span>(habits, habit_to_remove):
+    <span class="pass-line">    pass</span></div>
     <button class="hint-btn" onclick="toggleHint('h4')">show hint</button>
-    <div class="hint" id="h4">Win condition: <code style="font-family:var(--mono);font-size:12px;">"_" not in display</code>. Lose condition is the else. Print <code style="font-family:var(--mono);font-size:12px;">secret</code> in the lose message.</div>
+    <div class="hint" id="h4">Check first: <code>if habit_to_remove in habits:</code> then <code>habits.remove(habit_to_remove)</code> inside the if. That avoids the crash from page 3's warning.</div>
   </div>
 
-  <div class="warn">⚡ Test your game fully before moving to Level 2. Win it intentionally. Lose it intentionally. Make sure both endings work.</div>
-
-  <button class="next-btn" onclick="changePage(1)">Level 1 done &#8594;</button>
+  <button class="next-btn" onclick="changePage(1)">next set of functions &#8594;</button>
 </div>
 
-<!-- PAGE 6: LEVEL 2 + 3 CHALLENGES -->
-<div class="page" id="page-6">
-  <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
-  <div class="eyebrow">Build it</div>
-  <h1>Level 2 & 3 — go deeper</h1>
+<!-- PAGE 5: FUNCTIONS 5-6 (logging + reminders) -->
+<div class="page" id="page-5">
+  <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+  <div class="eyebrow">Build it — part 2</div>
+  <h1>Logging today & reminders</h1>
   <div class="accent-bar"></div>
+  <p>These two are the heart of the app. This is where the datetime trick from page 2 gets used.</p>
 
-  <div class="lbadge lb2">Level 2 · make it feel like a real game</div>
-  <p>These challenges make the game actually feel polished. Use AI if you need to — but make sure you understand every line you add.</p>
-
-  <div class="challenge">
-    <div class="challenge-header">
-      <div class="challenge-num" style="background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);">5</div>
-      <div>
-        <p class="challenge-title">Add the title screen + aura lives display</p>
-        <p class="challenge-sub">string multiplication · for loop</p>
-      </div>
+  <div class="func-card">
+    <div class="func-header">
+      <div class="func-num">5</div>
+      <span class="func-name">log_today(habits)</span>
     </div>
-    <p style="font-size:13px;color:#bbb;line-height:1.6;margin-bottom:10px;">Print a title screen at the start using <code style="font-family:var(--mono);font-size:12px;">print()</code>. Then instead of printing lives as a number, print hearts: use <code style="font-family:var(--mono);font-size:12px;">"❤️ " * lives</code> to show remaining lives visually.</p>
-    <div class="code"><span class="fn">print</span>(<span class="st">"╔══════════════════════════╗"</span>)
-<span class="fn">print</span>(<span class="st">"║   BRAINROT HANGMAN 💀    ║"</span>)
-<span class="fn">print</span>(<span class="st">"╚══════════════════════════╝"</span>)
-<span class="fn">print</span>()
-
-<span class="cm"># inside your loop, replace the lives print with:</span>
-<span class="fn">print</span>(<span class="st">"Lives: "</span> + <span class="blank-line">    # hearts using string multiplication</span>
-)</div>
+    <p class="func-desc">Goes through every habit and asks whether you did it today — yes or no. Builds up a list of the ones you completed.</p>
+    <div class="contract"><strong>takes:</strong> the habits list &nbsp;·&nbsp; <strong>returns:</strong> a list of the habit names you completed today</div>
+    <div class="code"><span class="kw">def</span> <span class="fn">log_today</span>(habits):
+    <span class="pass-line">    pass</span></div>
     <button class="hint-btn" onclick="toggleHint('h5')">show hint</button>
-    <div class="hint" id="h5"><code style="font-family:var(--mono);font-size:12px;">"❤️ " * lives</code> repeats the heart emoji once per remaining life. Put this after "Lives: " to show the visual bar.</div>
+    <div class="hint" id="h5">Start with <code>completed = []</code>. Loop <code>for habit in habits:</code>, ask <code>input(habit + " - did you do it today? (y/n): ")</code>, and if the answer is "y", <code>completed.append(habit)</code>. Return <code>completed</code> at the end.</div>
   </div>
 
-  <div class="challenge">
-    <div class="challenge-header">
-      <div class="challenge-num" style="background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);">6</div>
-      <div>
-        <p class="challenge-title">Add a difficulty selector</p>
-        <p class="challenge-sub">multiple lists · conditionals</p>
-      </div>
+  <div class="func-card">
+    <div class="func-header">
+      <div class="func-num">6</div>
+      <span class="func-name">check_reminders(all_habits, completed_habits)</span>
     </div>
-    <p style="font-size:13px;color:#bbb;line-height:1.6;margin-bottom:10px;">Create three separate word lists: <code style="font-family:var(--mono);font-size:12px;">easy_words</code> (4–5 letters), <code style="font-family:var(--mono);font-size:12px;">medium_words</code> (6–7 letters), <code style="font-family:var(--mono);font-size:12px;">hard_words</code> (8+ letters). Ask the player to pick a difficulty at the start (1, 2, or 3), then use the right list and set lives accordingly (easy=8, medium=6, hard=4).</p>
+    <p class="func-desc">Figures out which habits aren't done yet today, and how much time is left before midnight to still do them. This is the one that uses everything from pages 2 and 3.</p>
+    <div class="contract"><strong>takes:</strong> the full habits list, and the list of completed habits &nbsp;·&nbsp; <strong>returns:</strong> three things together — the not-done list, hours left, and minutes left. Like this: <code>return not_done, hours_left, mins_left</code></div>
+    <div class="code"><span class="kw">import</span> datetime
+
+<span class="kw">def</span> <span class="fn">check_reminders</span>(all_habits, completed_habits):
+    <span class="pass-line">    pass</span></div>
     <button class="hint-btn" onclick="toggleHint('h6')">show hint</button>
-    <div class="hint" id="h6">Use <code style="font-family:var(--mono);font-size:12px;">diff = int(input("Difficulty 1/2/3: "))</code> then an if/elif/else to set both <code style="font-family:var(--mono);font-size:12px;">words</code> and <code style="font-family:var(--mono);font-size:12px;">lives</code> based on the choice.</div>
+    <div class="hint" id="h6">Two parts. Part A — find what's not done: <code>not_done = []</code>, loop <code>for habit in all_habits:</code>, if <code>habit not in completed_habits: not_done.append(habit)</code>. Part B — the time maths from page 2 (now, minutes_passed, minutes_left, hours_left, mins_left). Finish with <code>return not_done, hours_left, mins_left</code>.</div>
   </div>
 
-  <div class="challenge">
-    <div class="challenge-header">
-      <div class="challenge-num" style="background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);">7</div>
-      <div>
-        <p class="challenge-title">Play again loop</p>
-        <p class="challenge-sub">outer while loop · string comparison</p>
-      </div>
+  <div class="warn">⚡ check_reminders is the hardest function in this assignment. Take your time. If you use AI to help, make sure you can explain both parts — the "what's not done" part and the "time left" part — separately, in your own words.</div>
+
+  <button class="next-btn" onclick="changePage(1)">next set of functions &#8594;</button>
+</div>
+
+<!-- PAGE 6: FUNCTIONS 7-8 (feedback + display) -->
+<div class="page" id="page-6">
+  <div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
+  <div class="eyebrow">Build it — part 3</div>
+  <h1>Feedback & display</h1>
+  <div class="accent-bar"></div>
+  <p>Last two functions. These turn raw numbers into something that feels like an actual app talking to you.</p>
+
+  <div class="func-card">
+    <div class="func-header">
+      <div class="func-num">7</div>
+      <span class="func-name">get_streak_message(completed_count, total_count)</span>
     </div>
-    <p style="font-size:13px;color:#bbb;line-height:1.6;margin-bottom:10px;">Wrap your entire game in an outer <code style="font-family:var(--mono);font-size:12px;">while True:</code> loop. At the end of each game, ask <code style="font-family:var(--mono);font-size:12px;">"Play again? (y/n): "</code>. If they type "n", break out of the loop. If "y", the whole game restarts. Make sure you reset <code style="font-family:var(--mono);font-size:12px;">display</code>, <code style="font-family:var(--mono);font-size:12px;">lives</code>, <code style="font-family:var(--mono);font-size:12px;">wrong</code>, and pick a new random word each time.</p>
+    <p class="func-desc">Looks at how many habits you completed today out of the total, and returns an encouraging message depending on how well you did.</p>
+    <div class="contract"><strong>takes:</strong> how many you completed, and how many total &nbsp;·&nbsp; <strong>returns:</strong> a message string</div>
+    <div class="code"><span class="kw">def</span> <span class="fn">get_streak_message</span>(completed_count, total_count):
+    <span class="pass-line">    pass</span></div>
     <button class="hint-btn" onclick="toggleHint('h7')">show hint</button>
-    <div class="hint" id="h7">Put <code style="font-family:var(--mono);font-size:12px;">while True:</code> at the very top (after imports and word lists). Reset all variables inside the loop before the game starts. Use <code style="font-family:var(--mono);font-size:12px;">if again == "n": break</code> at the end.</div>
+    <div class="hint" id="h7">Compare completed_count to total_count with if/elif/else. If they're equal — everything done, best message. If completed_count is 0 — encouraging but honest. Anything in between — solid effort message. You choose the exact wording.</div>
+  </div>
+
+  <div class="func-card">
+    <div class="func-header">
+      <div class="func-num">8</div>
+      <span class="func-name">print_habit_report(name, message)</span>
+    </div>
+    <p class="func-desc">Prints one clean line combining a label and a message. This is just for testing in Thonny — Raiyan's UI won't need this one, but you need it to see your program working before the UI exists.</p>
+    <div class="contract"><strong>takes:</strong> a name/label, and a message &nbsp;·&nbsp; <strong>returns:</strong> nothing — just prints</div>
+    <div class="code"><span class="kw">def</span> <span class="fn">print_habit_report</span>(name, message):
+    <span class="pass-line">    pass</span></div>
+    <button class="hint-btn" onclick="toggleHint('h8')">show hint</button>
+    <div class="hint" id="h8">Something like: <code>print(name + ": " + message)</code>. Feel free to make it fancier with dashes or symbols if you want.</div>
   </div>
 
   <hr>
 
-  <div class="lbadge lb3">Level 3 · genuinely hard · use AI wisely</div>
-  <p>These are designed to make you think even with AI help. If you paste the challenge into AI and copy the answer without reading it, it won't make sense when Raiyan asks you to explain it next session.</p>
-
-  <div class="challenge">
-    <div class="challenge-header">
-      <div class="challenge-num" style="background:var(--coral-bg);color:var(--coral);border:1px solid var(--coral-border);">8</div>
-      <div>
-        <p class="challenge-title">Score system across rounds</p>
-        <p class="challenge-sub">variables · maths · accumulation</p>
-      </div>
-    </div>
-    <p style="font-size:13px;color:#bbb;line-height:1.6;">Track a running score across all games in a session. +10 points per correct letter, +50 bonus for winning with lives remaining, -10 for each wrong guess. Display the score at the end of each round and the session total when they quit.</p>
+  <h3>Optional stretch — only if you want to go further</h3>
+  <div class="card card-a">
+    <p style="margin-bottom:8px;"><strong>Stretch 1:</strong> Make <code>add_habit</code> refuse to add a habit that's already in the list (no duplicates).</p>
+    <p style="margin:0;"><strong>Stretch 2:</strong> Make habit name matching in <code>delete_habit</code> case-insensitive — so "piano" and "Piano" both work.</p>
   </div>
 
-  <div class="challenge">
-    <div class="challenge-header">
-      <div class="challenge-num" style="background:var(--coral-bg);color:var(--coral);border:1px solid var(--coral-border);">9</div>
-      <div>
-        <p class="challenge-title">Aura rating based on performance</p>
-        <p class="challenge-sub">conditionals · percentage maths</p>
-      </div>
-    </div>
-    <p style="font-size:13px;color:#bbb;line-height:1.6;">At the end of the session, calculate a win rate (wins ÷ total games × 100). Use if/elif/else to print an aura rating: 80%+ = Sigma, 60%+ = Rizz Lord, 40%+ = Du bist gut genug, below = Cooked.</p>
-  </div>
-
-  <div class="challenge">
-    <div class="challenge-header">
-      <div class="challenge-num" style="background:var(--coral-bg);color:var(--coral);border:1px solid var(--coral-border);">10</div>
-      <div>
-        <p class="challenge-title">No repeat words</p>
-        <p class="challenge-sub">list removal · append · advanced loops</p>
-      </div>
-    </div>
-    <p style="font-size:13px;color:#bbb;line-height:1.6;">Make it so the same word never appears twice in a session. After a word is used, remove it from the available pool. If all words are used, print "You've played every word. Absolute sigma." and quit.</p>
-  </div>
-
-  <button class="next-btn" onclick="changePage(1)">I'm done building &#8594;</button>
+  <button class="next-btn" onclick="changePage(1)">show me main() &#8594;</button>
 </div>
 
-<!-- PAGE 7: SUBMIT -->
+<!-- PAGE 7: MAIN FUNCTION -->
 <div class="page" id="page-7">
-  <div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div>
-  <div class="eyebrow">Submitting</div>
-  <h1>Send it on Discord</h1>
+  <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
+  <div class="eyebrow">Given to you</div>
+  <h1>The main() function</h1>
   <div class="accent-bar"></div>
-  <p>Same drill as last time — code block in Discord, plus a screenshot. But this time there's more to include.</p>
+  <p>This part I wrote myself. Once you've completed all 8 functions above, paste this at the very bottom of your file. This is what actually runs your program — a menu that calls all your functions.</p>
 
-  <div class="card card-p">
-    <h3>Share your Trinket link</h3>
-    <p>In Trinket, click <strong>Share</strong> (top right) → copy the link → paste it in Discord. Anyone with the link can run your game in the browser without installing anything.</p>
-  </div>
+  <div class="code"><span class="kw">def</span> <span class="fn">main</span>():
+    habits = <span class="fn">get_default_habits</span>()
+    completed_today = []
 
-  <div class="card card-g">
-    <h3>Also send on Discord</h3>
-    <ul class="checklist">
-      <li><div class="cb"></div>Your Trinket link</li>
-      <li><div class="cb"></div>A screenshot of you winning the game</li>
-      <li><div class="cb"></div>A screenshot of you losing the game</li>
-      <li><div class="cb"></div>Which level you reached (1, 2 or 3)</li>
-      <li><div class="cb"></div>One thing that broke and how you fixed it</li>
-    </ul>
-  </div>
+    <span class="kw">while</span> <span class="kw">True</span>:
+        <span class="fn">print</span>()
+        <span class="fn">print</span>(<span class="st">"=== AARIZ'S HABIT TRACKER ==="</span>)
+        <span class="fn">print</span>(<span class="st">"1. View my habits"</span>)
+        <span class="fn">print</span>(<span class="st">"2. Add a habit"</span>)
+        <span class="fn">print</span>(<span class="st">"3. Delete a habit"</span>)
+        <span class="fn">print</span>(<span class="st">"4. Log today's progress"</span>)
+        <span class="fn">print</span>(<span class="st">"5. Check reminders"</span>)
+        <span class="fn">print</span>(<span class="st">"6. Quit"</span>)
 
-  <h3>Code block reminder</h3>
+        choice = <span class="fn">input</span>(<span class="st">"Choose an option (1-6): "</span>)
+
+        <span class="kw">if</span> choice == <span class="st">"1"</span>:
+            <span class="fn">list_habits</span>(habits)
+
+        <span class="kw">elif</span> choice == <span class="st">"2"</span>:
+            new_habit = <span class="fn">input</span>(<span class="st">"What habit do you want to add? "</span>)
+            <span class="fn">add_habit</span>(habits, new_habit)
+            <span class="fn">print</span>(new_habit + <span class="st">" added!"</span>)
+
+        <span class="kw">elif</span> choice == <span class="st">"3"</span>:
+            <span class="fn">list_habits</span>(habits)
+            remove_this = <span class="fn">input</span>(<span class="st">"Which habit do you want to delete? "</span>)
+            <span class="fn">delete_habit</span>(habits, remove_this)
+            <span class="fn">print</span>(remove_this + <span class="st">" removed!"</span>)
+
+        <span class="kw">elif</span> choice == <span class="st">"4"</span>:
+            completed_today = <span class="fn">log_today</span>(habits)
+            message = <span class="fn">get_streak_message</span>(<span class="fn">len</span>(completed_today), <span class="fn">len</span>(habits))
+            <span class="fn">print_habit_report</span>(<span class="st">"Today"</span>, message)
+
+        <span class="kw">elif</span> choice == <span class="st">"5"</span>:
+            not_done, hours_left, mins_left = <span class="fn">check_reminders</span>(habits, completed_today)
+            <span class="kw">if</span> <span class="fn">len</span>(not_done) == <span class="nm">0</span>:
+                <span class="fn">print</span>(<span class="st">"Everything's done today. No cap."</span>)
+            <span class="kw">else</span>:
+                <span class="fn">print</span>(<span class="st">"Not done yet: "</span> + <span class="fn">str</span>(not_done))
+                <span class="fn">print</span>(<span class="st">"Time left today: "</span> + <span class="fn">str</span>(hours_left) + <span class="st">"h "</span> + <span class="fn">str</span>(mins_left) + <span class="st">"m"</span>)
+
+        <span class="kw">elif</span> choice == <span class="st">"6"</span>:
+            <span class="fn">print</span>(<span class="st">"See you tomorrow. Du bist gut genug."</span>)
+            <span class="kw">break</span>
+
+        <span class="kw">else</span>:
+            <span class="fn">print</span>(<span class="st">"That's not a valid option, try again."</span>)
+
+
+<span class="fn">main</span>()</div>
+
+  <div class="tip">Notice how <code>main()</code> never does the actual work itself — it just calls your functions and prints their results. That's the whole point of building things this way: main is the conductor, your 8 functions are the orchestra.</div>
+
+  <div class="warn">⚠️ Your 8 functions must be defined <strong>above</strong> main() in the file, and <code>main()</code> must be called at the very bottom — the line <code>main()</code> at the end is what actually starts the program.</div>
+
+  <button class="next-btn" onclick="changePage(1)">let's test it &#8594;</button>
+</div>
+
+<!-- PAGE 8: TEST + SUBMIT -->
+<div class="page" id="page-8">
+  <div class="progress-bar"><div class="progress-fill" style="width:87%"></div></div>
+  <div class="eyebrow">Testing & submission</div>
+  <h1>Run it, break it, fix it</h1>
+  <div class="accent-bar"></div>
+
+  <h3>How to test</h3>
+  <ul class="checklist">
+    <li><div class="cb"></div>Open Thonny, paste all 8 functions, then main() at the bottom</li>
+    <li><div class="cb"></div>Run it. Try every menu option at least once</li>
+    <li><div class="cb"></div>Add a habit, then delete it — check it's actually gone</li>
+    <li><div class="cb"></div>Log today's progress, then check reminders — the numbers should make sense</li>
+    <li><div class="cb"></div>Try deleting a habit that doesn't exist — it should NOT crash</li>
+  </ul>
+
+  <h3>Submit on Discord</h3>
   <div class="discord-box">
     <div class="discord-header">
-      <div class="discord-av" style="background:#5865F2;">A</div>
+      <div class="discord-av">A</div>
       <span class="discord-name">Aariz</span>
     </div>
-    <div class="discord-msg">finished level 2 hangman here's the link: trinket.io/xxxxx
+    <div class="discord-msg">finished the habit tracker, here's my code
       <div class="discord-code">```python
-import random
+def get_default_habits():
+    return ["Piano", "Football", "Basketball"]
 
-words = ["bussin", "rizz", "sigma", "cooked", "Ohio"]
-secret = random.choice(words)
-# ... rest of your code
+def list_habits(habits):
+    # your code here
+    ...
+
+# ...rest of your functions + main()
 ```</div>
     </div>
   </div>
 
-  <hr>
-
-  <div class="card card-a">
-    <h3>Be ready to explain next session</h3>
-    <p>Raiyan will ask you to walk through your code. Specifically:</p>
-    <ul class="plain" style="margin-top:10px;">
-      <li>What does your while loop condition check?</li>
-      <li>How does your display list get updated when a letter is correct?</li>
-      <li>What happens if the player guesses the same letter twice?</li>
-      <li>How would you add a new word to the word list?</li>
+  <div class="card card-g">
+    <h3>Also include</h3>
+    <ul class="checklist">
+      <li><div class="cb"></div>A screenshot showing the menu running</li>
+      <li><div class="cb"></div>A screenshot of "check reminders" showing real numbers</li>
+      <li><div class="cb"></div>Your reflection from the next page</li>
     </ul>
-    <p style="margin-top:12px;">If you used AI to write a section, read it until you can explain it out loud. That's the standard.</p>
   </div>
 
-  <button class="next-btn" onclick="changePage(1)">done &#8594;</button>
+  <button class="next-btn" onclick="changePage(1)">last step — reflection &#8594;</button>
 </div>
 
-<!-- PAGE 8: FINISH -->
-<div class="page" id="page-8">
+<!-- PAGE 9: REFLECTION -->
+<div class="page" id="page-9">
   <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-  <div class="eyebrow">That's a wrap</div>
-  <h1>You built a game.<br>From scratch.</h1>
+  <div class="eyebrow">Reflection</div>
+  <h1>Explain your logic</h1>
   <div class="accent-bar"></div>
-  <p>Aariz. Afraz. A few weeks ago you were printing "hello world." Now you built a fully working game with lists, loops, a scoring system, and a play-again mechanic.</p>
-  <p>That's not mid. That's actually bussin.</p>
+  <p>Before you submit, write a short explanation of how you approached this. Doesn't need to be long — just enough that Raiyan can tell you actually understood what you built, not just copied something that worked.</p>
+
+  <p class="reflect-q">Answer these, in your own words:</p>
+  <ul class="checklist" style="margin-bottom:16px;">
+    <li><div class="cb"></div>How does check_reminders figure out which habits aren't done yet?</li>
+    <li><div class="cb"></div>How does check_reminders calculate hours and minutes left? What do // and % do in your code?</li>
+    <li><div class="cb"></div>Why don't add_habit and delete_habit need a return statement?</li>
+    <li><div class="cb"></div>What was the hardest part, and how did you get through it?</li>
+    <li><div class="cb"></div>If you used AI for any part — which part, and what did you learn from reading it?</li>
+  </ul>
+
+  <textarea class="reflect-box" id="reflection" placeholder="Write your reflection here..."></textarea>
+  <button class="copy-btn" onclick="copyReflection()">copy to clipboard</button>
+  <span class="copy-status" id="copy-status">copied ✓ — paste it into Discord</span>
+
+  <hr>
 
   <div class="card card-p">
-    <h3>What you used in this assignment</h3>
-    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
-      <span class="pill pill-p">lists</span>
-      <span class="pill pill-p">for loops</span>
-      <span class="pill pill-p">while loops</span>
-      <span class="pill pill-p">break</span>
-      <span class="pill pill-g">append()</span>
-      <span class="pill pill-g">random.choice()</span>
-      <span class="pill pill-g">in operator</span>
-      <span class="pill pill-a">string multiplication</span>
-      <span class="pill pill-a">join()</span>
-      <span class="pill pill-a">list()</span>
-      <span class="pill pill-c">if / elif / else</span>
-      <span class="pill pill-c">input() + int()</span>
-      <span class="pill pill-b">indexing</span>
-      <span class="pill pill-b">range(len())</span>
-    </div>
-  </div>
-
-  <div class="card card-g" style="margin-top:14px;">
-    <p style="font-size:15px;font-weight:500;color:var(--text);margin-bottom:6px;">Du bist gut genug. Keep going.</p>
-    <p style="margin:0;font-size:13px;">See you next session.</p>
+    <h3>You're done</h3>
+    <p style="margin:0;">Eight functions, a real menu-driven app, and device time calculations. This is genuinely more than what most people write in their first few months of coding. Du bist gut genug — see you next session.</p>
   </div>
 </div>
 
 <script>
-const TOTAL = 8;
+const TOTAL = 9;
 let cur = 1;
-let gameChoice = null;
 
 function buildDots() {
   const c = document.getElementById('nav-dots');
@@ -722,39 +591,7 @@ function goTo(n) {
   window.scrollTo(0, 0);
 }
 
-function changePage(dir) {
-  goTo(Math.min(Math.max(cur + dir, 1), TOTAL));
-}
-
-function pickGame(g) {
-  gameChoice = g;
-  document.getElementById('gc-hang').classList.toggle('selected', g === 'hangman');
-  document.getElementById('gc-scram').classList.toggle('selected', g === 'scramble');
-  document.getElementById('game-prompt').textContent = g === 'hangman'
-    ? "✓ Brainrot Hangman selected. Let's go."
-    : "✓ Word Scramble selected. Let's go.";
-
-  // update preview page
-  document.getElementById('preview-title').textContent = g === 'hangman' ? 'Brainrot Hangman' : 'Word Scramble';
-  document.getElementById('hangman-preview').style.display = g === 'hangman' ? 'block' : 'none';
-  document.getElementById('scramble-preview').style.display = g === 'scramble' ? 'block' : 'none';
-}
-
-function quiz(btn, result, id) {
-  const opts = btn.parentElement.querySelectorAll('.qopt');
-  opts.forEach(o => o.onclick = null);
-  const fb = document.getElementById(id);
-  if (result === 'correct') {
-    btn.classList.add('correct');
-    fb.textContent = 'Correct. W.';
-    fb.className = 'qfb show ok';
-  } else {
-    btn.classList.add('wrong');
-    fb.textContent = 'Not quite. Read the concept table again and try again.';
-    fb.className = 'qfb show bad';
-    opts.forEach(o => { if (o !== btn) o.onclick = function() { quiz(this, this.onclick ? 'retry' : 'correct', id); }; });
-  }
-}
+function changePage(dir) { goTo(Math.min(Math.max(cur + dir, 1), TOTAL)); }
 
 function toggleHint(id) {
   const h = document.getElementById(id);
@@ -763,7 +600,38 @@ function toggleHint(id) {
   btn.textContent = h.classList.contains('show') ? 'hide hint' : 'show hint';
 }
 
+function copyReflection() {
+  const text = document.getElementById('reflection').value;
+  if (!text.trim()) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const status = document.getElementById('copy-status');
+    status.classList.add('show');
+    setTimeout(() => status.classList.remove('show'), 3000);
+  });
+}
+
+function updateClock() {
+  const now = new Date();
+  const h = now.getHours();
+  const m = now.getMinutes();
+  const s = now.getSeconds();
+  document.getElementById('live-clock').textContent =
+    String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+
+  const minutesPassed = h * 60 + m;
+  const minutesLeft = (24 * 60) - minutesPassed;
+  const hoursLeft = Math.floor(minutesLeft / 60);
+  const minsLeftFinal = minutesLeft % 60;
+
+  document.getElementById('mins-passed').textContent = minutesPassed;
+  document.getElementById('mins-left').textContent = minutesLeft;
+  document.getElementById('hours-left').textContent = hoursLeft;
+  document.getElementById('mins-left-final').textContent = minsLeftFinal;
+}
+
 buildDots();
+updateClock();
+setInterval(updateClock, 1000);
 </script>
 </body>
 </html>
