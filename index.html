@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aariz's Habit Tracker — Code Completion Assignment</title>
+<title>Python Class — Weekly Assignments</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #FDF8F0; --surface: #FFFFFF; --surface2: #FBF6FF; --surface3: #F5EFFC;
@@ -133,21 +134,95 @@ textarea.reflect-box:focus { border-color: var(--purple); }
 .copy-status.show { display: inline; }
 
 .only-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--pink-bg); border: 1px solid var(--pink-border); color: var(--pink); font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 999px; margin-bottom: 16px; letter-spacing: 0.03em; text-transform: uppercase; }
+
+
+.topic-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--heading-font); font-size: 13px; font-weight: 700; padding: 6px 16px; border-radius: 999px; margin-bottom: 16px; }
+.problem-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 18px 20px; margin-bottom: 14px; box-shadow: 0 3px 14px rgba(150,120,190,0.06); }
+.problem-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.problem-num { width: 26px; height: 26px; border-radius: 50%; background: var(--purple-bg); border: 2px solid var(--purple-border); color: var(--purple); display: flex; align-items: center; justify-content: center; font-family: var(--heading-font); font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.problem-title { font-size: 14px; font-weight: 700; color: #3D3350; }
+.problem-desc { font-size: 14px; color: #6B5F7D; line-height: 1.65; margin-bottom: 6px; }
+.expected { background: var(--green-bg); border: 1px solid var(--green-border); border-radius: 10px; padding: 8px 12px; font-family: var(--mono); font-size: 12px; color: #257A5B; margin-top: 8px; }
+.progress-tracker { display: flex; gap: 6px; margin: 4px 0 22px; }
+.pt-item { flex: 1; height: 8px; border-radius: 100px; background: var(--border); }
+.pt-item.filled { background: var(--purple); }
+
+
+/* LANDING + SHARED ROUTER STYLES */
+.screen { display: none; }
+.screen.visible { display: block; }
+.home-btn { background: var(--surface2); border: 1px solid var(--border2); color: var(--muted2); padding: 6px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 600; cursor: pointer; margin-left: 8px; transition: all 0.15s; }
+.home-btn:hover { border-color: var(--purple); color: var(--purple); }
+
+.landing-wrap { max-width: 760px; margin: 0 auto; padding: 60px 24px; text-align: center; }
+.landing-eyebrow { font-family: var(--heading-font); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted2); margin-bottom: 10px; }
+.landing-title { font-family: var(--heading-font); font-size: 34px; font-weight: 700; color: #3D3350; margin-bottom: 12px; }
+.landing-sub { font-size: 16px; color: #6B5F7D; margin-bottom: 44px; }
+.landing-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+@media (max-width: 620px) { .landing-cards { grid-template-columns: 1fr; } }
+.landing-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 36px 28px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 18px rgba(150,120,190,0.08); text-align: left; }
+.landing-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(150,120,190,0.16); }
+.landing-avatar { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--heading-font); font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 18px; }
+.landing-name { font-family: var(--heading-font); font-size: 20px; font-weight: 700; color: #3D3350; margin-bottom: 6px; }
+.landing-desc { font-size: 13.5px; color: #6B5F7D; line-height: 1.6; margin-bottom: 16px; }
+.landing-meta { display: flex; gap: 6px; flex-wrap: wrap; }
+.landing-go { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--purple); margin-top: 14px; }
+
 </style>
 </head>
 <body>
 
+
+<div class="screen visible" id="screen-landing">
+  <div class="landing-wrap">
+    <div class="landing-eyebrow">Weekly Python class</div>
+    <div class="landing-title">Pick your assignment 👋</div>
+    <p class="landing-sub">Two separate tasks below — find your name and tap in.</p>
+    <div class="landing-cards">
+
+      <div class="landing-card" onclick="showScreen('aariz')">
+        <div class="landing-avatar" style="background:linear-gradient(135deg,#8A63D2,#B48CE8);">A</div>
+        <div class="landing-name">Aariz</div>
+        <div class="landing-desc">Code completion — build the logic for a Habit Tracker app. Functions, lists, and device time.</div>
+        <div class="landing-meta">
+          <span class="pill pp">functions</span>
+          <span class="pill pg">lists</span>
+          <span class="pill pb">datetime</span>
+        </div>
+        <div class="landing-go">Start assignment &#8594;</div>
+      </div>
+
+      <div class="landing-card" onclick="showScreen('afraz')">
+        <div class="landing-avatar" style="background:linear-gradient(135deg,#E17B9E,#F0A8C0);">A</div>
+        <div class="landing-name">Afraz</div>
+        <div class="landing-desc">Quick recap — 12 small problems covering everything from strings through lists.</div>
+        <div class="landing-meta">
+          <span class="pill pp">strings</span>
+          <span class="pill pa">conditionals</span>
+          <span class="pill pc">loops</span>
+        </div>
+        <div class="landing-go">Start assignment &#8594;</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="screen-aariz">
+
+
 <nav class="nav">
   <span class="nav-logo">Habit Tracker</span>
-  <div class="nav-pages" id="nav-dots"></div>
+  <button class="home-btn" onclick="showScreen('landing')">&#8962; Home</button>
+  <div class="nav-pages" id="aariz-nav-dots"></div>
   <div class="nav-arrows">
-    <button class="nav-btn" id="prev-btn" onclick="changePage(-1)" disabled>&#8592; back</button>
-    <button class="nav-btn" id="next-btn" onclick="changePage(1)">next &#8594;</button>
+    <button class="nav-btn" id="aariz-prev-btn" onclick="aariz_changePage(-1)" disabled>&#8592; back</button>
+    <button class="nav-btn" id="aariz-next-btn" onclick="aariz_changePage(1)">next &#8594;</button>
   </div>
 </nav>
 
 <!-- PAGE 1: INTRO -->
-<div class="page active" id="page-1">
+<div class="page active" id="aariz-page-1">
   <div class="progress-bar"><div class="progress-fill" style="width:9%"></div></div>
   <span class="only-tag">🔒 For Aariz only</span>
   <div class="eyebrow">Code completion assignment</div>
@@ -174,11 +249,11 @@ textarea.reflect-box:focus { border-color: var(--purple); }
 
   <div class="warn">⚠️ No dictionaries this time — everything is built with lists, functions, loops, and if/elif/else. Stuff you already know.</div>
 
-  <button class="next-btn" onclick="changePage(1)">let's go &#8594;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">let's go &#8594;</button>
 </div>
 
 <!-- PAGE 2: KNOWLEDGE - DEVICE TIME -->
-<div class="page" id="page-2">
+<div class="page" id="aariz-page-2">
   <div class="progress-bar"><div class="progress-fill" style="width:18%"></div></div>
   <div class="eyebrow">New knowledge</div>
   <h1>Reading the clock on your device</h1>
@@ -196,24 +271,24 @@ now = datetime.datetime.now()
 
   <h3>Live demo — this is your actual browser time right now</h3>
   <div class="clock-box">
-    <div class="clock-time" id="live-clock">--:--:--</div>
+    <div class="clock-time" id="aariz-live-clock">--:--:--</div>
     <div class="clock-sub">your device's current time</div>
     <div class="clock-calc">
       <div class="clock-stat">
         <div class="clock-stat-label">minutes passed today</div>
-        <div class="clock-stat-val" id="mins-passed">--</div>
+        <div class="clock-stat-val" id="aariz-mins-passed">--</div>
       </div>
       <div class="clock-stat">
         <div class="clock-stat-label">minutes left till midnight</div>
-        <div class="clock-stat-val" id="mins-left">--</div>
+        <div class="clock-stat-val" id="aariz-mins-left">--</div>
       </div>
       <div class="clock-stat">
         <div class="clock-stat-label">hours left</div>
-        <div class="clock-stat-val" id="hours-left">--</div>
+        <div class="clock-stat-val" id="aariz-hours-left">--</div>
       </div>
       <div class="clock-stat">
         <div class="clock-stat-label">+ minutes left</div>
-        <div class="clock-stat-val" id="mins-left-final">--</div>
+        <div class="clock-stat-val" id="aariz-mins-left-final">--</div>
       </div>
     </div>
   </div>
@@ -240,11 +315,11 @@ mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></
 
   <div class="tip">Together, <code>//</code> and <code>%</code> split any number of minutes into clean hours + minutes. This trick works anywhere you need to convert a big number into two friendlier ones — you'll use it again later.</div>
 
-  <button class="next-btn" onclick="changePage(1)">got it &#8594;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">got it &#8594;</button>
 </div>
 
 <!-- PAGE 3: KNOWLEDGE - LIST MUTATION -->
-<div class="page" id="page-3">
+<div class="page" id="aariz-page-3">
   <div class="progress-bar"><div class="progress-fill" style="width:27%"></div></div>
   <div class="eyebrow">New knowledge</div>
   <h1>Changing a list from inside a function</h1>
@@ -266,11 +341,11 @@ mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></
 
   <div class="warn">⚠️ One thing to watch for with removing: if you try to <code>.remove()</code> something that isn't in the list, Python will crash. Always check <code>if item in the_list:</code> before removing it.</div>
 
-  <button class="next-btn" onclick="changePage(1)">makes sense &#8594;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">makes sense &#8594;</button>
 </div>
 
 <!-- PAGE 4: FUNCTIONS 1-3 (list management) -->
-<div class="page" id="page-4">
+<div class="page" id="aariz-page-4">
   <div class="progress-bar"><div class="progress-fill" style="width:38%"></div></div>
   <div class="eyebrow">Build it — part 1</div>
   <h1>Managing your habit list</h1>
@@ -286,8 +361,8 @@ mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></
     <div class="contract"><strong>returns:</strong> a list of 3 strings</div>
     <div class="code"><span class="kw">def</span> <span class="fn">get_default_habits</span>():
     <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick="toggleHint('h1')">show hint</button>
-    <div class="hint" id="h1">Just build a list with square brackets and return it: <code>return ["Piano", "Football", "Basketball"]</code></div>
+    <button class="hint-btn" onclick=\"toggleHint('aariz-h1')\">show hint</button>
+    <div class="hint" id="aariz-h1">Just build a list with square brackets and return it: <code>return ["Piano", "Football", "Basketball"]</code></div>
   </div>
 
   <div class="func-card">
@@ -299,8 +374,8 @@ mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></
     <div class="contract"><strong>takes:</strong> a list &nbsp;·&nbsp; <strong>returns:</strong> nothing — this one just prints</div>
     <div class="code"><span class="kw">def</span> <span class="fn">list_habits</span>(habits):
     <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick="toggleHint('h2')">show hint</button>
-    <div class="hint" id="h2">Loop with <code>for i in range(len(habits)):</code> so you have access to a position number. Print <code>str(i + 1) + ". " + habits[i]</code> — the +1 makes it start counting from 1 instead of 0.</div>
+    <button class="hint-btn" onclick=\"toggleHint('aariz-h2')\">show hint</button>
+    <div class="hint" id="aariz-h2">Loop with <code>for i in range(len(habits)):</code> so you have access to a position number. Print <code>str(i + 1) + ". " + habits[i]</code> — the +1 makes it start counting from 1 instead of 0.</div>
   </div>
 
   <div class="func-card">
@@ -312,8 +387,8 @@ mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></
     <div class="contract"><strong>takes:</strong> the habits list, and the new habit name &nbsp;·&nbsp; <strong>returns:</strong> nothing needed — remember page 3?</div>
     <div class="code"><span class="kw">def</span> <span class="fn">add_habit</span>(habits, new_habit):
     <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick="toggleHint('h3')">show hint</button>
-    <div class="hint" id="h3">One line: <code>habits.append(new_habit)</code>. No return statement needed — the list changes in place.</div>
+    <button class="hint-btn" onclick=\"toggleHint('aariz-h3')\">show hint</button>
+    <div class="hint" id="aariz-h3">One line: <code>habits.append(new_habit)</code>. No return statement needed — the list changes in place.</div>
   </div>
 
   <div class="func-card">
@@ -325,15 +400,15 @@ mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></
     <div class="contract"><strong>takes:</strong> the habits list, and the habit name to remove &nbsp;·&nbsp; <strong>returns:</strong> nothing needed</div>
     <div class="code"><span class="kw">def</span> <span class="fn">delete_habit</span>(habits, habit_to_remove):
     <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick="toggleHint('h4')">show hint</button>
-    <div class="hint" id="h4">Check first: <code>if habit_to_remove in habits:</code> then <code>habits.remove(habit_to_remove)</code> inside the if. That avoids the crash from page 3's warning.</div>
+    <button class="hint-btn" onclick=\"toggleHint('aariz-h4')\">show hint</button>
+    <div class="hint" id="aariz-h4">Check first: <code>if habit_to_remove in habits:</code> then <code>habits.remove(habit_to_remove)</code> inside the if. That avoids the crash from page 3's warning.</div>
   </div>
 
-  <button class="next-btn" onclick="changePage(1)">next set of functions &#8594;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">next set of functions &#8594;</button>
 </div>
 
 <!-- PAGE 5: FUNCTIONS 5-6 (logging + reminders) -->
-<div class="page" id="page-5">
+<div class="page" id="aariz-page-5">
   <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
   <div class="eyebrow">Build it — part 2</div>
   <h1>Logging today & reminders</h1>
@@ -349,8 +424,8 @@ mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></
     <div class="contract"><strong>takes:</strong> the habits list &nbsp;·&nbsp; <strong>returns:</strong> a list of the habit names you completed today</div>
     <div class="code"><span class="kw">def</span> <span class="fn">log_today</span>(habits):
     <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick="toggleHint('h5')">show hint</button>
-    <div class="hint" id="h5">Start with <code>completed = []</code>. Loop <code>for habit in habits:</code>, ask <code>input(habit + " - did you do it today? (y/n): ")</code>, and if the answer is "y", <code>completed.append(habit)</code>. Return <code>completed</code> at the end.</div>
+    <button class="hint-btn" onclick=\"toggleHint('aariz-h5')\">show hint</button>
+    <div class="hint" id="aariz-h5">Start with <code>completed = []</code>. Loop <code>for habit in habits:</code>, ask <code>input(habit + " - did you do it today? (y/n): ")</code>, and if the answer is "y", <code>completed.append(habit)</code>. Return <code>completed</code> at the end.</div>
   </div>
 
   <div class="func-card">
@@ -364,17 +439,17 @@ mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></
 
 <span class="kw">def</span> <span class="fn">check_reminders</span>(all_habits, completed_habits):
     <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick="toggleHint('h6')">show hint</button>
-    <div class="hint" id="h6">Two parts. Part A — find what's not done: <code>not_done = []</code>, loop <code>for habit in all_habits:</code>, if <code>habit not in completed_habits: not_done.append(habit)</code>. Part B — the time maths from page 2 (now, minutes_passed, minutes_left, hours_left, mins_left). Finish with <code>return not_done, hours_left, mins_left</code>.</div>
+    <button class="hint-btn" onclick=\"toggleHint('aariz-h6')\">show hint</button>
+    <div class="hint" id="aariz-h6">Two parts. Part A — find what's not done: <code>not_done = []</code>, loop <code>for habit in all_habits:</code>, if <code>habit not in completed_habits: not_done.append(habit)</code>. Part B — the time maths from page 2 (now, minutes_passed, minutes_left, hours_left, mins_left). Finish with <code>return not_done, hours_left, mins_left</code>.</div>
   </div>
 
   <div class="warn">⚡ check_reminders is the hardest function in this assignment. Take your time. If you use AI to help, make sure you can explain both parts — the "what's not done" part and the "time left" part — separately, in your own words.</div>
 
-  <button class="next-btn" onclick="changePage(1)">next set of functions &#8594;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">next set of functions &#8594;</button>
 </div>
 
 <!-- PAGE 6: FUNCTIONS 7-8 (feedback + display) -->
-<div class="page" id="page-6">
+<div class="page" id="aariz-page-6">
   <div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
   <div class="eyebrow">Build it — part 3</div>
   <h1>Feedback & display</h1>
@@ -390,8 +465,8 @@ mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></
     <div class="contract"><strong>takes:</strong> how many you completed, and how many total &nbsp;·&nbsp; <strong>returns:</strong> a message string</div>
     <div class="code"><span class="kw">def</span> <span class="fn">get_streak_message</span>(completed_count, total_count):
     <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick="toggleHint('h7')">show hint</button>
-    <div class="hint" id="h7">Compare completed_count to total_count with if/elif/else. If they're equal — everything done, best message. If completed_count is 0 — encouraging but honest. Anything in between — solid effort message. You choose the exact wording.</div>
+    <button class="hint-btn" onclick=\"toggleHint('aariz-h7')\">show hint</button>
+    <div class="hint" id="aariz-h7">Compare completed_count to total_count with if/elif/else. If they're equal — everything done, best message. If completed_count is 0 — encouraging but honest. Anything in between — solid effort message. You choose the exact wording.</div>
   </div>
 
   <div class="func-card">
@@ -403,8 +478,8 @@ mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></
     <div class="contract"><strong>takes:</strong> a name/label, and a message &nbsp;·&nbsp; <strong>returns:</strong> nothing — just prints</div>
     <div class="code"><span class="kw">def</span> <span class="fn">print_habit_report</span>(name, message):
     <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick="toggleHint('h8')">show hint</button>
-    <div class="hint" id="h8">Something like: <code>print(name + ": " + message)</code>. Feel free to make it fancier with dashes or symbols if you want.</div>
+    <button class="hint-btn" onclick=\"toggleHint('aariz-h8')\">show hint</button>
+    <div class="hint" id="aariz-h8">Something like: <code>print(name + ": " + message)</code>. Feel free to make it fancier with dashes or symbols if you want.</div>
   </div>
 
   <hr>
@@ -415,11 +490,11 @@ mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></
     <p style="margin:0;"><strong>Stretch 2:</strong> Make habit name matching in <code>delete_habit</code> case-insensitive — so "piano" and "Piano" both work.</p>
   </div>
 
-  <button class="next-btn" onclick="changePage(1)">show me main() &#8594;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">show me main() &#8594;</button>
 </div>
 
 <!-- PAGE 7: MAIN FUNCTION -->
-<div class="page" id="page-7">
+<div class="page" id="aariz-page-7">
   <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
   <div class="eyebrow">Given to you</div>
   <h1>The main() function</h1>
@@ -483,11 +558,11 @@ mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></
 
   <div class="warn">⚠️ Your 8 functions must be defined <strong>above</strong> main() in the file, and <code>main()</code> must be called at the very bottom — the line <code>main()</code> at the end is what actually starts the program.</div>
 
-  <button class="next-btn" onclick="changePage(1)">let's test it &#8594;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">let's test it &#8594;</button>
 </div>
 
 <!-- PAGE 8: TEST + SUBMIT -->
-<div class="page" id="page-8">
+<div class="page" id="aariz-page-8">
   <div class="progress-bar"><div class="progress-fill" style="width:87%"></div></div>
   <div class="eyebrow">Testing & submission</div>
   <h1>Run it, break it, fix it</h1>
@@ -531,11 +606,11 @@ def list_habits(habits):
     </ul>
   </div>
 
-  <button class="next-btn" onclick="changePage(1)">last step — reflection &#8594;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">last step — reflection &#8594;</button>
 </div>
 
 <!-- PAGE 9: REFLECTION -->
-<div class="page" id="page-9">
+<div class="page" id="aariz-page-9">
   <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
   <div class="eyebrow">Reflection</div>
   <h1>Explain your logic</h1>
@@ -551,9 +626,9 @@ def list_habits(habits):
     <li><div class="cb"></div>If you used AI for any part — which part, and what did you learn from reading it?</li>
   </ul>
 
-  <textarea class="reflect-box" id="reflection" placeholder="Write your reflection here..."></textarea>
-  <button class="copy-btn" onclick="copyReflection()">copy to clipboard</button>
-  <span class="copy-status" id="copy-status">copied ✓ — paste it into Discord</span>
+  <textarea class="reflect-box" id="aariz-reflection" placeholder="Write your reflection here..."></textarea>
+  <button class="copy-btn" onclick="aariz_copyReflection()">copy to clipboard</button>
+  <span class="copy-status" id="aariz-copy-status">copied ✓ — paste it into Discord</span>
 
   <hr>
 
@@ -563,12 +638,332 @@ def list_habits(habits):
   </div>
 </div>
 
+
+</div>
+<div class="screen" id="screen-afraz">
+
+
+<nav class="nav">
+  <span class="nav-logo">Afraz's Recap</span>
+  <button class="home-btn" onclick="showScreen('landing')">&#8962; Home</button>
+  <div class="nav-pages" id="afraz-nav-dots"></div>
+  <div class="nav-arrows">
+    <button class="nav-btn" id="afraz-prev-btn" onclick="afraz_changePage(-1)" disabled>&#8592; back</button>
+    <button class="nav-btn" id="afraz-next-btn" onclick="afraz_changePage(1)">next &#8594;</button>
+  </div>
+</nav>
+
+<!-- PAGE 1: INTRO -->
+<div class="page active" id="afraz-page-1">
+  <div class="progress-bar"><div class="progress-fill" style="width:11%"></div></div>
+  <div class="eyebrow">Recap assignment</div>
+  <h1>Let's go over everything 🌟</h1>
+  <div class="accent-bar"></div>
+  <p>Afraz — this one's easy. No big project this time. Just quick little problems, two for each thing we've learned so far. The goal is to make sure everything still feels solid in your head.</p>
+  <p>Every topic gets a 2-line reminder, then two small problems. Nothing tricky. If something feels shaky, that's exactly what this is for — better to notice now than later.</p>
+
+  <div class="card card-p">
+    <h3>What we're covering</h3>
+    <ul class="checklist">
+      <li><div class="cb"></div>Strings — text, printing, input</li>
+      <li><div class="cb"></div>Maths & variables</li>
+      <li><div class="cb"></div>if / elif / else</li>
+      <li><div class="cb"></div>for loops</li>
+      <li><div class="cb"></div>while loops</li>
+      <li><div class="cb"></div>Lists</li>
+    </ul>
+  </div>
+
+  <div class="tip">Each problem takes maybe 2-3 minutes. Do them in Thonny, one at a time. Don't worry about making anything fancy — just get it working.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">start &#8594;</button>
+</div>
+
+<!-- PAGE 2: STRINGS -->
+<div class="page" id="afraz-page-2">
+  <div class="progress-bar"><div class="progress-fill" style="width:22%"></div></div>
+  <div class="eyebrow">Topic 1 of 6</div>
+  <span class="topic-badge" style="background:var(--purple-bg);color:var(--purple);">📝 Strings</span>
+  <h1>Text, printing, input</h1>
+  <div class="accent-bar"></div>
+
+  <div class="card card-p">
+    <p style="margin:0;">Quick reminder: strings are text in quotes. <code>input()</code> gets text from the user. <code>+</code> sticks strings together.</p>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">1</div>
+      <span class="problem-title">Say hi properly</span>
+    </div>
+    <p class="problem-desc">Ask for the user's name, then print "Hey [name], good to see you!"</p>
+    <div class="expected">Enter your name: Afraz → Hey Afraz, good to see you!</div>
+    <button class="hint-btn" onclick=\"toggleHint('afraz-h1')\">show hint</button>
+    <div class="hint" id="afraz-h1"><code>name = input("Enter your name: ")</code> then <code>print("Hey " + name + ", good to see you!")</code></div>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">2</div>
+      <span class="problem-title">Shout it</span>
+    </div>
+    <p class="problem-desc">Ask for a favourite football team, then print it back in ALL CAPS using <code>.upper()</code>.</p>
+    <div class="expected">Favourite team: barcelona → BARCELONA</div>
+    <button class="hint-btn" onclick=\"toggleHint('afraz-h2')\">show hint</button>
+    <div class="hint" id="afraz-h2">Save the input in a variable, then print <code>variable.upper()</code></div>
+  </div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">next topic &#8594;</button>
+</div>
+
+<!-- PAGE 3: MATHS -->
+<div class="page" id="afraz-page-3">
+  <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
+  <div class="eyebrow">Topic 2 of 6</div>
+  <span class="topic-badge" style="background:var(--blue-bg);color:var(--blue);">🔢 Maths & variables</span>
+  <h1>Numbers and calculations</h1>
+  <div class="accent-bar"></div>
+
+  <div class="card card-b">
+    <p style="margin:0;">Quick reminder: numbers from <code>input()</code> need <code>int()</code> around them. <code>str()</code> turns a number back into text so you can print it in a sentence.</p>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">1</div>
+      <span class="problem-title">Double it</span>
+    </div>
+    <p class="problem-desc">Ask for a number, then print that number doubled.</p>
+    <div class="expected">Enter a number: 7 → Doubled: 14</div>
+    <button class="hint-btn" onclick=\"toggleHint('afraz-h3')\">show hint</button>
+    <div class="hint" id="afraz-h3"><code>num = int(input("Enter a number: "))</code> then <code>print("Doubled: " + str(num * 2))</code></div>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">2</div>
+      <span class="problem-title">Football score total</span>
+    </div>
+    <p class="problem-desc">Ask for goals scored in 3 different matches, then print the total goals.</p>
+    <div class="expected">Match 1: 2, Match 2: 1, Match 3: 3 → Total goals: 6</div>
+    <button class="hint-btn" onclick=\"toggleHint('afraz-h4')\">show hint</button>
+    <div class="hint" id="afraz-h4">Three separate <code>int(input())</code> calls, add them together, then print with <code>str()</code></div>
+  </div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">next topic &#8594;</button>
+</div>
+
+<!-- PAGE 4: CONDITIONALS -->
+<div class="page" id="afraz-page-4">
+  <div class="progress-bar"><div class="progress-fill" style="width:44%"></div></div>
+  <div class="eyebrow">Topic 3 of 6</div>
+  <span class="topic-badge" style="background:var(--amber-bg);color:var(--amber);">🔀 if / elif / else</span>
+  <h1>Making decisions</h1>
+  <div class="accent-bar"></div>
+
+  <div class="card card-a">
+    <p style="margin:0;">Quick reminder: <code>if</code> checks something, <code>elif</code> checks another thing if the first was false, <code>else</code> catches everything left. Don't forget the colon and the indent.</p>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">1</div>
+      <span class="problem-title">Even or odd</span>
+    </div>
+    <p class="problem-desc">Ask for a number. Print "Even" if it's even, "Odd" if it's odd. Hint: use <code>% 2</code> — a number is even if <code>num % 2 == 0</code>.</p>
+    <div class="expected">Enter a number: 8 → Even</div>
+    <button class="hint-btn" onclick=\"toggleHint('afraz-h5')\">show hint</button>
+    <div class="hint" id="afraz-h5"><code>if num % 2 == 0: print("Even")</code> then <code>else: print("Odd")</code></div>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">2</div>
+      <span class="problem-title">Basketball score checker</span>
+    </div>
+    <p class="problem-desc">Ask how many points scored in a game. If 20 or more, print "Great game!" If between 10 and 19, print "Solid game." Otherwise print "Next time!"</p>
+    <div class="expected">Points: 15 → Solid game.</div>
+    <button class="hint-btn" onclick=\"toggleHint('afraz-h6')\">show hint</button>
+    <div class="hint" id="afraz-h6">Three branches: <code>if points >= 20:</code> ... <code>elif points >= 10:</code> ... <code>else:</code> ...</div>
+  </div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">next topic &#8594;</button>
+</div>
+
+<!-- PAGE 5: FOR LOOPS -->
+<div class="page" id="afraz-page-5">
+  <div class="progress-bar"><div class="progress-fill" style="width:56%"></div></div>
+  <div class="eyebrow">Topic 4 of 6</div>
+  <span class="topic-badge" style="background:var(--green-bg);color:var(--green);">🔁 for loops</span>
+  <h1>Repeating a set number of times</h1>
+  <div class="accent-bar"></div>
+
+  <div class="card card-g">
+    <p style="margin:0;">Quick reminder: <code>for i in range(n):</code> repeats n times. <code>range(1, n+1)</code> counts from 1 to n instead of 0 to n-1.</p>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">1</div>
+      <span class="problem-title">Countdown</span>
+    </div>
+    <p class="problem-desc">Print the numbers 10 down to 1, one per line, then print "Liftoff!" after the loop.</p>
+    <div class="expected">10 9 8 ... 1 Liftoff!</div>
+    <button class="hint-btn" onclick=\"toggleHint('afraz-h7')\">show hint</button>
+    <div class="hint" id="afraz-h7"><code>for i in range(10, 0, -1): print(i)</code> — the -1 counts backwards. Then <code>print("Liftoff!")</code> after the loop (not indented).</div>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">2</div>
+      <span class="problem-title">Piano practice tally</span>
+    </div>
+    <p class="problem-desc">Use a loop to print "Practising piano..." exactly 5 times.</p>
+    <div class="expected">Practising piano... (5 times)</div>
+    <button class="hint-btn" onclick=\"toggleHint('afraz-h8')\">show hint</button>
+    <div class="hint" id="afraz-h8"><code>for i in range(5): print("Practising piano...")</code></div>
+  </div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">next topic &#8594;</button>
+</div>
+
+<!-- PAGE 6: WHILE LOOPS -->
+<div class="page" id="afraz-page-6">
+  <div class="progress-bar"><div class="progress-fill" style="width:67%"></div></div>
+  <div class="eyebrow">Topic 5 of 6</div>
+  <span class="topic-badge" style="background:var(--coral-bg);color:var(--coral);">⏳ while loops</span>
+  <h1>Repeating until something happens</h1>
+  <div class="accent-bar"></div>
+
+  <div class="card card-c">
+    <p style="margin:0;">Quick reminder: <code>while condition:</code> keeps running as long as the condition is true. Careful — if the condition never becomes false, the loop runs forever.</p>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">1</div>
+      <span class="problem-title">Guess the secret number</span>
+    </div>
+    <p class="problem-desc">The secret number is 7 (just hardcode it). Keep asking the user to guess until they get it right, then print "You got it!"</p>
+    <div class="expected">Guess: 3 → Guess: 7 → You got it!</div>
+    <button class="hint-btn" onclick=\"toggleHint('afraz-h9')\">show hint</button>
+    <div class="hint" id="afraz-h9"><code>guess = 0</code> then <code>while guess != 7: guess = int(input("Guess: "))</code>, then <code>print("You got it!")</code> after the loop.</div>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">2</div>
+      <span class="problem-title">Keep training</span>
+    </div>
+    <p class="problem-desc">Ask the user to keep entering "yes" as long as they want to keep practising basketball. Stop the loop when they type "no".</p>
+    <div class="expected">Keep training? yes → Keep training? no → Done for today!</div>
+    <button class="hint-btn" onclick=\"toggleHint('afraz-h10')\">show hint</button>
+    <div class="hint" id="afraz-h10"><code>answer = "yes"</code> then <code>while answer == "yes": answer = input("Keep training? ")</code>, then <code>print("Done for today!")</code></div>
+  </div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">last topic &#8594;</button>
+</div>
+
+<!-- PAGE 7: LISTS -->
+<div class="page" id="afraz-page-7">
+  <div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
+  <div class="eyebrow">Topic 6 of 6</div>
+  <span class="topic-badge" style="background:var(--pink-bg);color:var(--pink);">📋 Lists</span>
+  <h1>Holding multiple things</h1>
+  <div class="accent-bar"></div>
+
+  <div class="card" style="border-left: 5px solid var(--pink);">
+    <p style="margin:0;">Quick reminder: lists hold multiple values in one variable. <code>list[0]</code> is the first item. <code>for item in list:</code> loops through every item.</p>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">1</div>
+      <span class="problem-title">Sports list</span>
+    </div>
+    <p class="problem-desc">Make a list with 3 sports you play: Football, Basketball, and one more. Print each one using a loop, with "I play " in front.</p>
+    <div class="expected">I play Football I play Basketball I play [your third sport]</div>
+    <button class="hint-btn" onclick=\"toggleHint('afraz-h11')\">show hint</button>
+    <div class="hint" id="afraz-h11"><code>sports = ["Football", "Basketball", "..."]</code> then <code>for sport in sports: print("I play " + sport)</code></div>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">2</div>
+      <span class="problem-title">First and last</span>
+    </div>
+    <p class="problem-desc">Make a list of 4 favourite songs. Print just the first one and just the last one — using indexing, not a loop.</p>
+    <div class="expected">First: [song 1] Last: [song 4]</div>
+    <button class="hint-btn" onclick=\"toggleHint('afraz-h12')\">show hint</button>
+    <div class="hint" id="afraz-h12">First is <code>songs[0]</code>. Last is <code>songs[3]</code> — or <code>songs[-1]</code>, which always means "the last one" no matter how long the list is.</div>
+  </div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">done! &#8594;</button>
+</div>
+
+<!-- PAGE 8: SUBMIT + WRAP UP -->
+<div class="page" id="afraz-page-8">
+  <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+  <div class="eyebrow">Wrap up</div>
+  <h1>Nice work 🎉</h1>
+  <div class="accent-bar"></div>
+  <p>That's 12 small problems across everything we've learned. If most of them felt easy, that's exactly what we wanted to check. If a couple felt shaky, that's useful too — tell me which ones next session and we'll go over them again.</p>
+
+  <div class="card card-p">
+    <h3>Quick self-check</h3>
+    <ul class="checklist">
+      <li><div class="cb"></div>Which topic felt the easiest?</li>
+      <li><div class="cb"></div>Which one took the longest to figure out?</li>
+      <li><div class="cb"></div>Did you get stuck on any single problem for more than a few minutes?</li>
+    </ul>
+  </div>
+
+  <h3>Submit on Discord</h3>
+  <div class="discord-box">
+    <div class="discord-header">
+      <div class="discord-av">A</div>
+      <span class="discord-name">Afraz</span>
+    </div>
+    <div class="discord-msg">done with the recap, here's my code for all 12
+      <div class="discord-code">```python
+# problem 1 — say hi properly
+name = input("Enter your name: ")
+print("Hey " + name + ", good to see you!")
+
+# ...rest of your answers
+```</div>
+    </div>
+  </div>
+
+  <div class="tip">Paste all 12 answers into one code block, in order. Don't worry about making it perfect — this is just a check-in.</div>
+</div>
+
+
+</div>
+
+
 <script>
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('visible'));
+  document.getElementById('screen-' + name).classList.add('visible');
+  window.scrollTo(0, 0);
+}
+
+function toggleHint(id) {
+  const h = document.getElementById(id);
+  h.classList.toggle('show');
+  const btn = h.previousElementSibling;
+  btn.textContent = h.classList.contains('show') ? 'hide hint' : 'show hint';
+}
+</script>
+
+<script>
+(function() {
 const TOTAL = 9;
 let cur = 1;
 
 function buildDots() {
-  const c = document.getElementById('nav-dots');
+  const c = document.getElementById('aariz-nav-dots');
   for (let i = 1; i <= TOTAL; i++) {
     const d = document.createElement('button');
     d.className = 'nav-dot' + (i === 1 ? ' active' : '');
@@ -579,32 +974,26 @@ function buildDots() {
 }
 
 function goTo(n) {
-  document.getElementById('page-' + cur).classList.remove('active');
-  document.querySelectorAll('.nav-dot')[cur - 1].classList.remove('active');
+  document.getElementById('aariz-page-' + cur).classList.remove('active');
+  document.getElementById('aariz-nav-dots').querySelectorAll('.nav-dot')[cur - 1].classList.remove('active');
   cur = n;
-  document.getElementById('page-' + cur).classList.add('active');
-  const dots = document.querySelectorAll('.nav-dot');
+  document.getElementById('aariz-page-' + cur).classList.add('active');
+  const dots = document.getElementById('aariz-nav-dots').querySelectorAll('.nav-dot');
   dots[cur - 1].classList.add('active');
   for (let i = 0; i < cur - 1; i++) dots[i].classList.add('done');
-  document.getElementById('prev-btn').disabled = cur === 1;
-  document.getElementById('next-btn').disabled = cur === TOTAL;
+  document.getElementById('aariz-prev-btn').disabled = cur === 1;
+  document.getElementById('aariz-next-btn').disabled = cur === TOTAL;
   window.scrollTo(0, 0);
 }
 
-function changePage(dir) { goTo(Math.min(Math.max(cur + dir, 1), TOTAL)); }
+function aariz_changePage(dir) { goTo(Math.min(Math.max(cur + dir, 1), TOTAL)); }
+window.aariz_changePage = aariz_changePage;
 
-function toggleHint(id) {
-  const h = document.getElementById(id);
-  h.classList.toggle('show');
-  const btn = h.previousElementSibling;
-  btn.textContent = h.classList.contains('show') ? 'hide hint' : 'show hint';
-}
-
-function copyReflection() {
-  const text = document.getElementById('reflection').value;
+function aariz_copyReflection() {
+  const text = document.getElementById('aariz-reflection').value;
   if (!text.trim()) return;
   navigator.clipboard.writeText(text).then(() => {
-    const status = document.getElementById('copy-status');
+    const status = document.getElementById('aariz-copy-status');
     status.classList.add('show');
     setTimeout(() => status.classList.remove('show'), 3000);
   });
@@ -615,7 +1004,7 @@ function updateClock() {
   const h = now.getHours();
   const m = now.getMinutes();
   const s = now.getSeconds();
-  document.getElementById('live-clock').textContent =
+  document.getElementById('aariz-live-clock').textContent =
     String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
 
   const minutesPassed = h * 60 + m;
@@ -623,15 +1012,52 @@ function updateClock() {
   const hoursLeft = Math.floor(minutesLeft / 60);
   const minsLeftFinal = minutesLeft % 60;
 
-  document.getElementById('mins-passed').textContent = minutesPassed;
-  document.getElementById('mins-left').textContent = minutesLeft;
-  document.getElementById('hours-left').textContent = hoursLeft;
-  document.getElementById('mins-left-final').textContent = minsLeftFinal;
+  document.getElementById('aariz-mins-passed').textContent = minutesPassed;
+  document.getElementById('aariz-mins-left').textContent = minutesLeft;
+  document.getElementById('aariz-hours-left').textContent = hoursLeft;
+  document.getElementById('aariz-mins-left-final').textContent = minsLeftFinal;
 }
 
 buildDots();
+window.aariz_copyReflection = aariz_copyReflection;
 updateClock();
 setInterval(updateClock, 1000);
+})();
+</script>
+<script>
+(function() {
+const TOTAL = 8;
+let cur = 1;
+
+function buildDots() {
+  const c = document.getElementById('afraz-nav-dots');
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('button');
+    d.className = 'nav-dot' + (i === 1 ? ' active' : '');
+    d.setAttribute('aria-label', 'Page ' + i);
+    d.onclick = () => goTo(i);
+    c.appendChild(d);
+  }
+}
+
+function goTo(n) {
+  document.getElementById('afraz-page-' + cur).classList.remove('active');
+  document.getElementById('afraz-nav-dots').querySelectorAll('.nav-dot')[cur - 1].classList.remove('active');
+  cur = n;
+  document.getElementById('afraz-page-' + cur).classList.add('active');
+  const dots = document.getElementById('afraz-nav-dots').querySelectorAll('.nav-dot');
+  dots[cur - 1].classList.add('active');
+  for (let i = 0; i < cur - 1; i++) dots[i].classList.add('done');
+  document.getElementById('afraz-prev-btn').disabled = cur === 1;
+  document.getElementById('afraz-next-btn').disabled = cur === TOTAL;
+  window.scrollTo(0, 0);
+}
+
+function afraz_changePage(dir) { goTo(Math.min(Math.max(cur + dir, 1), TOTAL)); }
+window.afraz_changePage = afraz_changePage;
+
+buildDots();
+})();
 </script>
 </body>
 </html>
