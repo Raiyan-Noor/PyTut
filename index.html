@@ -3,944 +3,548 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Python Class — Weekly Assignments</title>
+<title>Python Class — Assignment Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg: #FDF8F0; --surface: #FFFFFF; --surface2: #FBF6FF; --surface3: #F5EFFC;
-  --border: #EFE4F9; --border2: #E2D1F5;
-  --text: #4A3F55; --muted: #C7BBD9; --muted2: #9A8CAE;
-  --purple: #8A63D2; --purple-bg: #F1EAFC; --purple-border: #DCC5F2;
-  --green: #3EAE87; --green-bg: #E5F8F0; --green-border: #BCEBD9;
-  --amber: #D6941F; --amber-bg: #FFF3DC; --amber-border: #FBE0A6;
-  --coral: #E67E56; --coral-bg: #FFEEE5; --coral-border: #FBD2BC;
-  --blue: #4796C4; --blue-bg: #E7F4FB; --blue-border: #C4E4F5;
-  --pink: #E17B9E; --pink-bg: #FFECF2; --pink-border: #FBCEDF;
-  --mono: 'Courier New', monospace;
-  --heading-font: 'Quicksand', system-ui, sans-serif;
-  --body-font: 'Nunito', system-ui, -apple-system, sans-serif;
+  --bg: #FFFCF2;
+  --ink: #14141A;
+  --white: #FFFFFF;
+  --yellow: #FFD400;
+  --pink: #FF3E7F;
+  --blue: #2F6FFF;
+  --green: #00C853;
+  --orange: #FF6D28;
+  --purple: #8B5CF6;
+  --border-w: 3px;
+  --shadow: 5px 5px 0 var(--ink);
+  --shadow-sm: 3px 3px 0 var(--ink);
+  --mono: 'JetBrains Mono', 'Courier New', monospace;
+  --head-font: 'Archivo Black', sans-serif;
+  --body-font: 'Work Sans', sans-serif;
 }
-body { background: var(--bg); color: var(--text); font-family: var(--body-font); min-height: 100vh; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body-font); min-height: 100vh; }
 
 /* NAV */
-.nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 26px; background: var(--surface); position: sticky; top: 0; z-index: 100; gap: 12px; box-shadow: 0 2px 14px rgba(140,100,190,0.08); }
-.nav-logo { font-family: var(--heading-font); font-size: 13px; font-weight: 700; color: var(--purple); letter-spacing: 0.04em; white-space: nowrap; }
-.nav-pages { display: flex; gap: 5px; flex-wrap: wrap; }
-.nav-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border2); border: none; cursor: pointer; padding: 0; transition: background 0.2s, transform 0.2s; }
-.nav-dot.active { background: var(--purple); transform: scale(1.25); }
-.nav-dot.done { background: var(--green); }
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 22px; background: var(--white); border-bottom: var(--border-w) solid var(--ink); position: sticky; top: 0; z-index: 100; gap: 12px; flex-wrap: wrap; }
+.nav-logo { font-family: var(--head-font); font-size: 13px; letter-spacing: 0.02em; white-space: nowrap; text-transform: uppercase; }
+.home-btn { background: var(--white); border: var(--border-w) solid var(--ink); color: var(--ink); padding: 6px 14px; font-family: var(--body-font); font-weight: 700; font-size: 12px; cursor: pointer; box-shadow: var(--shadow-sm); transition: all 0.1s; text-transform: uppercase; }
+.home-btn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+.page-index { display: flex; gap: 5px; flex-wrap: wrap; }
+.page-num { width: 28px; height: 28px; border: 2.5px solid var(--ink); background: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; cursor: pointer; box-shadow: 2px 2px 0 var(--ink); transition: all 0.1s; font-family: var(--body-font); color: var(--ink); }
+.page-num:hover { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--ink); }
+.page-num.active { background: var(--yellow); }
+.page-num.done { background: var(--green); color: var(--white); }
 .nav-arrows { display: flex; gap: 8px; }
-.nav-btn { background: var(--purple-bg); border: 1px solid var(--purple-border); color: var(--purple); padding: 7px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-.nav-btn:hover:not(:disabled) { background: var(--purple); color: #fff; }
-.nav-btn:disabled { opacity: 0.35; cursor: default; }
+.nav-btn { background: var(--white); border: var(--border-w) solid var(--ink); color: var(--ink); padding: 6px 16px; font-size: 12px; font-weight: 700; cursor: pointer; box-shadow: var(--shadow-sm); transition: all 0.1s; text-transform: uppercase; font-family: var(--body-font); }
+.nav-btn:hover:not(:disabled) { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+.nav-btn:disabled { opacity: 0.3; cursor: default; box-shadow: none; }
 
 /* LAYOUT */
-.page { display: none; max-width: 720px; margin: 0 auto; padding: 40px 24px 90px; }
+.screen { display: none; }
+.screen.visible { display: block; }
+.page { display: none; max-width: 720px; margin: 0 auto; padding: 40px 22px 90px; }
 .page.active { display: block; }
-.progress-bar { height: 6px; background: var(--border); border-radius: 100px; margin-bottom: 34px; overflow: hidden; }
-.progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--pink)); border-radius: 100px; transition: width 0.4s; }
-.eyebrow { font-family: var(--heading-font); font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted2); margin-bottom: 8px; }
-h1 { font-family: var(--heading-font); font-size: 27px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; color: #3D3350; }
-h2 { font-family: var(--heading-font); font-size: 18px; font-weight: 700; margin-bottom: 12px; margin-top: 30px; color: #3D3350; }
-h3 { font-family: var(--heading-font); font-size: 13px; font-weight: 700; margin-bottom: 10px; margin-top: 18px; color: var(--muted2); text-transform: uppercase; letter-spacing: 0.05em; }
-p { font-size: 15px; line-height: 1.75; color: #6B5F7D; margin-bottom: 10px; }
-strong { color: #3D3350; font-weight: 700; }
-.accent-bar { width: 42px; height: 5px; background: linear-gradient(90deg, var(--purple), var(--pink)); border-radius: 100px; margin-bottom: 22px; }
-hr { border: none; border-top: 2px dashed var(--border2); margin: 30px 0; }
-code { font-family: var(--mono); font-size: 12.5px; background: var(--purple-bg); padding: 2px 7px; border-radius: 6px; color: #7A4FC7; font-weight: 600; }
+.eyebrow { display: inline-block; font-family: var(--body-font); font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; background: var(--ink); color: var(--white); padding: 4px 12px; margin-bottom: 14px; }
+h1 { font-family: var(--head-font); font-size: 26px; line-height: 1.25; margin-bottom: 12px; text-transform: uppercase; }
+h2 { font-family: var(--head-font); font-size: 17px; margin-bottom: 12px; margin-top: 30px; text-transform: uppercase; }
+h3 { font-family: var(--body-font); font-size: 13px; font-weight: 800; margin-bottom: 8px; margin-top: 16px; text-transform: uppercase; letter-spacing: 0.04em; }
+p { font-size: 15px; line-height: 1.7; color: #2A2A33; margin-bottom: 11px; }
+strong { color: var(--ink); font-weight: 700; }
+hr { border: none; border-top: var(--border-w) dashed var(--ink); margin: 30px 0; }
+code { font-family: var(--mono); font-size: 12px; background: var(--yellow); padding: 2px 6px; border: 1.5px solid var(--ink); font-weight: 600; }
 
 /* CARDS */
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 20px 22px; margin-bottom: 16px; box-shadow: 0 3px 14px rgba(150,120,190,0.06); }
-.card-p { border-left: 5px solid var(--purple); }
-.card-g { border-left: 5px solid var(--green); }
-.card-a { border-left: 5px solid var(--amber); }
-.card-c { border-left: 5px solid var(--coral); }
-.card-b { border-left: 5px solid var(--blue); }
+.card { background: var(--white); border: var(--border-w) solid var(--ink); padding: 18px 20px; margin-bottom: 16px; box-shadow: var(--shadow); }
+.card-yellow { background: #FFF7D1; }
+.card-pink { background: #FFE3ED; }
+.card-blue { background: #E3ECFF; }
+.card-green { background: #DFFAEA; }
+.card-orange { background: #FFE9DB; }
+.card-purple { background: #F0E9FF; }
 
 /* CODE */
-.code { background: #FAF6FF; border: 1px solid var(--border2); border-radius: 14px; padding: 16px 18px; font-family: var(--mono); font-size: 12.5px; line-height: 1.9; margin: 12px 0; overflow-x: auto; white-space: pre; color: #5B4E6E; }
-.kw { color: #9455D3; font-weight: 700; }
-.st { color: #2E9E76; }
-.fn { color: #D67A45; }
-.cm { color: #B3A5C4; font-style: italic; }
-.nm { color: #3C87B8; }
-.pass-line { background: var(--amber-bg); display: block; margin: 0 -18px; padding: 2px 18px; color: #B5791A; font-weight: 700; border-radius: 8px; }
+.code-wrap { border: var(--border-w) solid var(--ink); margin: 12px 0; box-shadow: var(--shadow); }
+.code-head { background: var(--ink); color: var(--white); font-family: var(--body-font); font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; }
+.code { background: #14141A; padding: 14px 16px; font-family: var(--mono); font-size: 12px; line-height: 1.85; overflow-x: auto; white-space: pre; color: #E8E8F0; }
+.kw { color: #FF9DC5; font-weight: 600; }
+.st { color: #7CE8A4; }
+.fn { color: #FFD46B; }
+.cm { color: #6B6B7A; font-style: italic; }
+.nm { color: #8FC7FF; }
 
 /* CHECKLIST */
 .checklist { list-style: none; margin: 10px 0; }
-.checklist li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #6B5F7D; padding: 9px 0; border-bottom: 1px dashed var(--border); line-height: 1.55; }
+.checklist li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #2A2A33; padding: 8px 0; border-bottom: 2px dashed #ccc; line-height: 1.55; }
 .checklist li:last-child { border-bottom: none; }
-.cb { width: 17px; height: 17px; border: 2px solid var(--border2); border-radius: 6px; flex-shrink: 0; margin-top: 2px; background: var(--surface); }
+.cb { width: 16px; height: 16px; border: 2.5px solid var(--ink); flex-shrink: 0; margin-top: 2px; background: var(--white); }
 
 /* PILLS */
-.pill { display: inline-block; font-size: 11px; padding: 4px 12px; border-radius: 100px; font-weight: 700; margin-right: 5px; margin-bottom: 5px; }
-.pp { background: var(--purple-bg); color: var(--purple); }
-.pg { background: var(--green-bg); color: var(--green); }
-.pa { background: var(--amber-bg); color: var(--amber); }
-.pc { background: var(--coral-bg); color: var(--coral); }
-.pb { background: var(--blue-bg); color: var(--blue); }
-
-/* FUNCTION CARDS */
-.func-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 20px 22px; margin-bottom: 18px; box-shadow: 0 3px 14px rgba(150,120,190,0.06); }
-.func-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-.func-num { width: 30px; height: 30px; border-radius: 50%; background: var(--purple-bg); border: 2px solid var(--purple-border); color: var(--purple); display: flex; align-items: center; justify-content: center; font-family: var(--heading-font); font-size: 13px; font-weight: 700; flex-shrink: 0; }
-.func-name { font-family: var(--mono); font-size: 14px; font-weight: 700; color: #3D3350; }
-.func-desc { font-size: 14px; color: #6B5F7D; line-height: 1.65; margin-bottom: 10px; }
-.contract { background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 12px; padding: 10px 14px; font-size: 12.5px; color: #2E7196; margin: 10px 0; line-height: 1.6; }
-.contract strong { color: #2E7196; }
-
-/* HINTS */
-.hint-btn { background: var(--surface2); border: 1.5px solid var(--border2); color: var(--muted2); font-size: 12.5px; font-weight: 600; padding: 6px 14px; border-radius: 999px; cursor: pointer; margin-top: 10px; transition: all 0.15s; }
-.hint-btn:hover { border-color: var(--amber); color: var(--amber); background: var(--amber-bg); }
-.hint { background: var(--amber-bg); border: 1px solid var(--amber-border); border-radius: 12px; padding: 12px 16px; font-size: 13.5px; color: #A5691A; margin-top: 10px; display: none; line-height: 1.65; }
-.hint.show { display: block; }
+.pill { display: inline-block; font-size: 11px; padding: 4px 12px; font-weight: 800; margin-right: 5px; margin-bottom: 5px; border: 2px solid var(--ink); text-transform: uppercase; }
+.p-yellow { background: var(--yellow); }
+.p-pink { background: var(--pink); color: var(--white); }
+.p-blue { background: var(--blue); color: var(--white); }
+.p-green { background: var(--green); color: var(--white); }
+.p-orange { background: var(--orange); color: var(--white); }
 
 /* BUTTONS */
-.next-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--purple), #B48CE8); border: none; color: #fff; padding: 12px 26px; border-radius: 999px; font-size: 14.5px; font-weight: 700; cursor: pointer; margin-top: 22px; transition: all 0.15s; box-shadow: 0 4px 14px rgba(138,99,210,0.3); }
-.next-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(138,99,210,0.4); }
+.next-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--yellow); border: var(--border-w) solid var(--ink); color: var(--ink); padding: 12px 26px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 20px; transition: all 0.1s; box-shadow: var(--shadow); text-transform: uppercase; font-family: var(--body-font); }
+.next-btn:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--ink); }
 
-/* WARN / TIP */
-.warn { background: var(--coral-bg); border: 1px solid var(--coral-border); border-radius: 14px; padding: 14px 18px; font-size: 13.5px; color: #B85A34; margin: 14px 0; line-height: 1.65; }
-.tip { background: var(--green-bg); border: 1px solid var(--green-border); border-radius: 14px; padding: 14px 18px; font-size: 13.5px; color: #257A5B; margin: 14px 0; line-height: 1.65; }
+/* WARN/TIP */
+.warn { background: #FFE3E3; border: var(--border-w) solid var(--ink); padding: 14px 18px; font-size: 13.5px; margin: 14px 0; line-height: 1.6; box-shadow: var(--shadow-sm); }
+.tip { background: #DFFAEA; border: var(--border-w) solid var(--ink); padding: 14px 18px; font-size: 13.5px; margin: 14px 0; line-height: 1.6; box-shadow: var(--shadow-sm); }
+.fact { background: #F0E9FF; border: var(--border-w) solid var(--ink); padding: 14px 18px; font-size: 13.5px; margin: 14px 0; line-height: 1.6; box-shadow: var(--shadow-sm); }
 
-/* LIVE CLOCK */
-.clock-box { background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 20px; padding: 22px; margin: 16px 0; text-align: center; }
-.clock-time { font-family: var(--mono); font-size: 30px; font-weight: 700; color: #2E7196; letter-spacing: 0.05em; }
-.clock-sub { font-size: 12.5px; color: #5A93B3; margin-top: 8px; font-weight: 600; }
-.clock-calc { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; text-align: left; }
-.clock-stat { background: var(--surface); border-radius: 12px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(70,140,180,0.08); }
-.clock-stat-label { font-size: 10px; color: #6FA5C2; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; font-weight: 700; }
-.clock-stat-val { font-family: var(--mono); font-size: 16px; color: #2E9E76; font-weight: 700; }
+/* HINT */
+.hint-btn { background: var(--white); border: 2.5px solid var(--ink); color: var(--ink); font-size: 12px; font-weight: 700; padding: 6px 14px; cursor: pointer; margin-top: 8px; box-shadow: 2px 2px 0 var(--ink); transition: all 0.1s; text-transform: uppercase; }
+.hint-btn:hover { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--ink); }
+.hint { background: #FFF7D1; border: var(--border-w) solid var(--ink); padding: 10px 14px; font-size: 13px; margin-top: 8px; display: none; line-height: 1.6; box-shadow: var(--shadow-sm); }
+.hint.show { display: block; }
 
-/* DISCORD (kept true to actual Discord dark UI on purpose) */
-.discord-box { background: #36393f; border-radius: 16px; padding: 20px 22px; margin: 16px 0; }
+/* PROBLEM CARD */
+.problem-card { background: var(--white); border: var(--border-w) solid var(--ink); padding: 18px 20px; margin-bottom: 14px; box-shadow: var(--shadow); }
+.problem-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.problem-num { width: 30px; height: 30px; background: var(--pink); border: var(--border-w) solid var(--ink); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--head-font); font-size: 13px; flex-shrink: 0; }
+.problem-title { font-size: 14px; font-weight: 800; text-transform: uppercase; }
+.problem-desc { font-size: 14px; color: #2A2A33; line-height: 1.65; margin-bottom: 6px; }
+.expected { background: var(--ink); color: #7CE8A4; border: var(--border-w) solid var(--ink); padding: 8px 12px; font-family: var(--mono); font-size: 12px; margin-top: 8px; }
+
+/* EXAMPLE GRID */
+.example-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+@media (max-width: 560px) { .example-grid { grid-template-columns: 1fr; } }
+.example-box { background: var(--white); border: var(--border-w) solid var(--ink); padding: 14px 16px; box-shadow: var(--shadow-sm); }
+.example-icon { font-size: 22px; margin-bottom: 8px; }
+.example-title { font-family: var(--head-font); font-size: 12px; margin-bottom: 4px; text-transform: uppercase; }
+.example-desc { font-size: 12.5px; color: #444; line-height: 1.55; }
+
+/* DISCORD */
+.discord-box { background: #36393f; border: var(--border-w) solid var(--ink); padding: 20px 22px; margin: 16px 0; box-shadow: var(--shadow); }
 .discord-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .discord-av { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: white; background: #5865F2; }
 .discord-name { font-size: 13px; font-weight: 600; color: #fff; }
 .discord-msg { font-size: 13px; color: #dcddde; line-height: 1.6; }
-.discord-code { background: #2f3136; border-radius: 8px; padding: 12px 14px; font-family: var(--mono); font-size: 12px; color: #dcddde; margin-top: 8px; white-space: pre; overflow-x: auto; line-height: 1.7; }
+.discord-code { background: #2f3136; padding: 12px 14px; font-family: var(--mono); font-size: 12px; color: #dcddde; margin-top: 8px; white-space: pre; overflow-x: auto; line-height: 1.7; }
 
-/* REFLECTION */
-.reflect-q { font-size: 13.5px; color: #3D3350; margin-bottom: 6px; font-weight: 700; }
-textarea.reflect-box { width: 100%; background: var(--surface2); border: 1.5px solid var(--border2); border-radius: 14px; color: var(--text); font-family: var(--body-font); font-size: 14px; padding: 14px 16px; resize: vertical; min-height: 100px; outline: none; margin-bottom: 18px; line-height: 1.6; }
-textarea.reflect-box:focus { border-color: var(--purple); }
-.copy-btn { background: var(--green-bg); border: 1.5px solid var(--green-border); color: var(--green); padding: 10px 22px; border-radius: 999px; font-size: 13.5px; font-weight: 700; cursor: pointer; margin-top: 6px; transition: all 0.15s; }
-.copy-btn:hover { background: var(--green); color: #fff; }
-.copy-status { font-size: 12.5px; color: var(--green); margin-left: 10px; display: none; font-weight: 600; }
-.copy-status.show { display: inline; }
+/* ONLY TAG */
+.only-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--ink); color: var(--white); font-size: 11px; font-weight: 800; padding: 5px 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.03em; }
 
-.only-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--pink-bg); border: 1px solid var(--pink-border); color: var(--pink); font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 999px; margin-bottom: 16px; letter-spacing: 0.03em; text-transform: uppercase; }
-
-
-.topic-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--heading-font); font-size: 13px; font-weight: 700; padding: 6px 16px; border-radius: 999px; margin-bottom: 16px; }
-.problem-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 18px 20px; margin-bottom: 14px; box-shadow: 0 3px 14px rgba(150,120,190,0.06); }
-.problem-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.problem-num { width: 26px; height: 26px; border-radius: 50%; background: var(--purple-bg); border: 2px solid var(--purple-border); color: var(--purple); display: flex; align-items: center; justify-content: center; font-family: var(--heading-font); font-size: 12px; font-weight: 700; flex-shrink: 0; }
-.problem-title { font-size: 14px; font-weight: 700; color: #3D3350; }
-.problem-desc { font-size: 14px; color: #6B5F7D; line-height: 1.65; margin-bottom: 6px; }
-.expected { background: var(--green-bg); border: 1px solid var(--green-border); border-radius: 10px; padding: 8px 12px; font-family: var(--mono); font-size: 12px; color: #257A5B; margin-top: 8px; }
-.progress-tracker { display: flex; gap: 6px; margin: 4px 0 22px; }
-.pt-item { flex: 1; height: 8px; border-radius: 100px; background: var(--border); }
-.pt-item.filled { background: var(--purple); }
-
-
-/* LANDING + SHARED ROUTER STYLES */
-.screen { display: none; }
-.screen.visible { display: block; }
-.home-btn { background: var(--surface2); border: 1px solid var(--border2); color: var(--muted2); padding: 6px 14px; border-radius: 999px; font-size: 12.5px; font-weight: 600; cursor: pointer; margin-left: 8px; transition: all 0.15s; }
-.home-btn:hover { border-color: var(--purple); color: var(--purple); }
-
-.landing-wrap { max-width: 760px; margin: 0 auto; padding: 60px 24px; text-align: center; }
-.landing-eyebrow { font-family: var(--heading-font); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted2); margin-bottom: 10px; }
-.landing-title { font-family: var(--heading-font); font-size: 34px; font-weight: 700; color: #3D3350; margin-bottom: 12px; }
-.landing-sub { font-size: 16px; color: #6B5F7D; margin-bottom: 44px; }
+/* LANDING */
+.landing-wrap { max-width: 780px; margin: 0 auto; padding: 60px 22px; text-align: center; }
+.landing-badge { display: inline-block; background: var(--ink); color: var(--white); font-family: var(--body-font); font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; margin-bottom: 20px; }
+.landing-title { font-family: var(--head-font); font-size: 36px; line-height: 1.2; margin-bottom: 14px; text-transform: uppercase; }
+.landing-title span { background: var(--yellow); padding: 0 8px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.landing-sub { font-size: 16px; color: #444; margin-bottom: 44px; }
 .landing-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
 @media (max-width: 620px) { .landing-cards { grid-template-columns: 1fr; } }
-.landing-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 36px 28px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 18px rgba(150,120,190,0.08); text-align: left; }
-.landing-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(150,120,190,0.16); }
-.landing-avatar { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--heading-font); font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 18px; }
-.landing-name { font-family: var(--heading-font); font-size: 20px; font-weight: 700; color: #3D3350; margin-bottom: 6px; }
-.landing-desc { font-size: 13.5px; color: #6B5F7D; line-height: 1.6; margin-bottom: 16px; }
+.landing-card { background: var(--white); border: 4px solid var(--ink); padding: 32px 26px; cursor: pointer; transition: all 0.12s; box-shadow: 7px 7px 0 var(--ink); text-align: left; }
+.landing-card:hover { transform: translate(-3px,-3px); box-shadow: 10px 10px 0 var(--ink); }
+.landing-avatar { width: 60px; height: 60px; border: var(--border-w) solid var(--ink); display: flex; align-items: center; justify-content: center; font-family: var(--head-font); font-size: 24px; color: var(--ink); margin-bottom: 16px; }
+.landing-name { font-family: var(--head-font); font-size: 20px; margin-bottom: 8px; text-transform: uppercase; }
+.landing-desc { font-size: 13.5px; color: #444; line-height: 1.6; margin-bottom: 16px; }
 .landing-meta { display: flex; gap: 6px; flex-wrap: wrap; }
-.landing-go { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--purple); margin-top: 14px; }
-
+.landing-go { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; margin-top: 16px; text-transform: uppercase; background: var(--ink); color: var(--white); padding: 8px 16px; }
 </style>
 </head>
 <body>
 
-
+<!-- ============================================================ LANDING ============================================================ -->
 <div class="screen visible" id="screen-landing">
   <div class="landing-wrap">
-    <div class="landing-eyebrow">Weekly Python class</div>
-    <div class="landing-title">Pick your assignment 👋</div>
-    <p class="landing-sub">Two separate tasks below — find your name and tap in.</p>
+    <span class="landing-badge">Weekly Python Class</span>
+    <h1 class="landing-title">Pick your <span>assignment</span></h1>
+    <p class="landing-sub">Two different tasks below. Find your name, tap the card.</p>
     <div class="landing-cards">
 
       <div class="landing-card" onclick="showScreen('aariz')">
-        <div class="landing-avatar" style="background:linear-gradient(135deg,#8A63D2,#B48CE8);">A</div>
+        <div class="landing-avatar" style="background:var(--yellow);">A</div>
         <div class="landing-name">Aariz</div>
-        <div class="landing-desc">Code completion — build the logic for a Habit Tracker app. Functions, lists, and device time.</div>
+        <div class="landing-desc">Real APIs, a real key, and a chatbot with a specific job. This time it's cloud AI via OpenRouter.</div>
         <div class="landing-meta">
-          <span class="pill pp">functions</span>
-          <span class="pill pg">lists</span>
-          <span class="pill pb">datetime</span>
+          <span class="pill p-blue">apis</span>
+          <span class="pill p-pink">api keys</span>
+          <span class="pill p-orange">openrouter</span>
         </div>
-        <div class="landing-go">Start assignment &#8594;</div>
+        <div class="landing-go">Start &rarr;</div>
       </div>
 
       <div class="landing-card" onclick="showScreen('afraz')">
-        <div class="landing-avatar" style="background:linear-gradient(135deg,#E17B9E,#F0A8C0);">A</div>
+        <div class="landing-avatar" style="background:var(--pink);color:var(--white);">A</div>
         <div class="landing-name">Afraz</div>
-        <div class="landing-desc">Quick recap — 12 small problems covering everything from strings through lists.</div>
+        <div class="landing-desc">Functions, explained properly, then three problems to prove it stuck.</div>
         <div class="landing-meta">
-          <span class="pill pp">strings</span>
-          <span class="pill pa">conditionals</span>
-          <span class="pill pc">loops</span>
+          <span class="pill p-yellow">functions</span>
+          <span class="pill p-green">practice</span>
         </div>
-        <div class="landing-go">Start assignment &#8594;</div>
+        <div class="landing-go">Start &rarr;</div>
       </div>
 
     </div>
   </div>
 </div>
 
+<!-- ============================================================ AARIZ SCREEN ============================================================ -->
 <div class="screen" id="screen-aariz">
 
-
 <nav class="nav">
-  <span class="nav-logo">Habit Tracker</span>
+  <span class="nav-logo">Aariz &middot; Real APIs</span>
   <button class="home-btn" onclick="showScreen('landing')">&#8962; Home</button>
-  <div class="nav-pages" id="aariz-nav-dots"></div>
+  <div class="page-index" id="aariz-nav-dots"></div>
   <div class="nav-arrows">
-    <button class="nav-btn" id="aariz-prev-btn" onclick="aariz_changePage(-1)" disabled>&#8592; back</button>
-    <button class="nav-btn" id="aariz-next-btn" onclick="aariz_changePage(1)">next &#8594;</button>
+    <button class="nav-btn" id="aariz-prev-btn" onclick="aariz_changePage(-1)" disabled>Back</button>
+    <button class="nav-btn" id="aariz-next-btn" onclick="aariz_changePage(1)">Next</button>
   </div>
 </nav>
 
-<!-- PAGE 1: INTRO -->
 <div class="page active" id="aariz-page-1">
-  <div class="progress-bar"><div class="progress-fill" style="width:9%"></div></div>
-  <span class="only-tag">🔒 For Aariz only</span>
-  <div class="eyebrow">Code completion assignment</div>
-  <h1>Build your own Habit Tracker</h1>
-  <div class="accent-bar"></div>
-  <p>Aariz — this one's just for you. You track a lot of stuff already: piano, football, basketball. Let's build a real program that tracks it for you.</p>
-  <p>This isn't a "type what I show you" assignment. Every function below is already defined — the name, the inputs, what it's supposed to do. Your job is to write the logic that goes inside. Where you see <code>pass</code>, that's where your code goes.</p>
+  <span class="only-tag">For Aariz only</span>
+  <div class="eyebrow">Level Up</div>
+  <h1>Real APIs, Real Keys</h1>
+  <p>Everything you've built so far ran entirely on your own laptop - Ollama, local models, zero cost, zero internet needed. Today you're stepping up to what real companies actually use: a cloud AI, accessed through a proper API, with your own personal key.</p>
 
-  <div class="card card-p">
-    <h3>Why it's built this way</h3>
-    <p style="margin:0;">Raiyan is building a proper UI for this app separately — buttons, screens, the whole thing. Your functions are the engine underneath it. That means each function needs to <strong>return</strong> the right thing, not just print — because the UI will grab whatever your function hands back and display it.</p>
-  </div>
-
-  <div class="card card-g">
+  <div class="card card-blue">
     <h3>What's in this assignment</h3>
     <ul class="checklist">
-      <li><div class="cb"></div>New knowledge: reading the device clock, two new maths operators</li>
-      <li><div class="cb"></div>8 functions to complete — logic only, structure is given</li>
-      <li><div class="cb"></div>A finished <code>main()</code> function — I wrote this one, you just paste it in</li>
-      <li><div class="cb"></div>Testing + submission on Discord</li>
-      <li><div class="cb"></div>A reflection — explain your logic in your own words</li>
+      <li><div class="cb"></div>What an API actually is - properly explained, with real examples</li>
+      <li><div class="cb"></div>What an API key is, and how to handle one safely</li>
+      <li><div class="cb"></div>Rebuild your basic chatbot - using OpenRouter this time</li>
+      <li><div class="cb"></div>The real challenge: design a different bot with a specific job</li>
     </ul>
   </div>
 
-  <div class="warn">⚠️ No dictionaries this time — everything is built with lists, functions, loops, and if/elif/else. Stuff you already know.</div>
+  <div class="fact">Raiyan is giving you a real OpenRouter API key today. That's a genuinely big deal - treat it the way you'd treat a password, because that's exactly what it is.</div>
 
-  <button class="next-btn" onclick="aariz_changePage(1)">let's go &#8594;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">What is an API? &rarr;</button>
 </div>
 
-<!-- PAGE 2: KNOWLEDGE - DEVICE TIME -->
 <div class="page" id="aariz-page-2">
-  <div class="progress-bar"><div class="progress-fill" style="width:18%"></div></div>
-  <div class="eyebrow">New knowledge</div>
-  <h1>Reading the clock on your device</h1>
-  <div class="accent-bar"></div>
-  <p>One of your functions needs to know what time it is right now, and calculate how many hours are left until midnight. Python has a built-in way to check the device clock.</p>
+  <div class="eyebrow">The Concept, Properly Explained</div>
+  <h1>What Actually Is an API?</h1>
+  <p><strong>API</strong> stands for Application Programming Interface. Forget the words for a second and think of it like this instead:</p>
 
-  <div class="code"><span class="kw">import</span> datetime
+  <div class="card card-purple">
+    <p style="margin:0;">An API is a set of rules that lets one piece of software ask another piece of software for something, and get an answer back - without needing to know how that other software works on the inside. You just need to know what to ask for, and how to ask.</p>
+  </div>
 
-now = datetime.datetime.now()
+  <p>Here's the same idea, in places you've used a hundred times without realising it was an API:</p>
 
-<span class="fn">print</span>(now.hour)     <span class="cm"># current hour, 0 to 23</span>
-<span class="fn">print</span>(now.minute)   <span class="cm"># current minute, 0 to 59</span></div>
-
-  <p>That's it. <code>datetime.datetime.now()</code> grabs the current time from your computer. <code>.hour</code> and <code>.minute</code> pull out the two numbers you need.</p>
-
-  <h3>Live demo — this is your actual browser time right now</h3>
-  <div class="clock-box">
-    <div class="clock-time" id="aariz-live-clock">--:--:--</div>
-    <div class="clock-sub">your device's current time</div>
-    <div class="clock-calc">
-      <div class="clock-stat">
-        <div class="clock-stat-label">minutes passed today</div>
-        <div class="clock-stat-val" id="aariz-mins-passed">--</div>
-      </div>
-      <div class="clock-stat">
-        <div class="clock-stat-label">minutes left till midnight</div>
-        <div class="clock-stat-val" id="aariz-mins-left">--</div>
-      </div>
-      <div class="clock-stat">
-        <div class="clock-stat-label">hours left</div>
-        <div class="clock-stat-val" id="aariz-hours-left">--</div>
-      </div>
-      <div class="clock-stat">
-        <div class="clock-stat-label">+ minutes left</div>
-        <div class="clock-stat-val" id="aariz-mins-left-final">--</div>
-      </div>
+  <div class="example-grid">
+    <div class="example-box">
+      <div class="example-icon">&#127788;</div>
+      <div class="example-title">Weather App</div>
+      <div class="example-desc">Your phone doesn't know the weather itself - it asks a weather service's API and gets data back.</div>
+    </div>
+    <div class="example-box">
+      <div class="example-icon">&#128506;</div>
+      <div class="example-title">Maps App</div>
+      <div class="example-desc">When you search a place, your app asks a maps API "where is this?" and gets back coordinates, a route.</div>
+    </div>
+    <div class="example-box">
+      <div class="example-icon">&#127829;</div>
+      <div class="example-title">Food Delivery</div>
+      <div class="example-desc">The app asks a restaurant's API "what's on the menu, is it open?" and displays whatever comes back.</div>
+    </div>
+    <div class="example-box">
+      <div class="example-icon">&#127918;</div>
+      <div class="example-title">Game Leaderboard</div>
+      <div class="example-desc">Your score gets sent to an API, which stores it and sends back everyone else's scores.</div>
     </div>
   </div>
-  <p style="font-size:12px;color:var(--muted2);">(This box uses JavaScript just to show you the idea live in your browser. Your actual code will do this same maths in Python.)</p>
 
-  <h3>Turning hour + minute into "time left"</h3>
-  <p>Here's the maths, step by step:</p>
+  <p>Notice the pattern in every one: <strong>you ask for something specific, and you get a specific answer back.</strong> That's genuinely the whole idea.</p>
 
-  <div class="code"><span class="cm"># step 1: how many minutes have passed since midnight?</span>
-minutes_passed = now.hour * <span class="nm">60</span> + now.minute
+  <div class="tip">You've actually used an API before - Ollama. ollama.chat() was you asking a program (running locally) a question and getting an answer. Today's different only in where that program lives - not your laptop, but a company's servers.</div>
 
-<span class="cm"># step 2: how many minutes are left until midnight?</span>
-minutes_left = (<span class="nm">24</span> * <span class="nm">60</span>) - minutes_passed
-
-<span class="cm"># step 3: convert minutes_left into hours + minutes</span>
-hours_left = minutes_left <span class="kw">//</span> <span class="nm">60</span>
-mins_left  = minutes_left <span class="kw">%</span> <span class="nm">60</span></div>
-
-  <div class="card card-b">
-    <h3>Two new symbols</h3>
-    <p style="margin-bottom:6px;"><code>//</code> — <strong>floor division.</strong> Normal division but it throws away the decimal. <code>130 // 60</code> gives <code>2</code> (2 whole hours, ignoring the remainder).</p>
-    <p style="margin:0;"><code>%</code> — <strong>modulo.</strong> Gives you the leftover after dividing. <code>130 % 60</code> gives <code>10</code> (10 minutes left over after those 2 hours).</p>
-  </div>
-
-  <div class="tip">Together, <code>//</code> and <code>%</code> split any number of minutes into clean hours + minutes. This trick works anywhere you need to convert a big number into two friendlier ones — you'll use it again later.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">got it &#8594;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">What is an API key? &rarr;</button>
 </div>
 
-<!-- PAGE 3: KNOWLEDGE - LIST MUTATION -->
 <div class="page" id="aariz-page-3">
-  <div class="progress-bar"><div class="progress-fill" style="width:27%"></div></div>
-  <div class="eyebrow">New knowledge</div>
-  <h1>Changing a list from inside a function</h1>
-  <div class="accent-bar"></div>
-  <p>You'll write two functions that add and remove habits from a list. Here's something that'll feel a little different from what you're used to.</p>
+  <div class="eyebrow">The Important Part</div>
+  <h1>What Is an API Key?</h1>
+  <p>Ollama never needed a key, because it ran on your own computer - nobody else could use it but you. A cloud API is different: it's a shared service thousands of people use, running on someone else's servers. The company needs to know who is asking.</p>
 
-  <div class="code">habits = [<span class="st">"Piano"</span>, <span class="st">"Football"</span>]
+  <div class="card card-orange">
+    <h3>Why Keys Exist</h3>
+    <p style="margin:0;">An API key is like a personal password that identifies you to the service. It lets the company track which requests are yours, how much you've used, and stop random strangers using their AI for free on your account.</p>
+  </div>
 
-<span class="kw">def</span> <span class="fn">add_one</span>(the_list, item):
-    the_list.append(item)
-    <span class="cm"># notice: no return!</span>
+  <h2>The Rules — Take These Seriously</h2>
+  <div class="card" style="background:#FFE3E3;">
+    <ul class="checklist">
+      <li><div class="cb"></div><strong>Never share your key with anyone</strong> - not in Discord, not in a screenshot, nowhere public</li>
+      <li><div class="cb"></div><strong>Never post code containing your key</strong> - blank it out before sharing anything</li>
+      <li><div class="cb"></div><strong>If you think it leaked, tell Raiyan immediately</strong> - keys can be replaced, but only if someone knows to do it</li>
+    </ul>
+  </div>
 
-<span class="fn">add_one</span>(habits, <span class="st">"Basketball"</span>)
-<span class="fn">print</span>(habits)  <span class="cm"># ['Piano', 'Football', 'Basketball']</span></div>
+  <div class="warn">Why this matters: if someone else gets your key, they can use it to make requests that might cost real money, on your account. Treat your key exactly like a bank password.</div>
 
-  <p>Even though <code>add_one</code> never returns anything, the original <code>habits</code> list still changed. That's because lists are <strong>mutable</strong> — when you pass a list into a function, the function is working on the exact same list, not a copy. Anything you do to it inside the function sticks, even without <code>return</code>.</p>
+  <div class="tip">Practical tip: put your key in a variable right at the top of your file, and never paste that file anywhere public.</div>
 
-  <div class="tip">This is different from things like numbers, which get copied when passed into a function. Lists (and later, dictionaries) are handed over directly — changes inside the function are permanent.</div>
-
-  <div class="warn">⚠️ One thing to watch for with removing: if you try to <code>.remove()</code> something that isn't in the list, Python will crash. Always check <code>if item in the_list:</code> before removing it.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">makes sense &#8594;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">Rebuild the chatbot &rarr;</button>
 </div>
 
-<!-- PAGE 4: FUNCTIONS 1-3 (list management) -->
 <div class="page" id="aariz-page-4">
-  <div class="progress-bar"><div class="progress-fill" style="width:38%"></div></div>
-  <div class="eyebrow">Build it — part 1</div>
-  <h1>Managing your habit list</h1>
-  <div class="accent-bar"></div>
-  <p>First three functions. These handle viewing and editing your list of habits.</p>
+  <div class="eyebrow">First Task</div>
+  <h1>Rebuild Your Chatbot with OpenRouter</h1>
+  <p>OpenRouter is a single API that gives you access to hundreds of AI models - GPT, Claude, Gemini, and more - all through one key and one consistent format. Instead of juggling different companies, you write one pattern and can swap models just by changing a name.</p>
 
-  <div class="func-card">
-    <div class="func-header">
-      <div class="func-num">1</div>
-      <span class="func-name">get_default_habits()</span>
-    </div>
-    <p class="func-desc">Returns your starting list of habits: Piano, Football, Basketball. No inputs needed.</p>
-    <div class="contract"><strong>returns:</strong> a list of 3 strings</div>
-    <div class="code"><span class="kw">def</span> <span class="fn">get_default_habits</span>():
-    <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick=\"toggleHint('aariz-h1')\">show hint</button>
-    <div class="hint" id="aariz-h1">Just build a list with square brackets and return it: <code>return ["Piano", "Football", "Basketball"]</code></div>
+  <div class="code-wrap">
+    <div class="code-head">Install</div>
+    <div class="code">pip install requests</div>
   </div>
 
-  <div class="func-card">
-    <div class="func-header">
-      <div class="func-num">2</div>
-      <span class="func-name">list_habits(habits)</span>
-    </div>
-    <p class="func-desc">Prints every habit in the list, numbered, so you can see what you're tracking. Something like "1. Piano", "2. Football".</p>
-    <div class="contract"><strong>takes:</strong> a list &nbsp;·&nbsp; <strong>returns:</strong> nothing — this one just prints</div>
-    <div class="code"><span class="kw">def</span> <span class="fn">list_habits</span>(habits):
-    <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick=\"toggleHint('aariz-h2')\">show hint</button>
-    <div class="hint" id="aariz-h2">Loop with <code>for i in range(len(habits)):</code> so you have access to a position number. Print <code>str(i + 1) + ". " + habits[i]</code> — the +1 makes it start counting from 1 instead of 0.</div>
+  <p>You already have this library from the File Storage & APIs session - OpenRouter works with the exact same tool.</p>
+
+  <div class="code-wrap">
+    <div class="code-head">chatbot.py</div>
+    <div class="code"><span class="kw">import</span> requests
+
+response = requests.post(
+    url=<span class="st">"https://openrouter.ai/api/v1/chat/completions"</span>,
+    headers={<span class="st">"Authorization"</span>: <span class="st">"Bearer YOUR_OPENROUTER_KEY"</span>},
+    json={
+        <span class="st">"model"</span>: <span class="st">"openai/gpt-4o-mini"</span>,
+        <span class="st">"messages"</span>: [
+            {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: <span class="st">"say hello in one sentence"</span>}
+        ]
+    }
+)
+
+data = response.json()
+<span class="fn">print</span>(data[<span class="st">"choices"</span>][<span class="nm">0</span>][<span class="st">"message"</span>][<span class="st">"content"</span>])</div>
   </div>
 
-  <div class="func-card">
-    <div class="func-header">
-      <div class="func-num">3</div>
-      <span class="func-name">add_habit(habits, new_habit)</span>
-    </div>
-    <p class="func-desc">Adds a new habit to the list.</p>
-    <div class="contract"><strong>takes:</strong> the habits list, and the new habit name &nbsp;·&nbsp; <strong>returns:</strong> nothing needed — remember page 3?</div>
-    <div class="code"><span class="kw">def</span> <span class="fn">add_habit</span>(habits, new_habit):
-    <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick=\"toggleHint('aariz-h3')\">show hint</button>
-    <div class="hint" id="aariz-h3">One line: <code>habits.append(new_habit)</code>. No return statement needed — the list changes in place.</div>
-  </div>
+  <div class="fact">Look closely at that last line - a list inside a dictionary, indexed twice, exactly like the trivia API and exactly like your habit tracker. New service, same pattern you already know cold.</div>
 
-  <div class="func-card">
-    <div class="func-header">
-      <div class="func-num">4</div>
-      <span class="func-name">delete_habit(habits, habit_to_remove)</span>
-    </div>
-    <p class="func-desc">Removes a habit from the list — but safely. If the habit isn't in the list, don't crash, just do nothing (or print a message).</p>
-    <div class="contract"><strong>takes:</strong> the habits list, and the habit name to remove &nbsp;·&nbsp; <strong>returns:</strong> nothing needed</div>
-    <div class="code"><span class="kw">def</span> <span class="fn">delete_habit</span>(habits, habit_to_remove):
-    <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick=\"toggleHint('aariz-h4')\">show hint</button>
-    <div class="hint" id="aariz-h4">Check first: <code>if habit_to_remove in habits:</code> then <code>habits.remove(habit_to_remove)</code> inside the if. That avoids the crash from page 3's warning.</div>
-  </div>
+  <p>Ask Raiyan which model to use - OpenRouter has hundreds, and some are free to use while you're learning. Just swap the <code>"model"</code> value.</p>
 
-  <button class="next-btn" onclick="aariz_changePage(1)">next set of functions &#8594;</button>
+  <h2>Now Make It Loop</h2>
+  <p>Turn this into a real back-and-forth chatbot - reuse the exact <code>while True</code> + <code>input()</code> + <code>break</code> pattern from your Ollama build. The only thing that changed is how you get the reply.</p>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">The real challenge &rarr;</button>
 </div>
 
-<!-- PAGE 5: FUNCTIONS 5-6 (logging + reminders) -->
 <div class="page" id="aariz-page-5">
-  <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
-  <div class="eyebrow">Build it — part 2</div>
-  <h1>Logging today & reminders</h1>
-  <div class="accent-bar"></div>
-  <p>These two are the heart of the app. This is where the datetime trick from page 2 gets used.</p>
+  <div class="eyebrow">The Real Challenge</div>
+  <h1>Impress Me. Again.</h1>
+  <p>Getting the basic chatbot running with a real API is step one - good, but not the point of today. Here's the actual assignment:</p>
 
-  <div class="func-card">
-    <div class="func-header">
-      <div class="func-num">5</div>
-      <span class="func-name">log_today(habits)</span>
-    </div>
-    <p class="func-desc">Goes through every habit and asks whether you did it today — yes or no. Builds up a list of the ones you completed.</p>
-    <div class="contract"><strong>takes:</strong> the habits list &nbsp;·&nbsp; <strong>returns:</strong> a list of the habit names you completed today</div>
-    <div class="code"><span class="kw">def</span> <span class="fn">log_today</span>(habits):
-    <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick=\"toggleHint('aariz-h5')\">show hint</button>
-    <div class="hint" id="aariz-h5">Start with <code>completed = []</code>. Loop <code>for habit in habits:</code>, ask <code>input(habit + " - did you do it today? (y/n): ")</code>, and if the answer is "y", <code>completed.append(habit)</code>. Return <code>completed</code> at the end.</div>
+  <div class="card card-purple">
+    <h3>Be Creative With This</h3>
+    <p style="margin:0;">Design a chatbot with <strong>one specific job</strong> - something genuinely useful, not just a funny voice with a costume on. Make it good enough at that one thing to actually impress me. The idea is entirely yours to come up with - I'm not handing you one this time.</p>
   </div>
 
-  <div class="func-card">
-    <div class="func-header">
-      <div class="func-num">6</div>
-      <span class="func-name">check_reminders(all_habits, completed_habits)</span>
-    </div>
-    <p class="func-desc">Figures out which habits aren't done yet today, and how much time is left before midnight to still do them. This is the one that uses everything from pages 2 and 3.</p>
-    <div class="contract"><strong>takes:</strong> the full habits list, and the list of completed habits &nbsp;·&nbsp; <strong>returns:</strong> three things together — the not-done list, hours left, and minutes left. Like this: <code>return not_done, hours_left, mins_left</code></div>
-    <div class="code"><span class="kw">import</span> datetime
+  <p>Think about what you'd genuinely want an AI to help with in your own life - piano, football, basketball, schoolwork, whatever. What would make me say <em>"wait, that's actually a really good idea"</em>? That's the bar.</p>
 
-<span class="kw">def</span> <span class="fn">check_reminders</span>(all_habits, completed_habits):
-    <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick=\"toggleHint('aariz-h6')\">show hint</button>
-    <div class="hint" id="aariz-h6">Two parts. Part A — find what's not done: <code>not_done = []</code>, loop <code>for habit in all_habits:</code>, if <code>habit not in completed_habits: not_done.append(habit)</code>. Part B — the time maths from page 2 (now, minutes_passed, minutes_left, hours_left, mins_left). Finish with <code>return not_done, hours_left, mins_left</code>.</div>
-  </div>
+  <div class="tip">Remember what made a bot feel purpose-built last time: a specific job stated clearly in the system prompt, told what to refuse when the conversation drifts off-topic, and a personality that actually fits what it's for.</div>
 
-  <div class="warn">⚡ check_reminders is the hardest function in this assignment. Take your time. If you use AI to help, make sure you can explain both parts — the "what's not done" part and the "time left" part — separately, in your own words.</div>
+  <div class="warn">Test it properly before you're done. Ask it something related to its job. Then try to pull it off-topic on purpose and see if it holds its role.</div>
 
-  <button class="next-btn" onclick="aariz_changePage(1)">next set of functions &#8594;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">How to submit &rarr;</button>
 </div>
 
-<!-- PAGE 6: FUNCTIONS 7-8 (feedback + display) -->
 <div class="page" id="aariz-page-6">
-  <div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div>
-  <div class="eyebrow">Build it — part 3</div>
-  <h1>Feedback & display</h1>
-  <div class="accent-bar"></div>
-  <p>Last two functions. These turn raw numbers into something that feels like an actual app talking to you.</p>
+  <div class="eyebrow">Submitting</div>
+  <h1>Show Me What You Built</h1>
 
-  <div class="func-card">
-    <div class="func-header">
-      <div class="func-num">7</div>
-      <span class="func-name">get_streak_message(completed_count, total_count)</span>
-    </div>
-    <p class="func-desc">Looks at how many habits you completed today out of the total, and returns an encouraging message depending on how well you did.</p>
-    <div class="contract"><strong>takes:</strong> how many you completed, and how many total &nbsp;·&nbsp; <strong>returns:</strong> a message string</div>
-    <div class="code"><span class="kw">def</span> <span class="fn">get_streak_message</span>(completed_count, total_count):
-    <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick=\"toggleHint('aariz-h7')\">show hint</button>
-    <div class="hint" id="aariz-h7">Compare completed_count to total_count with if/elif/else. If they're equal — everything done, best message. If completed_count is 0 — encouraging but honest. Anything in between — solid effort message. You choose the exact wording.</div>
-  </div>
+  <div class="warn">Before you post anything on Discord - check your code for your API key and remove it or replace it with something like "your-key-here". Never post a real key anywhere.</div>
 
-  <div class="func-card">
-    <div class="func-header">
-      <div class="func-num">8</div>
-      <span class="func-name">print_habit_report(name, message)</span>
-    </div>
-    <p class="func-desc">Prints one clean line combining a label and a message. This is just for testing in Thonny — Raiyan's UI won't need this one, but you need it to see your program working before the UI exists.</p>
-    <div class="contract"><strong>takes:</strong> a name/label, and a message &nbsp;·&nbsp; <strong>returns:</strong> nothing — just prints</div>
-    <div class="code"><span class="kw">def</span> <span class="fn">print_habit_report</span>(name, message):
-    <span class="pass-line">    pass</span></div>
-    <button class="hint-btn" onclick=\"toggleHint('aariz-h8')\">show hint</button>
-    <div class="hint" id="aariz-h8">Something like: <code>print(name + ": " + message)</code>. Feel free to make it fancier with dashes or symbols if you want.</div>
-  </div>
-
-  <hr>
-
-  <h3>Optional stretch — only if you want to go further</h3>
-  <div class="card card-a">
-    <p style="margin-bottom:8px;"><strong>Stretch 1:</strong> Make <code>add_habit</code> refuse to add a habit that's already in the list (no duplicates).</p>
-    <p style="margin:0;"><strong>Stretch 2:</strong> Make habit name matching in <code>delete_habit</code> case-insensitive — so "piano" and "Piano" both work.</p>
-  </div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">show me main() &#8594;</button>
-</div>
-
-<!-- PAGE 7: MAIN FUNCTION -->
-<div class="page" id="aariz-page-7">
-  <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
-  <div class="eyebrow">Given to you</div>
-  <h1>The main() function</h1>
-  <div class="accent-bar"></div>
-  <p>This part I wrote myself. Once you've completed all 8 functions above, paste this at the very bottom of your file. This is what actually runs your program — a menu that calls all your functions.</p>
-
-  <div class="code"><span class="kw">def</span> <span class="fn">main</span>():
-    habits = <span class="fn">get_default_habits</span>()
-    completed_today = []
-
-    <span class="kw">while</span> <span class="kw">True</span>:
-        <span class="fn">print</span>()
-        <span class="fn">print</span>(<span class="st">"=== AARIZ'S HABIT TRACKER ==="</span>)
-        <span class="fn">print</span>(<span class="st">"1. View my habits"</span>)
-        <span class="fn">print</span>(<span class="st">"2. Add a habit"</span>)
-        <span class="fn">print</span>(<span class="st">"3. Delete a habit"</span>)
-        <span class="fn">print</span>(<span class="st">"4. Log today's progress"</span>)
-        <span class="fn">print</span>(<span class="st">"5. Check reminders"</span>)
-        <span class="fn">print</span>(<span class="st">"6. Quit"</span>)
-
-        choice = <span class="fn">input</span>(<span class="st">"Choose an option (1-6): "</span>)
-
-        <span class="kw">if</span> choice == <span class="st">"1"</span>:
-            <span class="fn">list_habits</span>(habits)
-
-        <span class="kw">elif</span> choice == <span class="st">"2"</span>:
-            new_habit = <span class="fn">input</span>(<span class="st">"What habit do you want to add? "</span>)
-            <span class="fn">add_habit</span>(habits, new_habit)
-            <span class="fn">print</span>(new_habit + <span class="st">" added!"</span>)
-
-        <span class="kw">elif</span> choice == <span class="st">"3"</span>:
-            <span class="fn">list_habits</span>(habits)
-            remove_this = <span class="fn">input</span>(<span class="st">"Which habit do you want to delete? "</span>)
-            <span class="fn">delete_habit</span>(habits, remove_this)
-            <span class="fn">print</span>(remove_this + <span class="st">" removed!"</span>)
-
-        <span class="kw">elif</span> choice == <span class="st">"4"</span>:
-            completed_today = <span class="fn">log_today</span>(habits)
-            message = <span class="fn">get_streak_message</span>(<span class="fn">len</span>(completed_today), <span class="fn">len</span>(habits))
-            <span class="fn">print_habit_report</span>(<span class="st">"Today"</span>, message)
-
-        <span class="kw">elif</span> choice == <span class="st">"5"</span>:
-            not_done, hours_left, mins_left = <span class="fn">check_reminders</span>(habits, completed_today)
-            <span class="kw">if</span> <span class="fn">len</span>(not_done) == <span class="nm">0</span>:
-                <span class="fn">print</span>(<span class="st">"Everything's done today. No cap."</span>)
-            <span class="kw">else</span>:
-                <span class="fn">print</span>(<span class="st">"Not done yet: "</span> + <span class="fn">str</span>(not_done))
-                <span class="fn">print</span>(<span class="st">"Time left today: "</span> + <span class="fn">str</span>(hours_left) + <span class="st">"h "</span> + <span class="fn">str</span>(mins_left) + <span class="st">"m"</span>)
-
-        <span class="kw">elif</span> choice == <span class="st">"6"</span>:
-            <span class="fn">print</span>(<span class="st">"See you tomorrow. Du bist gut genug."</span>)
-            <span class="kw">break</span>
-
-        <span class="kw">else</span>:
-            <span class="fn">print</span>(<span class="st">"That's not a valid option, try again."</span>)
-
-
-<span class="fn">main</span>()</div>
-
-  <div class="tip">Notice how <code>main()</code> never does the actual work itself — it just calls your functions and prints their results. That's the whole point of building things this way: main is the conductor, your 8 functions are the orchestra.</div>
-
-  <div class="warn">⚠️ Your 8 functions must be defined <strong>above</strong> main() in the file, and <code>main()</code> must be called at the very bottom — the line <code>main()</code> at the end is what actually starts the program.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">let's test it &#8594;</button>
-</div>
-
-<!-- PAGE 8: TEST + SUBMIT -->
-<div class="page" id="aariz-page-8">
-  <div class="progress-bar"><div class="progress-fill" style="width:87%"></div></div>
-  <div class="eyebrow">Testing & submission</div>
-  <h1>Run it, break it, fix it</h1>
-  <div class="accent-bar"></div>
-
-  <h3>How to test</h3>
-  <ul class="checklist">
-    <li><div class="cb"></div>Open Thonny, paste all 8 functions, then main() at the bottom</li>
-    <li><div class="cb"></div>Run it. Try every menu option at least once</li>
-    <li><div class="cb"></div>Add a habit, then delete it — check it's actually gone</li>
-    <li><div class="cb"></div>Log today's progress, then check reminders — the numbers should make sense</li>
-    <li><div class="cb"></div>Try deleting a habit that doesn't exist — it should NOT crash</li>
-  </ul>
-
-  <h3>Submit on Discord</h3>
   <div class="discord-box">
     <div class="discord-header">
       <div class="discord-av">A</div>
       <span class="discord-name">Aariz</span>
     </div>
-    <div class="discord-msg">finished the habit tracker, here's my code
+    <div class="discord-msg">built my new bot using openrouter, here's the code
       <div class="discord-code">```python
-def get_default_habits():
-    return ["Piano", "Football", "Basketball"]
+import requests
 
-def list_habits(habits):
-    # your code here
-    ...
-
-# ...rest of your functions + main()
+response = requests.post(
+    url="https://openrouter.ai/api/v1/chat/completions",
+    headers={"Authorization": "Bearer your-key-here"},
+    json={"model": "openai/gpt-4o-mini", "messages": [...]}
+)
+# ...rest of your code
 ```</div>
     </div>
   </div>
 
-  <div class="card card-g">
-    <h3>Also include</h3>
+  <div class="card card-green">
+    <h3>Also Include</h3>
     <ul class="checklist">
-      <li><div class="cb"></div>A screenshot showing the menu running</li>
-      <li><div class="cb"></div>A screenshot of "check reminders" showing real numbers</li>
-      <li><div class="cb"></div>Your reflection from the next page</li>
+      <li><div class="cb"></div>Your full code, key removed, in a Discord code block</li>
+      <li><div class="cb"></div>What your bot's specific job is, in one sentence</li>
+      <li><div class="cb"></div>A screenshot showing it answering an on-topic question well</li>
+      <li><div class="cb"></div>A screenshot showing what happens when you try to get it off-topic</li>
+      <li><div class="cb"></div>One sentence on the difference between the local Ollama version and this cloud version</li>
     </ul>
   </div>
 
-  <button class="next-btn" onclick="aariz_changePage(1)">last step — reflection &#8594;</button>
+  <div class="fact">There's no single correct answer here. I want to see you actually thought about what your bot is for, and put real effort into making it good at that one thing. Surprise me.</div>
 </div>
 
-<!-- PAGE 9: REFLECTION -->
-<div class="page" id="aariz-page-9">
-  <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-  <div class="eyebrow">Reflection</div>
-  <h1>Explain your logic</h1>
-  <div class="accent-bar"></div>
-  <p>Before you submit, write a short explanation of how you approached this. Doesn't need to be long — just enough that Raiyan can tell you actually understood what you built, not just copied something that worked.</p>
-
-  <p class="reflect-q">Answer these, in your own words:</p>
-  <ul class="checklist" style="margin-bottom:16px;">
-    <li><div class="cb"></div>How does check_reminders figure out which habits aren't done yet?</li>
-    <li><div class="cb"></div>How does check_reminders calculate hours and minutes left? What do // and % do in your code?</li>
-    <li><div class="cb"></div>Why don't add_habit and delete_habit need a return statement?</li>
-    <li><div class="cb"></div>What was the hardest part, and how did you get through it?</li>
-    <li><div class="cb"></div>If you used AI for any part — which part, and what did you learn from reading it?</li>
-  </ul>
-
-  <textarea class="reflect-box" id="aariz-reflection" placeholder="Write your reflection here..."></textarea>
-  <button class="copy-btn" onclick="aariz_copyReflection()">copy to clipboard</button>
-  <span class="copy-status" id="aariz-copy-status">copied ✓ — paste it into Discord</span>
-
-  <hr>
-
-  <div class="card card-p">
-    <h3>You're done</h3>
-    <p style="margin:0;">Eight functions, a real menu-driven app, and device time calculations. This is genuinely more than what most people write in their first few months of coding. Du bist gut genug — see you next session.</p>
-  </div>
 </div>
+<!-- end aariz screen -->
 
-
-</div>
+<!-- ============================================================ AFRAZ SCREEN ============================================================ -->
 <div class="screen" id="screen-afraz">
 
-
 <nav class="nav">
-  <span class="nav-logo">Afraz's Recap</span>
+  <span class="nav-logo">Afraz &middot; Functions</span>
   <button class="home-btn" onclick="showScreen('landing')">&#8962; Home</button>
-  <div class="nav-pages" id="afraz-nav-dots"></div>
+  <div class="page-index" id="afraz-nav-dots"></div>
   <div class="nav-arrows">
-    <button class="nav-btn" id="afraz-prev-btn" onclick="afraz_changePage(-1)" disabled>&#8592; back</button>
-    <button class="nav-btn" id="afraz-next-btn" onclick="afraz_changePage(1)">next &#8594;</button>
+    <button class="nav-btn" id="afraz-prev-btn" onclick="afraz_changePage(-1)" disabled>Back</button>
+    <button class="nav-btn" id="afraz-next-btn" onclick="afraz_changePage(1)">Next</button>
   </div>
 </nav>
 
-<!-- PAGE 1: INTRO -->
 <div class="page active" id="afraz-page-1">
-  <div class="progress-bar"><div class="progress-fill" style="width:11%"></div></div>
-  <div class="eyebrow">Recap assignment</div>
-  <h1>Let's go over everything 🌟</h1>
-  <div class="accent-bar"></div>
-  <p>Afraz — this one's easy. No big project this time. Just quick little problems, two for each thing we've learned so far. The goal is to make sure everything still feels solid in your head.</p>
-  <p>Every topic gets a 2-line reminder, then two small problems. Nothing tricky. If something feels shaky, that's exactly what this is for — better to notice now than later.</p>
+  <div class="eyebrow">New Topic</div>
+  <h1>Functions</h1>
+  <p>Afraz - today's about functions. A function is a named block of code that you can run any time just by saying its name, instead of retyping the same lines over and over.</p>
 
-  <div class="card card-p">
-    <h3>What we're covering</h3>
-    <ul class="checklist">
-      <li><div class="cb"></div>Strings — text, printing, input</li>
-      <li><div class="cb"></div>Maths & variables</li>
-      <li><div class="cb"></div>if / elif / else</li>
-      <li><div class="cb"></div>for loops</li>
-      <li><div class="cb"></div>while loops</li>
-      <li><div class="cb"></div>Lists</li>
-    </ul>
+  <div class="card card-yellow">
+    <p style="margin:0;">You've actually already used functions loads of times without building your own - <code>print()</code>, <code>input()</code>, <code>len()</code> are all functions. Today you write your own.</p>
   </div>
 
-  <div class="tip">Each problem takes maybe 2-3 minutes. Do them in Thonny, one at a time. Don't worry about making anything fancy — just get it working.</div>
+  <h2>The Basic Shape</h2>
+  <div class="code-wrap">
+    <div class="code-head">example.py</div>
+    <div class="code"><span class="kw">def</span> <span class="fn">greet</span>():
+    <span class="fn">print</span>(<span class="st">"Yo what's good"</span>)
 
-  <button class="next-btn" onclick="afraz_changePage(1)">start &#8594;</button>
+<span class="fn">greet</span>()
+<span class="fn">greet</span>()</div>
+  </div>
+
+  <p><code>def</code> means "I'm defining a function." <code>greet</code> is the name - you could call it anything. Everything indented underneath is what runs each time you call it.</p>
+
+  <h2>Giving It Information — Parameters</h2>
+  <div class="code-wrap">
+    <div class="code-head">example.py</div>
+    <div class="code"><span class="kw">def</span> <span class="fn">greet</span>(name):
+    <span class="fn">print</span>(<span class="st">"Yo "</span> + name + <span class="st">", what's good"</span>)
+
+<span class="fn">greet</span>(<span class="st">"Afraz"</span>)
+<span class="fn">greet</span>(<span class="st">"Aariz"</span>)</div>
+  </div>
+
+  <p><code>name</code> inside the brackets is a parameter - a variable that gets filled in differently each time you call the function.</p>
+
+  <h2>Getting Something Back — Return</h2>
+  <div class="code-wrap">
+    <div class="code-head">example.py</div>
+    <div class="code"><span class="kw">def</span> <span class="fn">double</span>(number):
+    <span class="kw">return</span> number * <span class="nm">2</span>
+
+result = <span class="fn">double</span>(<span class="nm">5</span>)
+<span class="fn">print</span>(result)  <span class="cm"># prints 10</span></div>
+  </div>
+
+  <div class="tip">If you forget <code>return</code>, your function won't crash - it'll just quietly give you back <code>None</code> instead of a real answer.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Try it yourself &rarr;</button>
 </div>
 
-<!-- PAGE 2: STRINGS -->
 <div class="page" id="afraz-page-2">
-  <div class="progress-bar"><div class="progress-fill" style="width:22%"></div></div>
-  <div class="eyebrow">Topic 1 of 6</div>
-  <span class="topic-badge" style="background:var(--purple-bg);color:var(--purple);">📝 Strings</span>
-  <h1>Text, printing, input</h1>
-  <div class="accent-bar"></div>
-
-  <div class="card card-p">
-    <p style="margin:0;">Quick reminder: strings are text in quotes. <code>input()</code> gets text from the user. <code>+</code> sticks strings together.</p>
-  </div>
+  <div class="eyebrow">Problem 1 of 3</div>
+  <h1>Double the Points</h1>
 
   <div class="problem-card">
     <div class="problem-header">
       <div class="problem-num">1</div>
-      <span class="problem-title">Say hi properly</span>
+      <span class="problem-title">Bonus Round Calculator</span>
     </div>
-    <p class="problem-desc">Ask for the user's name, then print "Hey [name], good to see you!"</p>
-    <div class="expected">Enter your name: Afraz → Hey Afraz, good to see you!</div>
-    <button class="hint-btn" onclick=\"toggleHint('afraz-h1')\">show hint</button>
-    <div class="hint" id="afraz-h1"><code>name = input("Enter your name: ")</code> then <code>print("Hey " + name + ", good to see you!")</code></div>
+    <p class="problem-desc">Write a function called <code>double_points</code> that takes a basketball score as a parameter, and returns it doubled - like a bonus round where every point counts twice.</p>
+    <div class="expected">double_points(12) &rarr; 24</div>
+    <button class="hint-btn" onclick="toggleHint('afraz-h1')">Show Hint</button>
+    <div class="hint" id="afraz-h1"><code>def double_points(score):<br>&nbsp;&nbsp;&nbsp;&nbsp;return score * 2</code><br><br>Then test it: <code>print(double_points(12))</code></div>
   </div>
 
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">2</div>
-      <span class="problem-title">Shout it</span>
-    </div>
-    <p class="problem-desc">Ask for a favourite football team, then print it back in ALL CAPS using <code>.upper()</code>.</p>
-    <div class="expected">Favourite team: barcelona → BARCELONA</div>
-    <button class="hint-btn" onclick=\"toggleHint('afraz-h2')\">show hint</button>
-    <div class="hint" id="afraz-h2">Save the input in a variable, then print <code>variable.upper()</code></div>
-  </div>
+  <div class="tip">Test your function with at least 2 different numbers before moving on.</div>
 
-  <button class="next-btn" onclick="afraz_changePage(1)">next topic &#8594;</button>
+  <button class="next-btn" onclick="afraz_changePage(1)">Next problem &rarr;</button>
 </div>
 
-<!-- PAGE 3: MATHS -->
 <div class="page" id="afraz-page-3">
-  <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
-  <div class="eyebrow">Topic 2 of 6</div>
-  <span class="topic-badge" style="background:var(--blue-bg);color:var(--blue);">🔢 Maths & variables</span>
-  <h1>Numbers and calculations</h1>
-  <div class="accent-bar"></div>
-
-  <div class="card card-b">
-    <p style="margin:0;">Quick reminder: numbers from <code>input()</code> need <code>int()</code> around them. <code>str()</code> turns a number back into text so you can print it in a sentence.</p>
-  </div>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">1</div>
-      <span class="problem-title">Double it</span>
-    </div>
-    <p class="problem-desc">Ask for a number, then print that number doubled.</p>
-    <div class="expected">Enter a number: 7 → Doubled: 14</div>
-    <button class="hint-btn" onclick=\"toggleHint('afraz-h3')\">show hint</button>
-    <div class="hint" id="afraz-h3"><code>num = int(input("Enter a number: "))</code> then <code>print("Doubled: " + str(num * 2))</code></div>
-  </div>
+  <div class="eyebrow">Problem 2 of 3</div>
+  <h1>Build a Greeting</h1>
 
   <div class="problem-card">
     <div class="problem-header">
       <div class="problem-num">2</div>
-      <span class="problem-title">Football score total</span>
+      <span class="problem-title">Match Day Announcer</span>
     </div>
-    <p class="problem-desc">Ask for goals scored in 3 different matches, then print the total goals.</p>
-    <div class="expected">Match 1: 2, Match 2: 1, Match 3: 3 → Total goals: 6</div>
-    <button class="hint-btn" onclick=\"toggleHint('afraz-h4')\">show hint</button>
-    <div class="hint" id="afraz-h4">Three separate <code>int(input())</code> calls, add them together, then print with <code>str()</code></div>
+    <p class="problem-desc">Write a function called <code>announce_player</code> that takes a player's name as a parameter, and returns a string like an announcer introducing them before a match.</p>
+    <div class="expected">announce_player("Afraz") &rarr; "Now stepping onto the field... AFRAZ!"</div>
+    <button class="hint-btn" onclick="toggleHint('afraz-h2')">Show Hint</button>
+    <div class="hint" id="afraz-h2"><code>def announce_player(name):<br>&nbsp;&nbsp;&nbsp;&nbsp;return "Now stepping onto the field... " + name.upper() + "!"</code><br><br>Remember <code>.upper()</code> from a few weeks back? Good moment to reuse it.</div>
   </div>
 
-  <button class="next-btn" onclick="afraz_changePage(1)">next topic &#8594;</button>
+  <div class="tip">Try it with your own name, then a friend's name, then a made-up player name.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Last problem &rarr;</button>
 </div>
 
-<!-- PAGE 4: CONDITIONALS -->
 <div class="page" id="afraz-page-4">
-  <div class="progress-bar"><div class="progress-fill" style="width:44%"></div></div>
-  <div class="eyebrow">Topic 3 of 6</div>
-  <span class="topic-badge" style="background:var(--amber-bg);color:var(--amber);">🔀 if / elif / else</span>
-  <h1>Making decisions</h1>
-  <div class="accent-bar"></div>
-
-  <div class="card card-a">
-    <p style="margin:0;">Quick reminder: <code>if</code> checks something, <code>elif</code> checks another thing if the first was false, <code>else</code> catches everything left. Don't forget the colon and the indent.</p>
-  </div>
+  <div class="eyebrow">Problem 3 of 3</div>
+  <h1>Functions + Conditionals</h1>
 
   <div class="problem-card">
     <div class="problem-header">
-      <div class="problem-num">1</div>
-      <span class="problem-title">Even or odd</span>
+      <div class="problem-num">3</div>
+      <span class="problem-title">Practice Tracker</span>
     </div>
-    <p class="problem-desc">Ask for a number. Print "Even" if it's even, "Odd" if it's odd. Hint: use <code>% 2</code> — a number is even if <code>num % 2 == 0</code>.</p>
-    <div class="expected">Enter a number: 8 → Even</div>
-    <button class="hint-btn" onclick=\"toggleHint('afraz-h5')\">show hint</button>
-    <div class="hint" id="afraz-h5"><code>if num % 2 == 0: print("Even")</code> then <code>else: print("Odd")</code></div>
+    <p class="problem-desc">Write a function called <code>check_practice</code> that takes minutes practised as a parameter, and returns a different message depending on how long: 30+ minutes returns "Great session!", 10-29 minutes returns "Decent effort.", under 10 minutes returns "Try a bit longer next time."</p>
+    <div class="expected">check_practice(45) &rarr; "Great session!"<br>check_practice(15) &rarr; "Decent effort."<br>check_practice(5) &rarr; "Try a bit longer next time."</div>
+    <button class="hint-btn" onclick="toggleHint('afraz-h3')">Show Hint</button>
+    <div class="hint" id="afraz-h3">This combines a function with if/elif/else - the conditional goes right inside the function body, and each branch returns a different string:<br><br><code>def check_practice(minutes):<br>&nbsp;&nbsp;&nbsp;&nbsp;if minutes >= 30:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Great session!"<br>&nbsp;&nbsp;&nbsp;&nbsp;elif minutes >= 10:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Decent effort."<br>&nbsp;&nbsp;&nbsp;&nbsp;else:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Try a bit longer next time."</code></div>
   </div>
 
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">2</div>
-      <span class="problem-title">Basketball score checker</span>
-    </div>
-    <p class="problem-desc">Ask how many points scored in a game. If 20 or more, print "Great game!" If between 10 and 19, print "Solid game." Otherwise print "Next time!"</p>
-    <div class="expected">Points: 15 → Solid game.</div>
-    <button class="hint-btn" onclick=\"toggleHint('afraz-h6')\">show hint</button>
-    <div class="hint" id="afraz-h6">Three branches: <code>if points >= 20:</code> ... <code>elif points >= 10:</code> ... <code>else:</code> ...</div>
-  </div>
+  <div class="tip">This is the most important problem of the three - the function decides which message fits, and hands back exactly one clean answer.</div>
 
-  <button class="next-btn" onclick="afraz_changePage(1)">next topic &#8594;</button>
+  <button class="next-btn" onclick="afraz_changePage(1)">Submit &rarr;</button>
 </div>
 
-<!-- PAGE 5: FOR LOOPS -->
 <div class="page" id="afraz-page-5">
-  <div class="progress-bar"><div class="progress-fill" style="width:56%"></div></div>
-  <div class="eyebrow">Topic 4 of 6</div>
-  <span class="topic-badge" style="background:var(--green-bg);color:var(--green);">🔁 for loops</span>
-  <h1>Repeating a set number of times</h1>
-  <div class="accent-bar"></div>
+  <div class="eyebrow">Wrap Up</div>
+  <h1>Nice Work</h1>
+  <p>Three functions, each doing a slightly different job - pure maths, string building, and decision-making. That's genuinely the core of what functions are for.</p>
 
-  <div class="card card-g">
-    <p style="margin:0;">Quick reminder: <code>for i in range(n):</code> repeats n times. <code>range(1, n+1)</code> counts from 1 to n instead of 0 to n-1.</p>
-  </div>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">1</div>
-      <span class="problem-title">Countdown</span>
-    </div>
-    <p class="problem-desc">Print the numbers 10 down to 1, one per line, then print "Liftoff!" after the loop.</p>
-    <div class="expected">10 9 8 ... 1 Liftoff!</div>
-    <button class="hint-btn" onclick=\"toggleHint('afraz-h7')\">show hint</button>
-    <div class="hint" id="afraz-h7"><code>for i in range(10, 0, -1): print(i)</code> — the -1 counts backwards. Then <code>print("Liftoff!")</code> after the loop (not indented).</div>
-  </div>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">2</div>
-      <span class="problem-title">Piano practice tally</span>
-    </div>
-    <p class="problem-desc">Use a loop to print "Practising piano..." exactly 5 times.</p>
-    <div class="expected">Practising piano... (5 times)</div>
-    <button class="hint-btn" onclick=\"toggleHint('afraz-h8')\">show hint</button>
-    <div class="hint" id="afraz-h8"><code>for i in range(5): print("Practising piano...")</code></div>
-  </div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">next topic &#8594;</button>
-</div>
-
-<!-- PAGE 6: WHILE LOOPS -->
-<div class="page" id="afraz-page-6">
-  <div class="progress-bar"><div class="progress-fill" style="width:67%"></div></div>
-  <div class="eyebrow">Topic 5 of 6</div>
-  <span class="topic-badge" style="background:var(--coral-bg);color:var(--coral);">⏳ while loops</span>
-  <h1>Repeating until something happens</h1>
-  <div class="accent-bar"></div>
-
-  <div class="card card-c">
-    <p style="margin:0;">Quick reminder: <code>while condition:</code> keeps running as long as the condition is true. Careful — if the condition never becomes false, the loop runs forever.</p>
-  </div>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">1</div>
-      <span class="problem-title">Guess the secret number</span>
-    </div>
-    <p class="problem-desc">The secret number is 7 (just hardcode it). Keep asking the user to guess until they get it right, then print "You got it!"</p>
-    <div class="expected">Guess: 3 → Guess: 7 → You got it!</div>
-    <button class="hint-btn" onclick=\"toggleHint('afraz-h9')\">show hint</button>
-    <div class="hint" id="afraz-h9"><code>guess = 0</code> then <code>while guess != 7: guess = int(input("Guess: "))</code>, then <code>print("You got it!")</code> after the loop.</div>
-  </div>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">2</div>
-      <span class="problem-title">Keep training</span>
-    </div>
-    <p class="problem-desc">Ask the user to keep entering "yes" as long as they want to keep practising basketball. Stop the loop when they type "no".</p>
-    <div class="expected">Keep training? yes → Keep training? no → Done for today!</div>
-    <button class="hint-btn" onclick=\"toggleHint('afraz-h10')\">show hint</button>
-    <div class="hint" id="afraz-h10"><code>answer = "yes"</code> then <code>while answer == "yes": answer = input("Keep training? ")</code>, then <code>print("Done for today!")</code></div>
-  </div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">last topic &#8594;</button>
-</div>
-
-<!-- PAGE 7: LISTS -->
-<div class="page" id="afraz-page-7">
-  <div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
-  <div class="eyebrow">Topic 6 of 6</div>
-  <span class="topic-badge" style="background:var(--pink-bg);color:var(--pink);">📋 Lists</span>
-  <h1>Holding multiple things</h1>
-  <div class="accent-bar"></div>
-
-  <div class="card" style="border-left: 5px solid var(--pink);">
-    <p style="margin:0;">Quick reminder: lists hold multiple values in one variable. <code>list[0]</code> is the first item. <code>for item in list:</code> loops through every item.</p>
-  </div>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">1</div>
-      <span class="problem-title">Sports list</span>
-    </div>
-    <p class="problem-desc">Make a list with 3 sports you play: Football, Basketball, and one more. Print each one using a loop, with "I play " in front.</p>
-    <div class="expected">I play Football I play Basketball I play [your third sport]</div>
-    <button class="hint-btn" onclick=\"toggleHint('afraz-h11')\">show hint</button>
-    <div class="hint" id="afraz-h11"><code>sports = ["Football", "Basketball", "..."]</code> then <code>for sport in sports: print("I play " + sport)</code></div>
-  </div>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">2</div>
-      <span class="problem-title">First and last</span>
-    </div>
-    <p class="problem-desc">Make a list of 4 favourite songs. Print just the first one and just the last one — using indexing, not a loop.</p>
-    <div class="expected">First: [song 1] Last: [song 4]</div>
-    <button class="hint-btn" onclick=\"toggleHint('afraz-h12')\">show hint</button>
-    <div class="hint" id="afraz-h12">First is <code>songs[0]</code>. Last is <code>songs[3]</code> — or <code>songs[-1]</code>, which always means "the last one" no matter how long the list is.</div>
-  </div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">done! &#8594;</button>
-</div>
-
-<!-- PAGE 8: SUBMIT + WRAP UP -->
-<div class="page" id="afraz-page-8">
-  <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-  <div class="eyebrow">Wrap up</div>
-  <h1>Nice work 🎉</h1>
-  <div class="accent-bar"></div>
-  <p>That's 12 small problems across everything we've learned. If most of them felt easy, that's exactly what we wanted to check. If a couple felt shaky, that's useful too — tell me which ones next session and we'll go over them again.</p>
-
-  <div class="card card-p">
-    <h3>Quick self-check</h3>
-    <ul class="checklist">
-      <li><div class="cb"></div>Which topic felt the easiest?</li>
-      <li><div class="cb"></div>Which one took the longest to figure out?</li>
-      <li><div class="cb"></div>Did you get stuck on any single problem for more than a few minutes?</li>
-    </ul>
-  </div>
-
-  <h3>Submit on Discord</h3>
+  <h2>Submit on Discord</h2>
   <div class="discord-box">
     <div class="discord-header">
       <div class="discord-av">A</div>
       <span class="discord-name">Afraz</span>
     </div>
-    <div class="discord-msg">done with the recap, here's my code for all 12
+    <div class="discord-msg">done with the functions practice, here's all 3
       <div class="discord-code">```python
-# problem 1 — say hi properly
-name = input("Enter your name: ")
-print("Hey " + name + ", good to see you!")
+def double_points(score):
+    return score * 2
+
+print(double_points(12))
 
 # ...rest of your answers
 ```</div>
     </div>
   </div>
 
-  <div class="tip">Paste all 12 answers into one code block, in order. Don't worry about making it perfect — this is just a check-in.</div>
+  <div class="card card-green">
+    <h3>Also Include</h3>
+    <ul class="checklist">
+      <li><div class="cb"></div>All 3 functions in one Discord code block</li>
+      <li><div class="cb"></div>A test call for each one, showing it actually works</li>
+      <li><div class="cb"></div>Which one felt trickiest, and why</li>
+    </ul>
+  </div>
 </div>
 
-
 </div>
-
+<!-- end afraz screen -->
 
 <script>
 function showScreen(name) {
@@ -953,111 +557,83 @@ function toggleHint(id) {
   const h = document.getElementById(id);
   h.classList.toggle('show');
   const btn = h.previousElementSibling;
-  btn.textContent = h.classList.contains('show') ? 'hide hint' : 'show hint';
+  btn.textContent = h.classList.contains('show') ? 'Hide Hint' : 'Show Hint';
 }
 </script>
 
 <script>
 (function() {
-const TOTAL = 9;
-let cur = 1;
+  const TOTAL = 6;
+  let cur = 1;
 
-function buildDots() {
-  const c = document.getElementById('aariz-nav-dots');
-  for (let i = 1; i <= TOTAL; i++) {
-    const d = document.createElement('button');
-    d.className = 'nav-dot' + (i === 1 ? ' active' : '');
-    d.setAttribute('aria-label', 'Page ' + i);
-    d.onclick = () => goTo(i);
-    c.appendChild(d);
+  function buildDots() {
+    const c = document.getElementById('aariz-nav-dots');
+    for (let i = 1; i <= TOTAL; i++) {
+      const d = document.createElement('button');
+      d.className = 'page-num' + (i === 1 ? ' active' : '');
+      d.textContent = i;
+      d.setAttribute('aria-label', 'Page ' + i);
+      d.onclick = () => goTo(i);
+      c.appendChild(d);
+    }
   }
-}
 
-function goTo(n) {
-  document.getElementById('aariz-page-' + cur).classList.remove('active');
-  document.getElementById('aariz-nav-dots').querySelectorAll('.nav-dot')[cur - 1].classList.remove('active');
-  cur = n;
-  document.getElementById('aariz-page-' + cur).classList.add('active');
-  const dots = document.getElementById('aariz-nav-dots').querySelectorAll('.nav-dot');
-  dots[cur - 1].classList.add('active');
-  for (let i = 0; i < cur - 1; i++) dots[i].classList.add('done');
-  document.getElementById('aariz-prev-btn').disabled = cur === 1;
-  document.getElementById('aariz-next-btn').disabled = cur === TOTAL;
-  window.scrollTo(0, 0);
-}
+  function goTo(n) {
+    document.getElementById('aariz-page-' + cur).classList.remove('active');
+    document.getElementById('aariz-nav-dots').querySelectorAll('.page-num')[cur - 1].classList.remove('active');
+    cur = n;
+    document.getElementById('aariz-page-' + cur).classList.add('active');
+    const dots = document.getElementById('aariz-nav-dots').querySelectorAll('.page-num');
+    dots[cur - 1].classList.add('active');
+    for (let i = 0; i < cur - 1; i++) dots[i].classList.add('done');
+    document.getElementById('aariz-prev-btn').disabled = cur === 1;
+    document.getElementById('aariz-next-btn').disabled = cur === TOTAL;
+    window.scrollTo(0, 0);
+  }
 
-function aariz_changePage(dir) { goTo(Math.min(Math.max(cur + dir, 1), TOTAL)); }
-window.aariz_changePage = aariz_changePage;
+  function aariz_changePage(dir) { goTo(Math.min(Math.max(cur + dir, 1), TOTAL)); }
+  window.aariz_changePage = aariz_changePage;
 
-function aariz_copyReflection() {
-  const text = document.getElementById('aariz-reflection').value;
-  if (!text.trim()) return;
-  navigator.clipboard.writeText(text).then(() => {
-    const status = document.getElementById('aariz-copy-status');
-    status.classList.add('show');
-    setTimeout(() => status.classList.remove('show'), 3000);
-  });
-}
-
-function updateClock() {
-  const now = new Date();
-  const h = now.getHours();
-  const m = now.getMinutes();
-  const s = now.getSeconds();
-  document.getElementById('aariz-live-clock').textContent =
-    String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-
-  const minutesPassed = h * 60 + m;
-  const minutesLeft = (24 * 60) - minutesPassed;
-  const hoursLeft = Math.floor(minutesLeft / 60);
-  const minsLeftFinal = minutesLeft % 60;
-
-  document.getElementById('aariz-mins-passed').textContent = minutesPassed;
-  document.getElementById('aariz-mins-left').textContent = minutesLeft;
-  document.getElementById('aariz-hours-left').textContent = hoursLeft;
-  document.getElementById('aariz-mins-left-final').textContent = minsLeftFinal;
-}
-
-buildDots();
-window.aariz_copyReflection = aariz_copyReflection;
-updateClock();
-setInterval(updateClock, 1000);
+  buildDots();
 })();
 </script>
+
 <script>
 (function() {
-const TOTAL = 8;
-let cur = 1;
+  const TOTAL = 5;
+  let cur = 1;
 
-function buildDots() {
-  const c = document.getElementById('afraz-nav-dots');
-  for (let i = 1; i <= TOTAL; i++) {
-    const d = document.createElement('button');
-    d.className = 'nav-dot' + (i === 1 ? ' active' : '');
-    d.setAttribute('aria-label', 'Page ' + i);
-    d.onclick = () => goTo(i);
-    c.appendChild(d);
+  function buildDots() {
+    const c = document.getElementById('afraz-nav-dots');
+    for (let i = 1; i <= TOTAL; i++) {
+      const d = document.createElement('button');
+      d.className = 'page-num' + (i === 1 ? ' active' : '');
+      d.textContent = i;
+      d.setAttribute('aria-label', 'Page ' + i);
+      d.onclick = () => goTo(i);
+      c.appendChild(d);
+    }
   }
-}
 
-function goTo(n) {
-  document.getElementById('afraz-page-' + cur).classList.remove('active');
-  document.getElementById('afraz-nav-dots').querySelectorAll('.nav-dot')[cur - 1].classList.remove('active');
-  cur = n;
-  document.getElementById('afraz-page-' + cur).classList.add('active');
-  const dots = document.getElementById('afraz-nav-dots').querySelectorAll('.nav-dot');
-  dots[cur - 1].classList.add('active');
-  for (let i = 0; i < cur - 1; i++) dots[i].classList.add('done');
-  document.getElementById('afraz-prev-btn').disabled = cur === 1;
-  document.getElementById('afraz-next-btn').disabled = cur === TOTAL;
-  window.scrollTo(0, 0);
-}
+  function goTo(n) {
+    document.getElementById('afraz-page-' + cur).classList.remove('active');
+    document.getElementById('afraz-nav-dots').querySelectorAll('.page-num')[cur - 1].classList.remove('active');
+    cur = n;
+    document.getElementById('afraz-page-' + cur).classList.add('active');
+    const dots = document.getElementById('afraz-nav-dots').querySelectorAll('.page-num');
+    dots[cur - 1].classList.add('active');
+    for (let i = 0; i < cur - 1; i++) dots[i].classList.add('done');
+    document.getElementById('afraz-prev-btn').disabled = cur === 1;
+    document.getElementById('afraz-next-btn').disabled = cur === TOTAL;
+    window.scrollTo(0, 0);
+  }
 
-function afraz_changePage(dir) { goTo(Math.min(Math.max(cur + dir, 1), TOTAL)); }
-window.afraz_changePage = afraz_changePage;
+  function afraz_changePage(dir) { goTo(Math.min(Math.max(cur + dir, 1), TOTAL)); }
+  window.afraz_changePage = afraz_changePage;
 
-buildDots();
+  buildDots();
 })();
 </script>
+
 </body>
 </html>
