@@ -28,13 +28,12 @@
 }
 body { background: var(--bg); color: var(--ink); font-family: var(--body-font); min-height: 100vh; }
 
-/* NAV */
 .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 22px; background: var(--white); border-bottom: var(--border-w) solid var(--ink); position: sticky; top: 0; z-index: 100; gap: 12px; flex-wrap: wrap; }
 .nav-logo { font-family: var(--head-font); font-size: 13px; letter-spacing: 0.02em; white-space: nowrap; text-transform: uppercase; }
 .home-btn { background: var(--white); border: var(--border-w) solid var(--ink); color: var(--ink); padding: 6px 14px; font-family: var(--body-font); font-weight: 700; font-size: 12px; cursor: pointer; box-shadow: var(--shadow-sm); transition: all 0.1s; text-transform: uppercase; }
 .home-btn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
-.page-index { display: flex; gap: 5px; flex-wrap: wrap; }
-.page-num { width: 28px; height: 28px; border: 2.5px solid var(--ink); background: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; cursor: pointer; box-shadow: 2px 2px 0 var(--ink); transition: all 0.1s; font-family: var(--body-font); color: var(--ink); }
+.page-index { display: flex; gap: 5px; flex-wrap: wrap; max-width: 320px; }
+.page-num { width: 26px; height: 26px; border: 2.5px solid var(--ink); background: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 11px; cursor: pointer; box-shadow: 2px 2px 0 var(--ink); transition: all 0.1s; font-family: var(--body-font); color: var(--ink); }
 .page-num:hover { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--ink); }
 .page-num.active { background: var(--yellow); }
 .page-num.done { background: var(--green); color: var(--white); }
@@ -43,7 +42,6 @@ body { background: var(--bg); color: var(--ink); font-family: var(--body-font); 
 .nav-btn:hover:not(:disabled) { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
 .nav-btn:disabled { opacity: 0.3; cursor: default; box-shadow: none; }
 
-/* LAYOUT */
 .screen { display: none; }
 .screen.visible { display: block; }
 .page { display: none; max-width: 720px; margin: 0 auto; padding: 40px 22px 90px; }
@@ -57,7 +55,6 @@ strong { color: var(--ink); font-weight: 700; }
 hr { border: none; border-top: var(--border-w) dashed var(--ink); margin: 30px 0; }
 code { font-family: var(--mono); font-size: 12px; background: var(--yellow); padding: 2px 6px; border: 1.5px solid var(--ink); font-weight: 600; }
 
-/* CARDS */
 .card { background: var(--white); border: var(--border-w) solid var(--ink); padding: 18px 20px; margin-bottom: 16px; box-shadow: var(--shadow); }
 .card-yellow { background: #FFF7D1; }
 .card-pink { background: #FFE3ED; }
@@ -66,7 +63,6 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
 .card-orange { background: #FFE9DB; }
 .card-purple { background: #F0E9FF; }
 
-/* CODE */
 .code-wrap { border: var(--border-w) solid var(--ink); margin: 12px 0; box-shadow: var(--shadow); }
 .code-head { background: var(--ink); color: var(--white); font-family: var(--body-font); font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; }
 .code { background: #14141A; padding: 14px 16px; font-family: var(--mono); font-size: 12px; line-height: 1.85; overflow-x: auto; white-space: pre; color: #E8E8F0; }
@@ -76,13 +72,11 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
 .cm { color: #6B6B7A; font-style: italic; }
 .nm { color: #8FC7FF; }
 
-/* CHECKLIST */
 .checklist { list-style: none; margin: 10px 0; }
 .checklist li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #2A2A33; padding: 8px 0; border-bottom: 2px dashed #ccc; line-height: 1.55; }
 .checklist li:last-child { border-bottom: none; }
 .cb { width: 16px; height: 16px; border: 2.5px solid var(--ink); flex-shrink: 0; margin-top: 2px; background: var(--white); }
 
-/* PILLS */
 .pill { display: inline-block; font-size: 11px; padding: 4px 12px; font-weight: 800; margin-right: 5px; margin-bottom: 5px; border: 2px solid var(--ink); text-transform: uppercase; }
 .p-yellow { background: var(--yellow); }
 .p-pink { background: var(--pink); color: var(--white); }
@@ -90,22 +84,18 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
 .p-green { background: var(--green); color: var(--white); }
 .p-orange { background: var(--orange); color: var(--white); }
 
-/* BUTTONS */
 .next-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--yellow); border: var(--border-w) solid var(--ink); color: var(--ink); padding: 12px 26px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 20px; transition: all 0.1s; box-shadow: var(--shadow); text-transform: uppercase; font-family: var(--body-font); }
 .next-btn:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--ink); }
 
-/* WARN/TIP */
 .warn { background: #FFE3E3; border: var(--border-w) solid var(--ink); padding: 14px 18px; font-size: 13.5px; margin: 14px 0; line-height: 1.6; box-shadow: var(--shadow-sm); }
 .tip { background: #DFFAEA; border: var(--border-w) solid var(--ink); padding: 14px 18px; font-size: 13.5px; margin: 14px 0; line-height: 1.6; box-shadow: var(--shadow-sm); }
 .fact { background: #F0E9FF; border: var(--border-w) solid var(--ink); padding: 14px 18px; font-size: 13.5px; margin: 14px 0; line-height: 1.6; box-shadow: var(--shadow-sm); }
 
-/* HINT */
 .hint-btn { background: var(--white); border: 2.5px solid var(--ink); color: var(--ink); font-size: 12px; font-weight: 700; padding: 6px 14px; cursor: pointer; margin-top: 8px; box-shadow: 2px 2px 0 var(--ink); transition: all 0.1s; text-transform: uppercase; }
 .hint-btn:hover { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--ink); }
 .hint { background: #FFF7D1; border: var(--border-w) solid var(--ink); padding: 10px 14px; font-size: 13px; margin-top: 8px; display: none; line-height: 1.6; box-shadow: var(--shadow-sm); }
 .hint.show { display: block; }
 
-/* PROBLEM CARD */
 .problem-card { background: var(--white); border: var(--border-w) solid var(--ink); padding: 18px 20px; margin-bottom: 14px; box-shadow: var(--shadow); }
 .problem-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .problem-num { width: 30px; height: 30px; background: var(--pink); border: var(--border-w) solid var(--ink); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--head-font); font-size: 13px; flex-shrink: 0; }
@@ -113,7 +103,6 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
 .problem-desc { font-size: 14px; color: #2A2A33; line-height: 1.65; margin-bottom: 6px; }
 .expected { background: var(--ink); color: #7CE8A4; border: var(--border-w) solid var(--ink); padding: 8px 12px; font-family: var(--mono); font-size: 12px; margin-top: 8px; }
 
-/* EXAMPLE GRID */
 .example-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
 @media (max-width: 560px) { .example-grid { grid-template-columns: 1fr; } }
 .example-box { background: var(--white); border: var(--border-w) solid var(--ink); padding: 14px 16px; box-shadow: var(--shadow-sm); }
@@ -121,7 +110,6 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
 .example-title { font-family: var(--head-font); font-size: 12px; margin-bottom: 4px; text-transform: uppercase; }
 .example-desc { font-size: 12.5px; color: #444; line-height: 1.55; }
 
-/* DISCORD */
 .discord-box { background: #36393f; border: var(--border-w) solid var(--ink); padding: 20px 22px; margin: 16px 0; box-shadow: var(--shadow); }
 .discord-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .discord-av { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: white; background: #5865F2; }
@@ -129,10 +117,8 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
 .discord-msg { font-size: 13px; color: #dcddde; line-height: 1.6; }
 .discord-code { background: #2f3136; padding: 12px 14px; font-family: var(--mono); font-size: 12px; color: #dcddde; margin-top: 8px; white-space: pre; overflow-x: auto; line-height: 1.7; }
 
-/* ONLY TAG */
 .only-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--ink); color: var(--white); font-size: 11px; font-weight: 800; padding: 5px 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.03em; }
 
-/* LANDING */
 .landing-wrap { max-width: 780px; margin: 0 auto; padding: 60px 22px; text-align: center; }
 .landing-badge { display: inline-block; background: var(--ink); color: var(--white); font-family: var(--body-font); font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; margin-bottom: 20px; }
 .landing-title { font-family: var(--head-font); font-size: 36px; line-height: 1.2; margin-bottom: 14px; text-transform: uppercase; }
@@ -151,7 +137,6 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
 </head>
 <body>
 
-<!-- ============================================================ LANDING ============================================================ -->
 <div class="screen visible" id="screen-landing">
   <div class="landing-wrap">
     <span class="landing-badge">Weekly Python Class</span>
@@ -162,11 +147,11 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
       <div class="landing-card" onclick="showScreen('aariz')">
         <div class="landing-avatar" style="background:var(--yellow);">A</div>
         <div class="landing-name">Aariz</div>
-        <div class="landing-desc">Real APIs, a real key, and a chatbot with a specific job. This time it's cloud AI via OpenRouter.</div>
+        <div class="landing-desc">Real APIs, a real key, JSON output, and a chatbot with a specific job. Cloud AI via OpenRouter.</div>
         <div class="landing-meta">
           <span class="pill p-blue">apis</span>
           <span class="pill p-pink">api keys</span>
-          <span class="pill p-orange">openrouter</span>
+          <span class="pill p-orange">json</span>
         </div>
         <div class="landing-go">Start &rarr;</div>
       </div>
@@ -174,7 +159,7 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
       <div class="landing-card" onclick="showScreen('afraz')">
         <div class="landing-avatar" style="background:var(--pink);color:var(--white);">A</div>
         <div class="landing-name">Afraz</div>
-        <div class="landing-desc">Functions, explained properly, then three problems to prove it stuck.</div>
+        <div class="landing-desc">Functions, explained properly, then six problems to prove it stuck.</div>
         <div class="landing-meta">
           <span class="pill p-yellow">functions</span>
           <span class="pill p-green">practice</span>
@@ -211,6 +196,8 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
       <li><div class="cb"></div>What an API actually is - properly explained, with real examples</li>
       <li><div class="cb"></div>What an API key is, and how to handle one safely</li>
       <li><div class="cb"></div>Rebuild your basic chatbot - using OpenRouter this time</li>
+      <li><div class="cb"></div>What JSON is, properly, and why programs love it</li>
+      <li><div class="cb"></div>Making an AI return structured JSON instead of plain sentences</li>
       <li><div class="cb"></div>The real challenge: design a different bot with a specific job</li>
     </ul>
   </div>
@@ -325,13 +312,127 @@ data = response.json()
   <h2>Now Make It Loop</h2>
   <p>Turn this into a real back-and-forth chatbot - reuse the exact <code>while True</code> + <code>input()</code> + <code>break</code> pattern from your Ollama build. The only thing that changed is how you get the reply.</p>
 
-  <button class="next-btn" onclick="aariz_changePage(1)">The real challenge &rarr;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">What is JSON? &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-5">
+  <div class="eyebrow">New Skill</div>
+  <h1>What Is JSON, Properly?</h1>
+  <p>You've actually been looking at JSON this whole time without it being named properly. Time to make it official.</p>
+
+  <div class="card card-purple">
+    <p style="margin:0;"><strong>JSON</strong> stands for JavaScript Object Notation - but despite the name, it's used by almost every programming language now, not just JavaScript. It's the standard way computers send structured data to each other over the internet.</p>
+  </div>
+
+  <p>Every single API you've used sends its data as JSON - the Trivia API, Ollama, and OpenRouter. Here's a plain example of what it looks like:</p>
+
+  <div class="code-wrap">
+    <div class="code-head">example.json</div>
+    <div class="code">{
+    <span class="st">"name"</span>: <span class="st">"Aariz"</span>,
+    <span class="st">"age"</span>: <span class="nm">10</span>,
+    <span class="st">"hobbies"</span>: [<span class="st">"piano"</span>, <span class="st">"football"</span>, <span class="st">"basketball"</span>]
+}</div>
+  </div>
+
+  <div class="fact">Look familiar? That's because JSON's shape is basically identical to a Python dictionary - curly braces, keys in quotes, values that can be strings, numbers, or even lists. That's not a coincidence. Python's json module exists specifically to convert between the two.</div>
+
+  <p>Here's the key idea for today: since JSON is just structured data, you can ask an AI to give you its answer <em>as JSON</em> instead of a normal sentence - which means your program can actually use the answer, not just display it.</p>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Make an AI output JSON &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-6">
+  <div class="eyebrow">The Real Skill</div>
+  <h1>Making an AI Return JSON</h1>
+  <p>Normally, an AI replies with a normal, chatty sentence. But if you tell it exactly what format you want and exactly which fields to include, it'll usually follow along.</p>
+
+  <div class="code-wrap">
+    <div class="code-head">the instruction</div>
+    <div class="code">{<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: <span class="st">"You are an event extractor. Given a description of an event, respond with ONLY a JSON object with these exact keys: event_name, date, time, location. Do not include any text outside the JSON object."</span>}</div>
+  </div>
+
+  <p>Now if you send it something like <em>"Aariz's birthday party is this Saturday at 4pm at Funland arcade"</em>, it should reply with something like:</p>
+
+  <div class="code-wrap">
+    <div class="code-head">what comes back</div>
+    <div class="code">{<span class="st">"event_name"</span>: <span class="st">"Aariz's birthday party"</span>, <span class="st">"date"</span>: <span class="st">"Saturday"</span>, <span class="st">"time"</span>: <span class="st">"4pm"</span>, <span class="st">"location"</span>: <span class="st">"Funland arcade"</span>}</div>
+  </div>
+
+  <div class="warn">Here's the catch: even though that reply LOOKS like JSON, Python doesn't know that automatically. The AI's answer comes back as a plain string of text. You need to explicitly convert it into a real dictionary using <code>json.loads()</code>.</div>
+
+  <div class="code-wrap">
+    <div class="code-head">parsing it</div>
+    <div class="code"><span class="kw">import</span> json
+
+reply_text = data[<span class="st">"choices"</span>][<span class="nm">0</span>][<span class="st">"message"</span>][<span class="st">"content"</span>]
+event_data = json.loads(reply_text)
+
+<span class="fn">print</span>(event_data[<span class="st">"date"</span>])
+<span class="fn">print</span>(event_data[<span class="st">"location"</span>])</div>
+  </div>
+
+  <div class="fact">Notice <code>json.loads()</code> is new - not the same as <code>json.load()</code> from file storage. The one with an "s" (loads = "load string") converts a JSON-shaped string of text into a real dictionary. You'll use this exact function again and again once you're pulling structured answers out of AI replies.</div>
+
+  <div class="tip">If <code>json.loads()</code> ever crashes with an error, it's almost always because the model added extra words around the JSON, like a code fence or a sentence before it. The fix: make your instruction even more explicit - "respond with ONLY the JSON object and nothing else."</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Your task &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-7">
+  <div class="eyebrow">Build It</div>
+  <h1>The Event Extractor</h1>
+  <p>Put it all together. Build a program that takes a plain-English event description from the user, sends it to the AI with instructions to return structured JSON, parses the reply, and prints each piece nicely.</p>
+
+  <div class="code-wrap">
+    <div class="code-head">event_extractor.py — fill in the key</div>
+    <div class="code"><span class="kw">import</span> requests
+<span class="kw">import</span> json
+
+<span class="kw">def</span> <span class="fn">get_event_json</span>(description):
+    response = requests.post(
+        url=<span class="st">"https://openrouter.ai/api/v1/chat/completions"</span>,
+        headers={<span class="st">"Authorization"</span>: <span class="st">"Bearer YOUR_OPENROUTER_KEY"</span>},
+        json={
+            <span class="st">"model"</span>: <span class="st">"openai/gpt-4o-mini"</span>,
+            <span class="st">"messages"</span>: [
+                {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: <span class="st">"You are an event extractor. Given a description of an event, respond with ONLY a JSON object with these exact keys: event_name, date, time, location. Do not include any text outside the JSON object."</span>},
+                {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: description}
+            ]
+        }
+    )
+    data = response.json()
+    reply_text = data[<span class="st">"choices"</span>][<span class="nm">0</span>][<span class="st">"message"</span>][<span class="st">"content"</span>]
+    <span class="kw">return</span> json.loads(reply_text)
+
+
+description = <span class="fn">input</span>(<span class="st">"Describe an event: "</span>)
+event = <span class="fn">get_event_json</span>(description)
+
+<span class="fn">print</span>(<span class="st">"Event: "</span> + event[<span class="st">"event_name"</span>])
+<span class="fn">print</span>(<span class="st">"Date: "</span> + event[<span class="st">"date"</span>])
+<span class="fn">print</span>(<span class="st">"Time: "</span> + event[<span class="st">"time"</span>])
+<span class="fn">print</span>(<span class="st">"Location: "</span> + event[<span class="st">"location"</span>])</div>
+  </div>
+
+  <div class="card card-green">
+    <h3>Test It On</h3>
+    <ul class="checklist">
+      <li><div class="cb"></div>A simple event: "football practice tomorrow at 5pm at the school field"</li>
+      <li><div class="cb"></div>A messier, more detailed description with extra details mixed in</li>
+      <li><div class="cb"></div>An event missing one detail - what does it do when something's not mentioned?</li>
+    </ul>
+  </div>
+
+  <div class="tip">Notice this whole program is basically one function you call once. This is a real callback to the functions you learned before AI even entered the picture.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">The real challenge &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-8">
   <div class="eyebrow">The Real Challenge</div>
   <h1>Impress Me. Again.</h1>
-  <p>Getting the basic chatbot running with a real API is step one - good, but not the point of today. Here's the actual assignment:</p>
+  <p>Getting the basic chatbot and the JSON extractor running is real progress - but here's the actual assignment:</p>
 
   <div class="card card-purple">
     <h3>Be Creative With This</h3>
@@ -340,14 +441,14 @@ data = response.json()
 
   <p>Think about what you'd genuinely want an AI to help with in your own life - piano, football, basketball, schoolwork, whatever. What would make me say <em>"wait, that's actually a really good idea"</em>? That's the bar.</p>
 
-  <div class="tip">Remember what made a bot feel purpose-built last time: a specific job stated clearly in the system prompt, told what to refuse when the conversation drifts off-topic, and a personality that actually fits what it's for.</div>
+  <div class="tip">If you want a stretch idea: what if your purpose-built bot also returned structured JSON instead of plain sentences? A homework helper that returns {"subject": ..., "difficulty": ..., "answer": ...} is genuinely more useful than one that just replies in a paragraph.</div>
 
   <div class="warn">Test it properly before you're done. Ask it something related to its job. Then try to pull it off-topic on purpose and see if it holds its role.</div>
 
   <button class="next-btn" onclick="aariz_changePage(1)">How to submit &rarr;</button>
 </div>
 
-<div class="page" id="aariz-page-6">
+<div class="page" id="aariz-page-9">
   <div class="eyebrow">Submitting</div>
   <h1>Show Me What You Built</h1>
 
@@ -358,16 +459,13 @@ data = response.json()
       <div class="discord-av">A</div>
       <span class="discord-name">Aariz</span>
     </div>
-    <div class="discord-msg">built my new bot using openrouter, here's the code
+    <div class="discord-msg">built the event extractor + my new bot, here's the code
       <div class="discord-code">```python
 import requests
+import json
 
-response = requests.post(
-    url="https://openrouter.ai/api/v1/chat/completions",
-    headers={"Authorization": "Bearer your-key-here"},
-    json={"model": "openai/gpt-4o-mini", "messages": [...]}
-)
-# ...rest of your code
+def get_event_json(description):
+    # ... your code, key removed
 ```</div>
     </div>
   </div>
@@ -375,11 +473,11 @@ response = requests.post(
   <div class="card card-green">
     <h3>Also Include</h3>
     <ul class="checklist">
-      <li><div class="cb"></div>Your full code, key removed, in a Discord code block</li>
+      <li><div class="cb"></div>Your event extractor code, key removed, in a Discord code block</li>
+      <li><div class="cb"></div>A screenshot of it correctly extracting JSON from 2 different event descriptions</li>
+      <li><div class="cb"></div>Your purpose-built chatbot code, key removed</li>
       <li><div class="cb"></div>What your bot's specific job is, in one sentence</li>
-      <li><div class="cb"></div>A screenshot showing it answering an on-topic question well</li>
-      <li><div class="cb"></div>A screenshot showing what happens when you try to get it off-topic</li>
-      <li><div class="cb"></div>One sentence on the difference between the local Ollama version and this cloud version</li>
+      <li><div class="cb"></div>A screenshot showing it answering on-topic, and one showing an off-topic attempt</li>
     </ul>
   </div>
 
@@ -451,7 +549,7 @@ result = <span class="fn">double</span>(<span class="nm">5</span>)
 </div>
 
 <div class="page" id="afraz-page-2">
-  <div class="eyebrow">Problem 1 of 3</div>
+  <div class="eyebrow">Problem 1 of 6</div>
   <h1>Double the Points</h1>
 
   <div class="problem-card">
@@ -459,10 +557,10 @@ result = <span class="fn">double</span>(<span class="nm">5</span>)
       <div class="problem-num">1</div>
       <span class="problem-title">Bonus Round Calculator</span>
     </div>
-    <p class="problem-desc">Write a function called <code>double_points</code> that takes a basketball score as a parameter, and returns it doubled - like a bonus round where every point counts twice.</p>
+    <p class="problem-desc">Write a function called <code>double_points</code> that takes a basketball score as a parameter, and returns it doubled.</p>
     <div class="expected">double_points(12) &rarr; 24</div>
     <button class="hint-btn" onclick="toggleHint('afraz-h1')">Show Hint</button>
-    <div class="hint" id="afraz-h1"><code>def double_points(score):<br>&nbsp;&nbsp;&nbsp;&nbsp;return score * 2</code><br><br>Then test it: <code>print(double_points(12))</code></div>
+    <div class="hint" id="afraz-h1"><code>def double_points(score):<br>&nbsp;&nbsp;&nbsp;&nbsp;return score * 2</code></div>
   </div>
 
   <div class="tip">Test your function with at least 2 different numbers before moving on.</div>
@@ -471,7 +569,7 @@ result = <span class="fn">double</span>(<span class="nm">5</span>)
 </div>
 
 <div class="page" id="afraz-page-3">
-  <div class="eyebrow">Problem 2 of 3</div>
+  <div class="eyebrow">Problem 2 of 6</div>
   <h1>Build a Greeting</h1>
 
   <div class="problem-card">
@@ -482,16 +580,16 @@ result = <span class="fn">double</span>(<span class="nm">5</span>)
     <p class="problem-desc">Write a function called <code>announce_player</code> that takes a player's name as a parameter, and returns a string like an announcer introducing them before a match.</p>
     <div class="expected">announce_player("Afraz") &rarr; "Now stepping onto the field... AFRAZ!"</div>
     <button class="hint-btn" onclick="toggleHint('afraz-h2')">Show Hint</button>
-    <div class="hint" id="afraz-h2"><code>def announce_player(name):<br>&nbsp;&nbsp;&nbsp;&nbsp;return "Now stepping onto the field... " + name.upper() + "!"</code><br><br>Remember <code>.upper()</code> from a few weeks back? Good moment to reuse it.</div>
+    <div class="hint" id="afraz-h2"><code>def announce_player(name):<br>&nbsp;&nbsp;&nbsp;&nbsp;return "Now stepping onto the field... " + name.upper() + "!"</code></div>
   </div>
 
   <div class="tip">Try it with your own name, then a friend's name, then a made-up player name.</div>
 
-  <button class="next-btn" onclick="afraz_changePage(1)">Last problem &rarr;</button>
+  <button class="next-btn" onclick="afraz_changePage(1)">Next problem &rarr;</button>
 </div>
 
 <div class="page" id="afraz-page-4">
-  <div class="eyebrow">Problem 3 of 3</div>
+  <div class="eyebrow">Problem 3 of 6</div>
   <h1>Functions + Conditionals</h1>
 
   <div class="problem-card">
@@ -502,18 +600,78 @@ result = <span class="fn">double</span>(<span class="nm">5</span>)
     <p class="problem-desc">Write a function called <code>check_practice</code> that takes minutes practised as a parameter, and returns a different message depending on how long: 30+ minutes returns "Great session!", 10-29 minutes returns "Decent effort.", under 10 minutes returns "Try a bit longer next time."</p>
     <div class="expected">check_practice(45) &rarr; "Great session!"<br>check_practice(15) &rarr; "Decent effort."<br>check_practice(5) &rarr; "Try a bit longer next time."</div>
     <button class="hint-btn" onclick="toggleHint('afraz-h3')">Show Hint</button>
-    <div class="hint" id="afraz-h3">This combines a function with if/elif/else - the conditional goes right inside the function body, and each branch returns a different string:<br><br><code>def check_practice(minutes):<br>&nbsp;&nbsp;&nbsp;&nbsp;if minutes >= 30:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Great session!"<br>&nbsp;&nbsp;&nbsp;&nbsp;elif minutes >= 10:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Decent effort."<br>&nbsp;&nbsp;&nbsp;&nbsp;else:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Try a bit longer next time."</code></div>
+    <div class="hint" id="afraz-h3">The conditional goes right inside the function body:<br><br><code>def check_practice(minutes):<br>&nbsp;&nbsp;&nbsp;&nbsp;if minutes >= 30:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Great session!"<br>&nbsp;&nbsp;&nbsp;&nbsp;elif minutes >= 10:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Decent effort."<br>&nbsp;&nbsp;&nbsp;&nbsp;else:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Try a bit longer next time."</code></div>
   </div>
 
-  <div class="tip">This is the most important problem of the three - the function decides which message fits, and hands back exactly one clean answer.</div>
+  <div class="tip">The function decides which message fits, and hands back exactly one clean answer.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Next problem &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-5">
+  <div class="eyebrow">Problem 4 of 6</div>
+  <h1>Functions With Multiple Parameters</h1>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">4</div>
+      <span class="problem-title">Average Practice Score</span>
+    </div>
+    <p class="problem-desc">Write a function called <code>average_score</code> that takes <strong>three</strong> numbers as parameters - three separate practice session scores - and returns their average.</p>
+    <div class="expected">average_score(8, 9, 7) &rarr; 8.0</div>
+    <button class="hint-btn" onclick="toggleHint('afraz-h4')">Show Hint</button>
+    <div class="hint" id="afraz-h4">A function can take more than one parameter - just separate them with commas in both the definition and the call:<br><br><code>def average_score(a, b, c):<br>&nbsp;&nbsp;&nbsp;&nbsp;return (a + b + c) / 3</code></div>
+  </div>
+
+  <div class="tip">This is the first function you've written with more than one parameter - notice the order you pass values in matches the order of the parameter names.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Next problem &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-6">
+  <div class="eyebrow">Problem 5 of 6</div>
+  <h1>A Loop Inside a Function</h1>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">5</div>
+      <span class="problem-title">Race Start Countdown</span>
+    </div>
+    <p class="problem-desc">Write a function called <code>print_countdown</code> that takes a starting number as a parameter, and uses a loop to print every number counting down from that number to 1, then prints "Go!" at the end.</p>
+    <div class="expected">print_countdown(3) &rarr; prints 3, 2, 1, Go!</div>
+    <button class="hint-btn" onclick="toggleHint('afraz-h5')">Show Hint</button>
+    <div class="hint" id="afraz-h5">Everything you know about for loops still works exactly the same inside a function:<br><br><code>def print_countdown(start):<br>&nbsp;&nbsp;&nbsp;&nbsp;for i in range(start, 0, -1):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(i)<br>&nbsp;&nbsp;&nbsp;&nbsp;print("Go!")</code></div>
+  </div>
+
+  <div class="tip">A function can contain a loop, an if statement, another function call - anything you already know how to write goes inside just as normal.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Last problem &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-7">
+  <div class="eyebrow">Problem 6 of 6</div>
+  <h1>A Function Calling a Function</h1>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">6</div>
+      <span class="problem-title">Bonus Round, Take Two</span>
+    </div>
+    <p class="problem-desc">Write a function called <code>bonus_round</code> that takes a score, calls your earlier <code>double_points</code> function on it, then adds a fixed bonus of 5 points on top, and returns the final total.</p>
+    <div class="expected">bonus_round(10) &rarr; double_points(10) is 20, plus 5 bonus = 25</div>
+    <button class="hint-btn" onclick="toggleHint('afraz-h6')">Show Hint</button>
+    <div class="hint" id="afraz-h6">Functions can call other functions you've already written - just use it like any other value:<br><br><code>def bonus_round(score):<br>&nbsp;&nbsp;&nbsp;&nbsp;doubled = double_points(score)<br>&nbsp;&nbsp;&nbsp;&nbsp;return doubled + 5</code><br><br>Make sure double_points is defined somewhere above this in your file.</div>
+  </div>
+
+  <div class="tip">This is a genuinely important idea - functions don't have to work alone. Once you've built one, other functions can reuse it instead of rewriting the same logic again.</div>
 
   <button class="next-btn" onclick="afraz_changePage(1)">Submit &rarr;</button>
 </div>
 
-<div class="page" id="afraz-page-5">
+<div class="page" id="afraz-page-8">
   <div class="eyebrow">Wrap Up</div>
   <h1>Nice Work</h1>
-  <p>Three functions, each doing a slightly different job - pure maths, string building, and decision-making. That's genuinely the core of what functions are for.</p>
+  <p>Six functions now - maths, string building, decisions, multiple parameters, a loop inside a function, and functions calling other functions. That covers pretty much everything functions are used for.</p>
 
   <h2>Submit on Discord</h2>
   <div class="discord-box">
@@ -521,7 +679,7 @@ result = <span class="fn">double</span>(<span class="nm">5</span>)
       <div class="discord-av">A</div>
       <span class="discord-name">Afraz</span>
     </div>
-    <div class="discord-msg">done with the functions practice, here's all 3
+    <div class="discord-msg">done with all 6 functions
       <div class="discord-code">```python
 def double_points(score):
     return score * 2
@@ -536,7 +694,7 @@ print(double_points(12))
   <div class="card card-green">
     <h3>Also Include</h3>
     <ul class="checklist">
-      <li><div class="cb"></div>All 3 functions in one Discord code block</li>
+      <li><div class="cb"></div>All 6 functions in one Discord code block</li>
       <li><div class="cb"></div>A test call for each one, showing it actually works</li>
       <li><div class="cb"></div>Which one felt trickiest, and why</li>
     </ul>
@@ -563,7 +721,7 @@ function toggleHint(id) {
 
 <script>
 (function() {
-  const TOTAL = 6;
+  const TOTAL = 9;
   let cur = 1;
 
   function buildDots() {
@@ -600,7 +758,7 @@ function toggleHint(id) {
 
 <script>
 (function() {
-  const TOTAL = 5;
+  const TOTAL = 8;
   let cur = 1;
 
   function buildDots() {
