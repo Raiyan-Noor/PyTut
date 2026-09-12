@@ -147,11 +147,11 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
       <div class="landing-card" onclick="showScreen('aariz')">
         <div class="landing-avatar" style="background:var(--yellow);">A</div>
         <div class="landing-name">Aariz</div>
-        <div class="landing-desc">Real APIs, a real key, JSON output, and a chatbot with a specific job. Cloud AI via OpenRouter.</div>
+        <div class="landing-desc">HTML from zero - every basic tag, then lists and tables, then a real events page you build yourself.</div>
         <div class="landing-meta">
-          <span class="pill p-blue">apis</span>
-          <span class="pill p-pink">api keys</span>
-          <span class="pill p-orange">json</span>
+          <span class="pill p-pink">html basics</span>
+          <span class="pill p-blue">tables</span>
+          <span class="pill p-orange">lists</span>
         </div>
         <div class="landing-go">Start &rarr;</div>
       </div>
@@ -159,10 +159,11 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
       <div class="landing-card" onclick="showScreen('afraz')">
         <div class="landing-avatar" style="background:var(--pink);color:var(--white);">A</div>
         <div class="landing-name">Afraz</div>
-        <div class="landing-desc">Functions, explained properly, then six problems to prove it stuck.</div>
+        <div class="landing-desc">Functions, six practice problems, plus a reading topic on markup languages with short questions.</div>
         <div class="landing-meta">
           <span class="pill p-yellow">functions</span>
           <span class="pill p-green">practice</span>
+          <span class="pill p-blue">reading</span>
         </div>
         <div class="landing-go">Start &rarr;</div>
       </div>
@@ -175,7 +176,7 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
 <div class="screen" id="screen-aariz">
 
 <nav class="nav">
-  <span class="nav-logo">Aariz &middot; Real APIs</span>
+  <span class="nav-logo">Aariz &middot; HTML</span>
   <button class="home-btn" onclick="showScreen('landing')">&#8962; Home</button>
   <div class="page-index" id="aariz-nav-dots"></div>
   <div class="nav-arrows">
@@ -186,286 +187,342 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
 
 <div class="page active" id="aariz-page-1">
   <span class="only-tag">For Aariz only</span>
-  <div class="eyebrow">Level Up</div>
-  <h1>Real APIs, Real Keys</h1>
-  <p>Everything you've built so far ran entirely on your own laptop - Ollama, local models, zero cost, zero internet needed. Today you're stepping up to what real companies actually use: a cloud AI, accessed through a proper API, with your own personal key.</p>
+  <div class="eyebrow">Brand New Topic</div>
+  <h1>What Is HTML?</h1>
+  <p>Aariz - completely new territory today. Everything you've built so far has been Python: logic, functions, data. HTML is a genuinely different kind of thing, and it's worth slowing down for.</p>
 
-  <div class="card card-blue">
-    <h3>What's in this assignment</h3>
-    <ul class="checklist">
-      <li><div class="cb"></div>What an API actually is - properly explained, with real examples</li>
-      <li><div class="cb"></div>What an API key is, and how to handle one safely</li>
-      <li><div class="cb"></div>Rebuild your basic chatbot - using OpenRouter this time</li>
-      <li><div class="cb"></div>What JSON is, properly, and why programs love it</li>
-      <li><div class="cb"></div>Making an AI return structured JSON instead of plain sentences</li>
-      <li><div class="cb"></div>The real challenge: design a different bot with a specific job</li>
-    </ul>
+  <div class="card card-purple">
+    <p style="margin:0;"><strong>HTML</strong> stands for <strong>HyperText Markup Language</strong>. It's the language every single website on the internet is built with underneath - Google, YouTube, Discord, and every assignment page Raiyan has ever sent you.</p>
   </div>
 
-  <div class="fact">Raiyan is giving you a real OpenRouter API key today. That's a genuinely big deal - treat it the way you'd treat a password, because that's exactly what it is.</div>
+  <h2>Try this right now</h2>
+  <p>Open any past assignment page you've used before. Right-click anywhere on it and choose <strong>"Inspect"</strong> (or press Ctrl+U for "View Page Source"). You'll see a wall of text wrapped in angle brackets - that's HTML. You've been looking at it this whole time without knowing it.</p>
 
-  <button class="next-btn" onclick="aariz_changePage(1)">What is an API? &rarr;</button>
+  <div class="tip">Don't worry if none of it makes sense yet - by the end of today, it will.</div>
+
+  <h2>The most important distinction</h2>
+  <div class="concept">
+    <p class="concept-title">Two different jobs</p>
+    <div class="concept-row"><span class="concept-key">Python</span><span class="concept-val">Tells the computer what to DO - logic, decisions, calculations, loops</span></div>
+    <div class="concept-row"><span class="concept-key">HTML</span><span class="concept-val">Tells the browser what to SHOW - structure and content, no logic at all</span></div>
+  </div>
+
+  <p>There's no if/else in HTML. No loops. No variables that change. Just labelled content - "this is a heading," "this is a paragraph," "this is a list." That's genuinely the whole idea, and it's simpler than Python in that specific way, even though the syntax will feel new.</p>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">What is a markup language? &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-2">
-  <div class="eyebrow">The Concept, Properly Explained</div>
-  <h1>What Actually Is an API?</h1>
-  <p><strong>API</strong> stands for Application Programming Interface. Forget the words for a second and think of it like this instead:</p>
+  <div class="eyebrow">The Bigger Picture</div>
+  <h1>What Is a Markup Language?</h1>
+  <p>HTML belongs to a whole category of languages called <strong>markup languages</strong>. Worth knowing the category, not just the one example.</p>
 
   <div class="card card-purple">
-    <p style="margin:0;">An API is a set of rules that lets one piece of software ask another piece of software for something, and get an answer back - without needing to know how that other software works on the inside. You just need to know what to ask for, and how to ask.</p>
+    <p style="margin:0;">A markup language is a system for labelling text with tags or symbols that describe its <strong>structure or meaning</strong> - not a system for giving instructions or doing logic. That's the same Python-vs-HTML distinction from a second ago, just given a proper name.</p>
   </div>
 
-  <p>Here's the same idea, in places you've used a hundred times without realising it was an API:</p>
+  <p>HTML isn't the only one. A few others you might actually recognise:</p>
 
   <div class="example-grid">
     <div class="example-box">
-      <div class="example-icon">&#127788;</div>
-      <div class="example-title">Weather App</div>
-      <div class="example-desc">Your phone doesn't know the weather itself - it asks a weather service's API and gets data back.</div>
+      <div class="example-icon">&#128221;</div>
+      <div class="example-title">Markdown</div>
+      <div class="example-desc">Lightweight and simple. You've already used this - Discord uses it! Type **bold** and it shows up bold, *italic* shows up italic.</div>
     </div>
     <div class="example-box">
-      <div class="example-icon">&#128506;</div>
-      <div class="example-title">Maps App</div>
-      <div class="example-desc">When you search a place, your app asks a maps API "where is this?" and gets back coordinates, a route.</div>
+      <div class="example-icon">&#128196;</div>
+      <div class="example-title">XML</div>
+      <div class="example-desc">Looks a lot like HTML - angle brackets and tags - but it's designed to store and move data around, not to display a page.</div>
     </div>
     <div class="example-box">
-      <div class="example-icon">&#127829;</div>
-      <div class="example-title">Food Delivery</div>
-      <div class="example-desc">The app asks a restaurant's API "what's on the menu, is it open?" and displays whatever comes back.</div>
+      <div class="example-icon">&#8721;</div>
+      <div class="example-title">LaTeX</div>
+      <div class="example-desc">Used by scientists and mathematicians to typeset papers with complicated equations and formulas.</div>
     </div>
     <div class="example-box">
-      <div class="example-icon">&#127918;</div>
-      <div class="example-title">Game Leaderboard</div>
-      <div class="example-desc">Your score gets sent to an API, which stores it and sends back everyone else's scores.</div>
+      <div class="example-icon">&#127760;</div>
+      <div class="example-title">HTML</div>
+      <div class="example-desc">The one you're learning today - the markup language built specifically for web pages.</div>
     </div>
   </div>
 
-  <p>Notice the pattern in every one: <strong>you ask for something specific, and you get a specific answer back.</strong> That's genuinely the whole idea.</p>
+  <div class="code-wrap">
+    <div class="code-head">Markdown example</div>
+    <div class="code"><span class="cm"># This is a heading</span>
+<span class="txt">I am </span><span class="fn">**bold**</span><span class="txt"> and I am </span><span class="fn">*italic*</span></div>
+  </div>
 
-  <div class="tip">You've actually used an API before - Ollama. ollama.chat() was you asking a program (running locally) a question and getting an answer. Today's different only in where that program lives - not your laptop, but a company's servers.</div>
+  <div class="code-wrap">
+    <div class="code-head">XML example</div>
+    <div class="code"><span class="tag">&lt;person&gt;</span>
+    <span class="tag">&lt;name&gt;</span><span class="txt">Aariz</span><span class="tag">&lt;/name&gt;</span>
+    <span class="tag">&lt;age&gt;</span><span class="txt">10</span><span class="tag">&lt;/age&gt;</span>
+<span class="tag">&lt;/person&gt;</span></div>
+  </div>
 
-  <button class="next-btn" onclick="aariz_changePage(1)">What is an API key? &rarr;</button>
+  <div class="tip">Notice XML looks almost exactly like HTML - tags, opening and closing, nesting. Same family, different job: HTML describes a page for a human to look at, XML describes data for programs to pass to each other.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Write your first page &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-3">
-  <div class="eyebrow">The Important Part</div>
-  <h1>What Is an API Key?</h1>
-  <p>Ollama never needed a key, because it ran on your own computer - nobody else could use it but you. A cloud API is different: it's a shared service thousands of people use, running on someone else's servers. The company needs to know who is asking.</p>
+  <div class="eyebrow">Hands On</div>
+  <h1>Your First HTML Page</h1>
+  <p>Open a plain text editor - Notepad, or VS Code if you have it. Save a new file called <code>index.html</code>. Type this exactly, then save it.</p>
 
-  <div class="card card-orange">
-    <h3>Why Keys Exist</h3>
-    <p style="margin:0;">An API key is like a personal password that identifies you to the service. It lets the company track which requests are yours, how much you've used, and stop random strangers using their AI for free on your account.</p>
+  <div class="code-wrap">
+    <div class="code-head">index.html</div>
+    <div class="code"><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;title&gt;</span><span class="txt">My First Page</span><span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+
+    <span class="tag">&lt;h1&gt;</span><span class="txt">Hello, I'm Aariz</span><span class="tag">&lt;/h1&gt;</span>
+    <span class="tag">&lt;p&gt;</span><span class="txt">This is my first ever webpage.</span><span class="tag">&lt;/p&gt;</span>
+
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></div>
   </div>
 
-  <h2>The Rules — Take These Seriously</h2>
-  <div class="card" style="background:#FFE3E3;">
-    <ul class="checklist">
-      <li><div class="cb"></div><strong>Never share your key with anyone</strong> - not in Discord, not in a screenshot, nowhere public</li>
-      <li><div class="cb"></div><strong>Never post code containing your key</strong> - blank it out before sharing anything</li>
-      <li><div class="cb"></div><strong>If you think it leaked, tell Raiyan immediately</strong> - keys can be replaced, but only if someone knows to do it</li>
-    </ul>
+  <div class="concept">
+    <p class="concept-title">What each part means</p>
+    <div class="concept-row"><span class="concept-key">&lt;!DOCTYPE html&gt;</span><span class="concept-val">Tells the browser "this is a modern HTML page" - always the first line</span></div>
+    <div class="concept-row"><span class="concept-key">&lt;html&gt;</span><span class="concept-val">Wraps the entire page - everything else lives inside it</span></div>
+    <div class="concept-row"><span class="concept-key">&lt;head&gt;</span><span class="concept-val">Information about the page - like the browser tab title - not shown on the page itself</span></div>
+    <div class="concept-row"><span class="concept-key">&lt;body&gt;</span><span class="concept-val">Everything that actually displays on the page</span></div>
   </div>
 
-  <div class="warn">Why this matters: if someone else gets your key, they can use it to make requests that might cost real money, on your account. Treat your key exactly like a bank password.</div>
+  <div class="tip">Notice every tag has an opening and closing version - &lt;h1&gt; and &lt;/h1&gt;. The slash means "this is where it ends." Every tag that opens must close - this is the single most important rule in HTML.</div>
 
-  <div class="tip">Practical tip: put your key in a variable right at the top of your file, and never paste that file anywhere public.</div>
+  <h2>Now open it</h2>
+  <p>Find the file you just saved and double-click it. It should open in your browser and actually render as a page - a big heading and a sentence underneath.</p>
 
-  <button class="next-btn" onclick="aariz_changePage(1)">Rebuild the chatbot &rarr;</button>
+  <div class="fact">That moment - plain text becoming a real rendered page - is the whole reveal. You just built something that a browser understands.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">More tags &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-4">
-  <div class="eyebrow">First Task</div>
-  <h1>Rebuild Your Chatbot with OpenRouter</h1>
-  <p>OpenRouter is a single API that gives you access to hundreds of AI models - GPT, Claude, Gemini, and more - all through one key and one consistent format. Instead of juggling different companies, you write one pattern and can swap models just by changing a name.</p>
+  <div class="eyebrow">Building Your Vocabulary</div>
+  <h1>Headings & Text Formatting</h1>
+  <p>A handful of tags cover almost everything you'll ever need for plain content. Add these to your page one at a time, saving and refreshing the browser after each to see what changes.</p>
 
+  <h2>Heading levels</h2>
   <div class="code-wrap">
-    <div class="code-head">Install</div>
-    <div class="code">pip install requests</div>
+    <div class="code-head">try this</div>
+    <div class="code"><span class="tag">&lt;h1&gt;</span><span class="txt">Biggest heading</span><span class="tag">&lt;/h1&gt;</span>
+<span class="tag">&lt;h2&gt;</span><span class="txt">A bit smaller</span><span class="tag">&lt;/h2&gt;</span>
+<span class="tag">&lt;h3&gt;</span><span class="txt">Smaller still</span><span class="tag">&lt;/h3&gt;</span></div>
   </div>
+  <p>Headings go from <code>h1</code> (biggest) down to <code>h6</code> (smallest) - the number gets bigger as the text gets smaller, which trips a lot of people up at first.</p>
 
-  <p>You already have this library from the File Storage & APIs session - OpenRouter works with the exact same tool.</p>
-
+  <h2>Bold and italic</h2>
   <div class="code-wrap">
-    <div class="code-head">chatbot.py</div>
-    <div class="code"><span class="kw">import</span> requests
-
-response = requests.post(
-    url=<span class="st">"https://openrouter.ai/api/v1/chat/completions"</span>,
-    headers={<span class="st">"Authorization"</span>: <span class="st">"Bearer YOUR_OPENROUTER_KEY"</span>},
-    json={
-        <span class="st">"model"</span>: <span class="st">"openai/gpt-4o-mini"</span>,
-        <span class="st">"messages"</span>: [
-            {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: <span class="st">"say hello in one sentence"</span>}
-        ]
-    }
-)
-
-data = response.json()
-<span class="fn">print</span>(data[<span class="st">"choices"</span>][<span class="nm">0</span>][<span class="st">"message"</span>][<span class="st">"content"</span>])</div>
+    <div class="code-head">try this</div>
+    <div class="code"><span class="tag">&lt;p&gt;</span><span class="txt">I play </span><span class="tag">&lt;strong&gt;</span><span class="txt">piano</span><span class="tag">&lt;/strong&gt;</span><span class="txt"> and </span><span class="tag">&lt;em&gt;</span><span class="txt">football</span><span class="tag">&lt;/em&gt;</span><span class="txt">.</span><span class="tag">&lt;/p&gt;</span></div>
   </div>
+  <p><code>&lt;strong&gt;</code> makes text bold. <code>&lt;em&gt;</code> makes it italic - short for "emphasis."</p>
 
-  <div class="fact">Look closely at that last line - a list inside a dictionary, indexed twice, exactly like the trivia API and exactly like your habit tracker. New service, same pattern you already know cold.</div>
+  <div class="tip">Try swapping the order, nesting strong inside em, or making a whole heading bold. There's no way to break this by experimenting - refresh and see what happens.</div>
 
-  <p>Ask Raiyan which model to use - OpenRouter has hundreds, and some are free to use while you're learning. Just swap the <code>"model"</code> value.</p>
-
-  <h2>Now Make It Loop</h2>
-  <p>Turn this into a real back-and-forth chatbot - reuse the exact <code>while True</code> + <code>input()</code> + <code>break</code> pattern from your Ollama build. The only thing that changed is how you get the reply.</p>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">What is JSON? &rarr;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">Links & images &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-5">
-  <div class="eyebrow">New Skill</div>
-  <h1>What Is JSON, Properly?</h1>
-  <p>You've actually been looking at JSON this whole time without it being named properly. Time to make it official.</p>
-
-  <div class="card card-purple">
-    <p style="margin:0;"><strong>JSON</strong> stands for JavaScript Object Notation - but despite the name, it's used by almost every programming language now, not just JavaScript. It's the standard way computers send structured data to each other over the internet.</p>
-  </div>
-
-  <p>Every single API you've used sends its data as JSON - the Trivia API, Ollama, and OpenRouter. Here's a plain example of what it looks like:</p>
+  <div class="eyebrow">Building Your Vocabulary</div>
+  <h1>Links & Images</h1>
+  <p>Two more essential tags - and your first look at something new called an <strong>attribute</strong>.</p>
 
   <div class="code-wrap">
-    <div class="code-head">example.json</div>
-    <div class="code">{
-    <span class="st">"name"</span>: <span class="st">"Aariz"</span>,
-    <span class="st">"age"</span>: <span class="nm">10</span>,
-    <span class="st">"hobbies"</span>: [<span class="st">"piano"</span>, <span class="st">"football"</span>, <span class="st">"basketball"</span>]
-}</div>
+    <div class="code-head">a link</div>
+    <div class="code"><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://google.com"</span><span class="tag">&gt;</span><span class="txt">Click here</span><span class="tag">&lt;/a&gt;</span></div>
   </div>
 
-  <div class="fact">Look familiar? That's because JSON's shape is basically identical to a Python dictionary - curly braces, keys in quotes, values that can be strings, numbers, or even lists. That's not a coincidence. Python's json module exists specifically to convert between the two.</div>
+  <div class="code-wrap">
+    <div class="code-head">an image</div>
+    <div class="code"><span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"photo.jpg"</span> <span class="attr">alt</span>=<span class="val">"A photo of me"</span><span class="tag">&gt;</span></div>
+  </div>
 
-  <p>Here's the key idea for today: since JSON is just structured data, you can ask an AI to give you its answer <em>as JSON</em> instead of a normal sentence - which means your program can actually use the answer, not just display it.</p>
+  <div class="concept">
+    <p class="concept-title">Attributes — extra info inside a tag</p>
+    <div class="concept-row"><span class="concept-key">href</span><span class="concept-val">Tells a link where to go when clicked</span></div>
+    <div class="concept-row"><span class="concept-key">src</span><span class="concept-val">Tells an image which file to show</span></div>
+    <div class="concept-row"><span class="concept-key">alt</span><span class="concept-val">Backup text shown if the image fails to load</span></div>
+  </div>
 
-  <button class="next-btn" onclick="aariz_changePage(1)">Make an AI output JSON &rarr;</button>
+  <p>Attributes always live inside the opening tag, written as <code>name="value"</code>. You'll see a lot more of these today.</p>
+
+  <div class="watch">&lt;img&gt; has no closing tag - it's self-contained since there's no content to wrap around, just the tag with its attributes. Almost everything else needs a matching close tag, so this one's worth remembering as the exception.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">div, span & labels &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-6">
-  <div class="eyebrow">The Real Skill</div>
-  <h1>Making an AI Return JSON</h1>
-  <p>Normally, an AI replies with a normal, chatty sentence. But if you tell it exactly what format you want and exactly which fields to include, it'll usually follow along.</p>
+  <div class="eyebrow">Containers & Labels</div>
+  <h1>div, span, and Naming Things</h1>
+  <p>Two more tags, and they work a bit differently from everything else - they don't mean anything specific on their own. They're just containers, boxes for grouping content together.</p>
 
   <div class="code-wrap">
-    <div class="code-head">the instruction</div>
-    <div class="code">{<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: <span class="st">"You are an event extractor. Given a description of an event, respond with ONLY a JSON object with these exact keys: event_name, date, time, location. Do not include any text outside the JSON object."</span>}</div>
+    <div class="code-head">a div example</div>
+    <div class="code"><span class="tag">&lt;div&gt;</span>
+    <span class="tag">&lt;h2&gt;</span><span class="txt">About Me</span><span class="tag">&lt;/h2&gt;</span>
+    <span class="tag">&lt;p&gt;</span><span class="txt">I'm 10 years old and I love coding.</span><span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/div&gt;</span></div>
   </div>
 
-  <p>Now if you send it something like <em>"Aariz's birthday party is this Saturday at 4pm at Funland arcade"</em>, it should reply with something like:</p>
+  <p><code>&lt;div&gt;</code> groups a whole block of content together as one unit, even though it doesn't add anything visible by itself. <code>&lt;span&gt;</code> does the same job, but for a small bit of text inside a line instead of a whole block.</p>
 
+  <div class="ask" style="background:var(--blue-bg);border:2px solid var(--ink);padding:14px 18px;margin:14px 0;">
+    <p style="margin:0;font-weight:700;">If div and span don't change how anything looks, what's the point of them?</p>
+  </div>
+
+  <div class="tip">Fair question, and the honest answer: on their own, not much. They exist so you can label and group content for later - CSS will use these groupings to decide how things look, and JavaScript will use them to decide how things behave. Today you're just building the boxes; styling them is a future lesson.</div>
+
+  <h2>id and class — naming your boxes</h2>
   <div class="code-wrap">
-    <div class="code-head">what comes back</div>
-    <div class="code">{<span class="st">"event_name"</span>: <span class="st">"Aariz's birthday party"</span>, <span class="st">"date"</span>: <span class="st">"Saturday"</span>, <span class="st">"time"</span>: <span class="st">"4pm"</span>, <span class="st">"location"</span>: <span class="st">"Funland arcade"</span>}</div>
+    <div class="code-head">using id and class</div>
+    <div class="code"><span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="val">"about-section"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;p</span> <span class="attr">class</span>=<span class="val">"highlight"</span><span class="tag">&gt;</span><span class="txt">Important note</span><span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/div&gt;</span></div>
   </div>
 
-  <div class="warn">Here's the catch: even though that reply LOOKS like JSON, Python doesn't know that automatically. The AI's answer comes back as a plain string of text. You need to explicitly convert it into a real dictionary using <code>json.loads()</code>.</div>
-
-  <div class="code-wrap">
-    <div class="code-head">parsing it</div>
-    <div class="code"><span class="kw">import</span> json
-
-reply_text = data[<span class="st">"choices"</span>][<span class="nm">0</span>][<span class="st">"message"</span>][<span class="st">"content"</span>]
-event_data = json.loads(reply_text)
-
-<span class="fn">print</span>(event_data[<span class="st">"date"</span>])
-<span class="fn">print</span>(event_data[<span class="st">"location"</span>])</div>
+  <div class="concept">
+    <p class="concept-title">id vs class</p>
+    <div class="concept-row"><span class="concept-key">id="..."</span><span class="concept-val">A unique name for exactly one element on the page - no two elements share an id</span></div>
+    <div class="concept-row"><span class="concept-key">class="..."</span><span class="concept-val">A label you can put on many different elements - used for grouping similar things</span></div>
   </div>
 
-  <div class="fact">Notice <code>json.loads()</code> is new - not the same as <code>json.load()</code> from file storage. The one with an "s" (loads = "load string") converts a JSON-shaped string of text into a real dictionary. You'll use this exact function again and again once you're pulling structured answers out of AI replies.</div>
+  <div class="fact">Go back to that page you inspected earlier. Look for class="card" or class="tip" scattered everywhere - that's exactly this. Every one of your assignment pages is full of it.</div>
 
-  <div class="tip">If <code>json.loads()</code> ever crashes with an error, it's almost always because the model added extra words around the JSON, like a code fence or a sentence before it. The fix: make your instruction even more explicit - "respond with ONLY the JSON object and nothing else."</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Your task &rarr;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">Lists & tables &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-7">
-  <div class="eyebrow">Build It</div>
-  <h1>The Event Extractor</h1>
-  <p>Put it all together. Build a program that takes a plain-English event description from the user, sends it to the AI with instructions to return structured JSON, parses the reply, and prints each piece nicely.</p>
+  <div class="eyebrow">New Skill</div>
+  <h1>Lists & Tables</h1>
+  <p>Two more tag families - one for simple lists of items, one for arranging data into rows and columns.</p>
+
+  <h2>Lists</h2>
+  <div class="code-wrap">
+    <div class="code-head">an unordered list</div>
+    <div class="code"><span class="tag">&lt;ul&gt;</span>
+    <span class="tag">&lt;li&gt;</span><span class="txt">Piano</span><span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;li&gt;</span><span class="txt">Football</span><span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;li&gt;</span><span class="txt">Basketball</span><span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ul&gt;</span></div>
+  </div>
+  <p><code>ul</code> stands for unordered list - gives you bullet points. Swap it for <code>ol</code> (ordered list) and you get numbers instead - try both and compare.</p>
+  <p>More here if you want it: <a href="https://www.w3schools.com/html/html_lists.asp" target="_blank" style="color:var(--blue);font-weight:700;">w3schools.com/html/html_lists.asp</a></p>
+
+  <h2>Tables</h2>
+  <p>A table arranges data into rows and columns - perfect for anything with multiple items that each share the same details. Three tags: <code>table</code>, <code>tr</code> (table row), and two kinds of cell - <code>th</code> (header cell) and <code>td</code> (data cell).</p>
 
   <div class="code-wrap">
-    <div class="code-head">event_extractor.py — fill in the key</div>
-    <div class="code"><span class="kw">import</span> requests
-<span class="kw">import</span> json
-
-<span class="kw">def</span> <span class="fn">get_event_json</span>(description):
-    response = requests.post(
-        url=<span class="st">"https://openrouter.ai/api/v1/chat/completions"</span>,
-        headers={<span class="st">"Authorization"</span>: <span class="st">"Bearer YOUR_OPENROUTER_KEY"</span>},
-        json={
-            <span class="st">"model"</span>: <span class="st">"openai/gpt-4o-mini"</span>,
-            <span class="st">"messages"</span>: [
-                {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: <span class="st">"You are an event extractor. Given a description of an event, respond with ONLY a JSON object with these exact keys: event_name, date, time, location. Do not include any text outside the JSON object."</span>},
-                {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: description}
-            ]
-        }
-    )
-    data = response.json()
-    reply_text = data[<span class="st">"choices"</span>][<span class="nm">0</span>][<span class="st">"message"</span>][<span class="st">"content"</span>]
-    <span class="kw">return</span> json.loads(reply_text)
-
-
-description = <span class="fn">input</span>(<span class="st">"Describe an event: "</span>)
-event = <span class="fn">get_event_json</span>(description)
-
-<span class="fn">print</span>(<span class="st">"Event: "</span> + event[<span class="st">"event_name"</span>])
-<span class="fn">print</span>(<span class="st">"Date: "</span> + event[<span class="st">"date"</span>])
-<span class="fn">print</span>(<span class="st">"Time: "</span> + event[<span class="st">"time"</span>])
-<span class="fn">print</span>(<span class="st">"Location: "</span> + event[<span class="st">"location"</span>])</div>
+    <div class="code-head">my_schedule.html</div>
+    <div class="code"><span class="tag">&lt;table&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+        <span class="tag">&lt;th&gt;</span><span class="txt">Activity</span><span class="tag">&lt;/th&gt;</span>
+        <span class="tag">&lt;th&gt;</span><span class="txt">Day</span><span class="tag">&lt;/th&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+        <span class="tag">&lt;td&gt;</span><span class="txt">Piano</span><span class="tag">&lt;/td&gt;</span>
+        <span class="tag">&lt;td&gt;</span><span class="txt">Monday</span><span class="tag">&lt;/td&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+        <span class="tag">&lt;td&gt;</span><span class="txt">Football</span><span class="tag">&lt;/td&gt;</span>
+        <span class="tag">&lt;td&gt;</span><span class="txt">Wednesday</span><span class="tag">&lt;/td&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+<span class="tag">&lt;/table&gt;</span></div>
   </div>
 
-  <div class="card card-green">
-    <h3>Test It On</h3>
-    <ul class="checklist">
-      <li><div class="cb"></div>A simple event: "football practice tomorrow at 5pm at the school field"</li>
-      <li><div class="cb"></div>A messier, more detailed description with extra details mixed in</li>
-      <li><div class="cb"></div>An event missing one detail - what does it do when something's not mentioned?</li>
-    </ul>
+  <div class="concept">
+    <p class="concept-title">The three table tags</p>
+    <div class="concept-row"><span class="concept-key">table</span><span class="concept-val">The whole table - everything else lives inside it</span></div>
+    <div class="concept-row"><span class="concept-key">tr</span><span class="concept-val">One row - the first row is usually your column headers</span></div>
+    <div class="concept-row"><span class="concept-key">th / td</span><span class="concept-val">th = header cell (bold, for labels), td = normal data cell</span></div>
   </div>
 
-  <div class="tip">Notice this whole program is basically one function you call once. This is a real callback to the functions you learned before AI even entered the picture.</div>
+  <div class="tip">Every row needs the same number of cells for the table to line up properly - if your header row has 2 th tags, every other row needs 2 td tags to match.</div>
 
-  <button class="next-btn" onclick="aariz_changePage(1)">The real challenge &rarr;</button>
+  <p>Full reference: <a href="https://www.w3schools.com/html/html_tables.asp" target="_blank" style="color:var(--blue);font-weight:700;">w3schools.com/html/html_tables.asp</a> &middot; General HTML hub: <a href="https://www.w3schools.com/html/default.asp" target="_blank" style="color:var(--blue);font-weight:700;">w3schools.com/html</a></p>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">The real task &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-8">
-  <div class="eyebrow">The Real Challenge</div>
-  <h1>Impress Me. Again.</h1>
-  <p>Getting the basic chatbot and the JSON extractor running is real progress - but here's the actual assignment:</p>
+  <div class="eyebrow">Build It</div>
+  <h1>Task: An Events Page</h1>
+  <p>Time to put everything from today together in one real page. You're going to invent 3 events - anything you like, a match, a party, a practice session - and build a page that displays them two different ways.</p>
 
-  <div class="card card-purple">
-    <h3>Be Creative With This</h3>
-    <p style="margin:0;">Design a chatbot with <strong>one specific job</strong> - something genuinely useful, not just a funny voice with a costume on. Make it good enough at that one thing to actually impress me. The idea is entirely yours to come up with - I'm not handing you one this time.</p>
+  <div class="card card-orange">
+    <h3>Step 1 — Make up your events</h3>
+    <p style="margin:0;">Think of <strong>3 different events</strong>. For each one, decide on an event name, a date, a time, and a location. Write these down before you start coding - piano recital, football match, birthday party, whatever you like.</p>
   </div>
 
-  <p>Think about what you'd genuinely want an AI to help with in your own life - piano, football, basketball, schoolwork, whatever. What would make me say <em>"wait, that's actually a really good idea"</em>? That's the bar.</p>
+  <div class="card card-blue">
+    <h3>Step 2 — Build the page</h3>
+    <p style="margin:0;">Using the 3 events you just made up, build an HTML page with:</p>
+    <ul class="checklist" style="margin-top:10px;">
+      <li><div class="cb"></div>A <strong>table</strong> showing all 3 events - columns for Event Name, Date, Time, Location</li>
+      <li><div class="cb"></div>A <strong>list</strong> below the table, showing just the event names as a quick summary</li>
+      <li><div class="cb"></div>An h1 title for the page, like "Upcoming Events"</li>
+    </ul>
+  </div>
 
-  <div class="tip">If you want a stretch idea: what if your purpose-built bot also returned structured JSON instead of plain sentences? A homework helper that returns {"subject": ..., "difficulty": ..., "answer": ...} is genuinely more useful than one that just replies in a paragraph.</div>
+  <div class="code-wrap">
+    <div class="code-head">events.html — skeleton to fill in</div>
+    <div class="code"><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;title&gt;</span><span class="txt">My Events</span><span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
 
-  <div class="warn">Test it properly before you're done. Ask it something related to its job. Then try to pull it off-topic on purpose and see if it holds its role.</div>
+    <span class="tag">&lt;h1&gt;</span><span class="txt">Upcoming Events</span><span class="tag">&lt;/h1&gt;</span>
 
-  <button class="next-btn" onclick="aariz_changePage(1)">How to submit &rarr;</button>
+    <span class="tag">&lt;table&gt;</span>
+        <span class="tag">&lt;tr&gt;</span>
+            <span class="tag">&lt;th&gt;</span><span class="txt">Event Name</span><span class="tag">&lt;/th&gt;</span>
+            <span class="tag">&lt;th&gt;</span><span class="txt">Date</span><span class="tag">&lt;/th&gt;</span>
+            <span class="tag">&lt;th&gt;</span><span class="txt">Time</span><span class="tag">&lt;/th&gt;</span>
+            <span class="tag">&lt;th&gt;</span><span class="txt">Location</span><span class="tag">&lt;/th&gt;</span>
+        <span class="tag">&lt;/tr&gt;</span>
+        <span class="cm">&lt;!-- add one &lt;tr&gt; per event --&gt;</span>
+    <span class="tag">&lt;/table&gt;</span>
+
+    <span class="tag">&lt;h2&gt;</span><span class="txt">Quick List</span><span class="tag">&lt;/h2&gt;</span>
+    <span class="tag">&lt;ul&gt;</span>
+        <span class="cm">&lt;!-- one &lt;li&gt; per event name --&gt;</span>
+    <span class="tag">&lt;/ul&gt;</span>
+
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></div>
+  </div>
+
+  <div class="fact">Showing the same data two different ways - a detailed table and a quick-glance list - is something real websites do constantly. Same information, two views, depending on what the reader needs at that moment.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Submit this task &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-9">
   <div class="eyebrow">Submitting</div>
-  <h1>Show Me What You Built</h1>
-
-  <div class="warn">Before you post anything on Discord - check your code for your API key and remove it or replace it with something like "your-key-here". Never post a real key anywhere.</div>
+  <h1>Show Me the Events Page</h1>
 
   <div class="discord-box">
     <div class="discord-header">
       <div class="discord-av">A</div>
       <span class="discord-name">Aariz</span>
     </div>
-    <div class="discord-msg">built the event extractor + my new bot, here's the code
-      <div class="discord-code">```python
-import requests
-import json
-
-def get_event_json(description):
-    # ... your code, key removed
+    <div class="discord-msg">built my events page
+      <div class="discord-code">```html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;table&gt;...&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 ```</div>
     </div>
   </div>
@@ -473,18 +530,16 @@ def get_event_json(description):
   <div class="card card-green">
     <h3>Also Include</h3>
     <ul class="checklist">
-      <li><div class="cb"></div>Your event extractor code, key removed, in a Discord code block</li>
-      <li><div class="cb"></div>A screenshot of it correctly extracting JSON from 2 different event descriptions</li>
-      <li><div class="cb"></div>Your purpose-built chatbot code, key removed</li>
-      <li><div class="cb"></div>What your bot's specific job is, in one sentence</li>
-      <li><div class="cb"></div>A screenshot showing it answering on-topic, and one showing an off-topic attempt</li>
+      <li><div class="cb"></div>Your full HTML code in a Discord code block</li>
+      <li><div class="cb"></div>The 3 events you made up</li>
+      <li><div class="cb"></div>A screenshot of the page rendered in a browser</li>
+      <li><div class="cb"></div>One sentence: what was trickier, the table or the list?</li>
     </ul>
   </div>
-
-  <div class="fact">There's no single correct answer here. I want to see you actually thought about what your bot is for, and put real effort into making it good at that one thing. Surprise me.</div>
 </div>
 
 </div>
+<!-- end aariz screen -->
 <!-- end aariz screen -->
 
 <!-- ============================================================ AFRAZ SCREEN ============================================================ -->
@@ -701,6 +756,95 @@ print(double_points(12))
   </div>
 </div>
 
+<div class="page" id="afraz-page-9">
+  <div class="eyebrow">New Topic — Read Carefully</div>
+  <h1>What Is a Markup Language?</h1>
+  <p>Afraz, this one's a reading topic rather than a coding one. Go slowly - after each part, there's something you need to do before moving on.</p>
+
+  <div class="card card-purple">
+    <p style="margin:0;">A <strong>markup language</strong> is a way of labelling text using tags or symbols, to describe its structure or meaning. It's different from a programming language like Python - Python gives the computer instructions and makes decisions, but a markup language doesn't do any thinking. It just describes what something IS - a heading, a list, bold text - not what to DO.</p>
+  </div>
+
+  <div class="warn">📝 <strong>Repeat it back:</strong> before you continue, write this definition again in your own words - on paper, in a notes app, wherever. Don't copy it, actually rewrite it from memory.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Examples &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-10">
+  <div class="eyebrow">Keep Reading</div>
+  <h1>Examples of Markup Languages</h1>
+  <p>HTML is one markup language, but it's not the only one. Here are three real examples:</p>
+
+  <div class="example-grid">
+    <div class="example-box">
+      <div class="example-icon">&#128221;</div>
+      <div class="example-title">Markdown</div>
+      <div class="example-desc">Simple and lightweight. Discord actually uses this - typing **word** makes it bold, *word* makes it italic.</div>
+    </div>
+    <div class="example-box">
+      <div class="example-icon">&#128196;</div>
+      <div class="example-title">XML</div>
+      <div class="example-desc">Looks like HTML but is used to store and move data around between programs, not to show a page.</div>
+    </div>
+    <div class="example-box">
+      <div class="example-icon">&#8721;</div>
+      <div class="example-title">LaTeX</div>
+      <div class="example-desc">Used by scientists and mathematicians to write papers with complicated equations.</div>
+    </div>
+  </div>
+
+  <p>And of course - <strong>HTML</strong>, the one used to build every webpage you've ever visited.</p>
+
+  <div class="warn">📝 <strong>Repeat it back:</strong> close your eyes (or look away from the screen) and try to name all three examples above from memory. Then check how many you got.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">What is HTML? &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-11">
+  <div class="eyebrow">Keep Reading</div>
+  <h1>What Is HTML?</h1>
+
+  <div class="card card-blue">
+    <p style="margin:0;"><strong>HTML</strong> stands for <strong>HyperText Markup Language</strong>. It's the markup language specifically built for web pages. Every website you've ever opened - Google, YouTube, Discord's own webpage, even the assignment pages you're reading right now - is built using HTML underneath.</p>
+  </div>
+
+  <p>HTML uses <strong>tags</strong> - little labels wrapped in angle brackets, like <code>&lt;h1&gt;</code> or <code>&lt;p&gt;</code> - to describe what each piece of content is. A tag doesn't calculate anything or make a decision. It just says "this bit of text is a heading" or "this bit is a paragraph."</p>
+
+  <div class="tip">This is the same distinction from the markup language definition, just applied specifically to HTML: Python decides things, HTML just describes things.</div>
+
+  <div class="warn">📝 <strong>Repeat it back:</strong> in your own words, write one or two sentences explaining the difference between what Python does and what HTML does.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Answer the questions &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-12">
+  <div class="eyebrow">Short Answer Questions</div>
+  <h1>Write Your Answers & Send Them Over</h1>
+  <p>Answer these in your own words - a sentence or two each is plenty. Once you're done, send your answers to Raiyan on Discord.</p>
+
+  <div class="card">
+    <ul class="checklist">
+      <li><div class="cb"></div><strong>1.</strong> What does HTML stand for?</li>
+      <li><div class="cb"></div><strong>2.</strong> In your own words, what is a markup language?</li>
+      <li><div class="cb"></div><strong>3.</strong> Name two markup languages other than HTML.</li>
+      <li><div class="cb"></div><strong>4.</strong> What's the difference between a markup language and a programming language like Python?</li>
+      <li><div class="cb"></div><strong>5.</strong> What does a "tag" do in a markup language?</li>
+      <li><div class="cb"></div><strong>6.</strong> Why do you think Markdown might be simpler to write than HTML?</li>
+    </ul>
+  </div>
+
+  <h2>Submit on Discord</h2>
+  <div class="discord-box">
+    <div class="discord-header">
+      <div class="discord-av">A</div>
+      <span class="discord-name">Afraz</span>
+    </div>
+    <div class="discord-msg">here are my answers:<br>1. HyperText Markup Language<br>2. A way of labelling text to describe its structure, not give instructions...<br>3. Markdown and XML<br>...</div>
+  </div>
+
+  <div class="tip">No need for a code block this time - just write your answers as a normal message. Take your time on question 2 and 4, they're the ones that show whether the idea actually landed.</div>
+</div>
+
 </div>
 <!-- end afraz screen -->
 
@@ -758,7 +902,7 @@ function toggleHint(id) {
 
 <script>
 (function() {
-  const TOTAL = 8;
+  const TOTAL = 12;
   let cur = 1;
 
   function buildDots() {
