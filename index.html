@@ -147,11 +147,11 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
       <div class="landing-card" onclick="showScreen('aariz')">
         <div class="landing-avatar" style="background:var(--yellow);">A</div>
         <div class="landing-name">Aariz</div>
-        <div class="landing-desc">HTML from zero - every basic tag, then lists and tables, then a real events page you build yourself.</div>
+        <div class="landing-desc">HTML from zero, then CSS to style it, then JavaScript - going deep, mapped straight back to everything you know in Python.</div>
         <div class="landing-meta">
-          <span class="pill p-pink">html basics</span>
-          <span class="pill p-blue">tables</span>
-          <span class="pill p-orange">lists</span>
+          <span class="pill p-pink">html</span>
+          <span class="pill p-blue">css</span>
+          <span class="pill p-orange">javascript</span>
         </div>
         <div class="landing-go">Start &rarr;</div>
       </div>
@@ -159,11 +159,9 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
       <div class="landing-card" onclick="showScreen('afraz')">
         <div class="landing-avatar" style="background:var(--pink);color:var(--white);">A</div>
         <div class="landing-name">Afraz</div>
-        <div class="landing-desc">Functions, six practice problems, plus a reading topic on markup languages with short questions.</div>
+        <div class="landing-desc">A gentle, no-judgment refresh on variables - what they are, naming them, using them, ending in a real challenge.</div>
         <div class="landing-meta">
-          <span class="pill p-yellow">functions</span>
-          <span class="pill p-green">practice</span>
-          <span class="pill p-blue">reading</span>
+          <span class="pill p-green">variables</span>
         </div>
         <div class="landing-go">Start &rarr;</div>
       </div>
@@ -538,15 +536,549 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
   </div>
 </div>
 
+<div class="page" id="aariz-page-10">
+  <span class="only-tag">For Aariz only</span>
+  <div class="eyebrow">New Topic</div>
+  <h1>Making It Look Good — CSS</h1>
+  <p>Remember the HTML lesson, when your pages looked completely plain and I told you "that's a different lesson"? This is that lesson. Today: CSS to style things, then JavaScript to make things actually <em>do</em> something.</p>
+
+  <div class="card card-purple">
+    <p style="margin:0;"><strong>CSS</strong> stands for Cascading Style Sheets. HTML says what something IS - a heading, a table. CSS says what it LOOKS like - what color, how big, how much space around it.</p>
+  </div>
+
+  <h2>Three ways to add CSS</h2>
+  <div class="code-wrap">
+    <div class="code-head">1. inline — directly on one tag</div>
+    <div class="code"><span class="tag">&lt;p</span> <span class="attr">style</span>=<span class="val">"color: red;"</span><span class="tag">&gt;</span><span class="txt">This text is red</span><span class="tag">&lt;/p&gt;</span></div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-head">2. internal — a style block in the head (what you'll mostly use today)</div>
+    <div class="code"><span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;style&gt;</span>
+        p {
+            color: red;
+        }
+    <span class="tag">&lt;/style&gt;</span>
+<span class="tag">&lt;/head&gt;</span></div>
+  </div>
+  <p>There's a third way - a separate .css file linked in - but that's for bigger projects. Internal is perfect for now.</p>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Selectors, properly &rarr;</button>
 </div>
-<!-- end aariz screen -->
+
+<div class="page" id="aariz-page-11">
+  <div class="eyebrow">CSS Deep Dive</div>
+  <h1>Selectors, Properly</h1>
+  <p>A selector is just the part of your CSS that answers "which elements does this rule apply to?" You've seen the three basics - now let's actually cover the full toolkit.</p>
+
+  <h2>1. Element selector</h2>
+  <div class="code-wrap">
+    <div class="code-head">targets every element of that type</div>
+    <div class="code">p {
+    color: blue;
+}</div>
+  </div>
+  <p>Every &lt;p&gt; on the page turns blue. Simple, but blunt - it can't target just one paragraph, only "all paragraphs everywhere."</p>
+
+  <h2>2. Class selector</h2>
+  <div class="code-wrap">
+    <div class="code-head">targets every element with this class</div>
+    <div class="code">.highlight {
+    background-color: yellow;
+}</div>
+  </div>
+  <p>The dot means "class." Any tag with <code>class="highlight"</code> gets styled - could be a p, a div, a li, anything. This is the selector you'll use most: reusable, flexible, not tied to one tag type.</p>
+
+  <h2>3. ID selector</h2>
+  <div class="code-wrap">
+    <div class="code-head">targets exactly one element</div>
+    <div class="code">#page-title {
+    font-size: 40px;
+}</div>
+  </div>
+  <p>The hash means "id." Since an id can only appear once per page, this always targets exactly one thing.</p>
+
+  <h2>4. Grouping selectors — style several things at once</h2>
+  <div class="code-wrap">
+    <div class="code-head">comma-separated</div>
+    <div class="code">h1, h2, h3 {
+    font-family: Arial;
+    color: darkblue;
+}</div>
+  </div>
+  <p>Same rule, three different selectors, separated by commas. Saves you writing the same block three times.</p>
+
+  <h2>5. Descendant selector — targeting something inside something else</h2>
+  <div class="code-wrap">
+    <div class="code-head">a space means "inside"</div>
+    <div class="code">table td {
+    text-align: center;
+}</div>
+  </div>
+  <p>This means "any &lt;td&gt; that's inside a &lt;table&gt;" - not every td on the whole page, just ones nested inside a table. A space between two selectors always means "descendant of."</p>
+
+  <h2>Bonus: pseudo-classes</h2>
+  <div class="code-wrap">
+    <div class="code-head">:hover — style on mouseover</div>
+    <div class="code">button:hover {
+    background-color: lightgreen;
+}</div>
+  </div>
+  <p>This only applies while the mouse is actually hovering over the button - a small taste of CSS reacting to something happening, without needing any JavaScript at all.</p>
+
+  <div class="concept">
+    <p class="concept-title">Which one do I use?</p>
+    <div class="concept-row"><span class="concept-key">element</span><span class="concept-val">Broad, page-wide defaults - e.g. all paragraphs use this font</span></div>
+    <div class="concept-row"><span class="concept-key">class</span><span class="concept-val">Your main tool - reusable styling for a group of things</span></div>
+    <div class="concept-row"><span class="concept-key">id</span><span class="concept-val">One unique element - used sparingly, more often for JavaScript than styling</span></div>
+  </div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Good practices &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-12">
+  <div class="eyebrow">CSS Deep Dive</div>
+  <h1>Good Practices</h1>
+  <p>CSS is easy to write badly and still have it "work" - the page looks fine, but the code underneath turns into a mess nobody can maintain, including future-you. A few habits worth building from day one.</p>
+
+  <div class="card card-orange">
+    <h3>1. Prefer classes over ids for styling</h3>
+    <p style="margin:0;">An id can only be used once, so styling with ids means rewriting the same rule over and over for every similar element. Save id for when you genuinely need to target one unique thing - often that's JavaScript's job (getElementById), not CSS's.</p>
+  </div>
+
+  <div class="card card-blue">
+    <h3>2. Avoid inline styles</h3>
+    <p style="margin:0;">style="color: red;" directly on a tag works, but it's mixed in with your content, can't be reused anywhere else, and is genuinely painful to find and update later. Keep styling in your &lt;style&gt; block (or a separate CSS file), and structure in your HTML. Two different jobs, two different places.</p>
+  </div>
+
+  <div class="card card-green">
+    <h3>3. Name classes by purpose, not appearance</h3>
+    <div class="code-wrap" style="margin-top:10px;">
+      <div class="code-head">weaker</div>
+      <div class="code">.yellow-box { background: yellow; }</div>
+    </div>
+    <div class="code-wrap">
+      <div class="code-head">stronger</div>
+      <div class="code">.warning-box { background: yellow; }</div>
+    </div>
+    <p style="margin:0;">If you later decide warnings should be orange instead of yellow, .warning-box still makes sense. .yellow-box would suddenly be a lie.</p>
+  </div>
+
+  <div class="card card-purple">
+    <h3>4. Keep selectors as simple as they can be</h3>
+    <div class="code-wrap" style="margin-top:10px;">
+      <div class="code-head">overly specific — hard to read, hard to override</div>
+      <div class="code">div#content table tbody tr td.highlight { }</div>
+    </div>
+    <div class="code-wrap">
+      <div class="code-head">simple — clear, reusable</div>
+      <div class="code">.highlight { }</div>
+    </div>
+    <p style="margin:0;">The shorter version does the same job and is far easier to reuse anywhere else you need that style.</p>
+  </div>
+
+  <div class="tip">One more small habit: use lowercase-with-hyphens for class names - event-table, not EventTable or eventTable. It's the standard convention, and consistency matters more than which style you pick.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Common properties &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-13">
+  <div class="eyebrow">CSS Toolkit</div>
+  <h1>Properties You'll Actually Use</h1>
+  <p>A small handful of properties cover most of what you need for now.</p>
+
+  <div class="concept">
+    <p class="concept-title">Your CSS starter kit</p>
+    <div class="concept-row"><span class="concept-key">color</span><span class="concept-val">Text color</span></div>
+    <div class="concept-row"><span class="concept-key">background-color</span><span class="concept-val">Background color of an element</span></div>
+    <div class="concept-row"><span class="concept-key">font-size</span><span class="concept-val">How big the text is, e.g. 20px</span></div>
+    <div class="concept-row"><span class="concept-key">margin</span><span class="concept-val">Space OUTSIDE an element's border</span></div>
+    <div class="concept-row"><span class="concept-key">padding</span><span class="concept-val">Space INSIDE an element, between content and border</span></div>
+    <div class="concept-row"><span class="concept-key">border</span><span class="concept-val">A line around an element, e.g. 1px solid black</span></div>
+    <div class="concept-row"><span class="concept-key">text-align</span><span class="concept-val">left, right, or center</span></div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-head">a styled table example</div>
+    <div class="code">table {
+    border: 2px solid black;
+}
+th {
+    background-color: lightblue;
+    padding: 8px;
+}
+td {
+    padding: 8px;
+}</div>
+  </div>
+
+  <h2>Try it now</h2>
+  <p>Open your events.html page from the HTML lesson. Add a <code>&lt;style&gt;</code> block in the head. Style the table with a border, give the header row a background color, and center your h1. Refresh and watch it transform.</p>
+
+  <div class="tip">This is the fastest CSS confidence boost there is - the same content you already built suddenly looking like a real page. Spend a few minutes just experimenting with colors before moving on.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">What is JavaScript? &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-14">
+  <div class="eyebrow">The Big One</div>
+  <h1>What Is JavaScript?</h1>
+  <p>Here's the missing piece. HTML describes structure. CSS describes appearance. Neither one can make a decision, do maths, or react to a click. JavaScript is different - it's a real programming language, running right inside the browser.</p>
+
+  <div class="card card-purple">
+    <p style="margin:0;"><strong>JavaScript (JS)</strong> is the language that makes web pages actually DO things - respond to clicks, update content, check conditions, run loops. It's the browser's equivalent of Python.</p>
+  </div>
+
+  <div class="concept">
+    <p class="concept-title">The three-layer picture</p>
+    <div class="concept-row"><span class="concept-key">HTML</span><span class="concept-val">Structure - what's on the page</span></div>
+    <div class="concept-row"><span class="concept-key">CSS</span><span class="concept-val">Style - what it looks like</span></div>
+    <div class="concept-row"><span class="concept-key">JavaScript</span><span class="concept-val">Behavior - what happens when things change or get clicked</span></div>
+  </div>
+
+  <p>Here's the good news: you already know how to think like a programmer. You know what a variable is, what a function does, how a loop works, how an if statement makes a decision. JavaScript isn't a new way of thinking - it's the same ideas from Python, wearing different clothes. Today's whole plan is to walk through everything you already know and see its JS outfit.</p>
+
+  <div class="code-wrap">
+    <div class="code-head">where JS lives in a page</div>
+    <div class="code"><span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;h1&gt;</span><span class="txt">My Page</span><span class="tag">&lt;/h1&gt;</span>
+
+    <span class="tag">&lt;script&gt;</span>
+        console.log(<span class="val">"Hello from JavaScript"</span>);
+    <span class="tag">&lt;/script&gt;</span>
+<span class="tag">&lt;/body&gt;</span></div>
+  </div>
+
+  <p><code>console.log()</code> is JavaScript's version of <code>print()</code> - it doesn't show on the page, it shows in the browser's developer console (the same Inspect panel you used in the HTML lesson - there's a "Console" tab in there).</p>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Variables in JS &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-15">
+  <div class="eyebrow">Python, But Make It JS</div>
+  <h1>Variables</h1>
+  <p>Let's go one Python concept at a time. First up - variables.</p>
+
+  <div class="example-grid">
+    <div class="example-box">
+      <div class="example-icon">&#128013;</div>
+      <div class="example-title">Python</div>
+      <div class="example-desc" style="font-family:var(--mono);">name = "Aariz"<br>age = 10</div>
+    </div>
+    <div class="example-box">
+      <div class="example-icon">&#9889;</div>
+      <div class="example-title">JavaScript</div>
+      <div class="example-desc" style="font-family:var(--mono);">let name = "Aariz";<br>let age = 10;</div>
+    </div>
+  </div>
+
+  <div class="concept">
+    <p class="concept-title">What's different</p>
+    <div class="concept-row"><span class="concept-key">let</span><span class="concept-val">JS needs a keyword before a new variable - let (or const, for a value that never changes)</span></div>
+    <div class="concept-row"><span class="concept-key">;</span><span class="concept-val">Lines usually end with a semicolon in JS - Python never uses these</span></div>
+    <div class="concept-row"><span class="concept-key">naming rules</span><span class="concept-val">Same as Python - letters, numbers, underscores, can't start with a number, no spaces</span></div>
+  </div>
+
+  <p>Use <code>const</code> when a value should never change, <code>let</code> when it might. Try both in a script tag and print them with console.log.</p>
+
+  <div class="code-wrap">
+    <div class="code-head">try this</div>
+    <div class="code">let score = <span class="val">5</span>;
+score = score + <span class="val">1</span>;
+console.log(score);  <span class="cm">// 6</span>
+
+const birthYear = <span class="val">2016</span>;
+<span class="cm">// birthYear = 2017;  this would cause an error - const can't change</span></div>
+  </div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Conditionals in JS &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-16">
+  <div class="eyebrow">Python, But Make It JS</div>
+  <h1>Conditionals</h1>
+
+  <div class="example-grid">
+    <div class="example-box">
+      <div class="example-icon">&#128013;</div>
+      <div class="example-title">Python</div>
+      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">if score >= 20:
+    print("Great!")
+elif score >= 10:
+    print("Good")
+else:
+    print("Try again")</div>
+    </div>
+    <div class="example-box">
+      <div class="example-icon">&#9889;</div>
+      <div class="example-title">JavaScript</div>
+      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">if (score >= 20) {
+  console.log("Great!");
+} else if (score >= 10) {
+  console.log("Good");
+} else {
+  console.log("Try again");
+}</div>
+    </div>
+  </div>
+
+  <div class="concept">
+    <p class="concept-title">What's different</p>
+    <div class="concept-row"><span class="concept-key">( )</span><span class="concept-val">The condition needs parentheses around it</span></div>
+    <div class="concept-row"><span class="concept-key">{ }</span><span class="concept-val">Curly braces replace Python's colon + indentation to mark what's inside</span></div>
+    <div class="concept-row"><span class="concept-key">else if</span><span class="concept-val">Two words instead of Python's single elif</span></div>
+    <div class="concept-row"><span class="concept-key">===</span><span class="concept-val">Use three equals signs to compare values - a JS quirk worth remembering</span></div>
+  </div>
+
+  <div class="warn">Watch out for === vs ==. Always use === (triple equals) when comparing values in JS - == exists too, but it can quietly convert types in confusing ways. === is the safe default, every time.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Loops in JS &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-17">
+  <div class="eyebrow">Python, But Make It JS</div>
+  <h1>Loops</h1>
+  <p>This is the one that looks the most different at first glance.</p>
+
+  <div class="example-grid">
+    <div class="example-box">
+      <div class="example-icon">&#128013;</div>
+      <div class="example-title">Python</div>
+      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">for i in range(5):
+    print(i)</div>
+    </div>
+    <div class="example-box">
+      <div class="example-icon">&#9889;</div>
+      <div class="example-title">JavaScript</div>
+      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">for (let i = 0; i < 5; i++) {
+  console.log(i);
+}</div>
+    </div>
+  </div>
+
+  <p>JS spells out the three parts Python's <code>range()</code> hides for you: <strong>start</strong> (let i = 0), <strong>condition to keep going</strong> (i &lt; 5), and <strong>what happens each round</strong> (i++, meaning "add 1").</p>
+
+  <h2>The friendlier version — for...of</h2>
+  <p>Looping over a list feels much more like Python if you use <code>for...of</code> instead:</p>
+
+  <div class="example-grid">
+    <div class="example-box">
+      <div class="example-icon">&#128013;</div>
+      <div class="example-title">Python</div>
+      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">hobbies = ["Piano", "Football"]
+for hobby in hobbies:
+    print(hobby)</div>
+    </div>
+    <div class="example-box">
+      <div class="example-icon">&#9889;</div>
+      <div class="example-title">JavaScript</div>
+      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">let hobbies = ["Piano", "Football"];
+for (let hobby of hobbies) {
+  console.log(hobby);
+}</div>
+    </div>
+  </div>
+
+  <div class="tip">Genuinely almost identical to Python here - just add "let" and "of", swap print for console.log. Use for...of whenever you're looping through a list of things; save the three-part for loop for when you specifically need to count.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Functions in JS &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-18">
+  <div class="eyebrow">Python, But Make It JS</div>
+  <h1>Functions</h1>
+  <p>This one's the closest match of all.</p>
+
+  <div class="example-grid">
+    <div class="example-box">
+      <div class="example-icon">&#128013;</div>
+      <div class="example-title">Python</div>
+      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">def double(number):
+    return number * 2
+
+print(double(5))</div>
+    </div>
+    <div class="example-box">
+      <div class="example-icon">&#9889;</div>
+      <div class="example-title">JavaScript</div>
+      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">function double(number) {
+  return number * 2;
+}
+
+console.log(double(5));</div>
+    </div>
+  </div>
+
+  <div class="concept">
+    <p class="concept-title">What's different</p>
+    <div class="concept-row"><span class="concept-key">function</span><span class="concept-val">Replaces Python's def</span></div>
+    <div class="concept-row"><span class="concept-key">{ }</span><span class="concept-val">Curly braces mark the function body instead of indentation</span></div>
+    <div class="concept-row"><span class="concept-key">return</span><span class="concept-val">Works exactly the same as Python - sends a value back</span></div>
+  </div>
+
+  <p>Parameters, return values, calling a function with different arguments - all of that is identical in spirit. Only the punctuation changed.</p>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Arrays & objects &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-19">
+  <div class="eyebrow">Python, But Make It JS</div>
+  <h1>Arrays & Objects</h1>
+  <p>This is the one that should feel most familiar of all - you've done a version of this dozens of times already, with your JSON work.</p>
+
+  <h2>Lists → Arrays</h2>
+  <div class="example-grid">
+    <div class="example-box">
+      <div class="example-icon">&#128013;</div>
+      <div class="example-title">Python list</div>
+      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">hobbies = ["Piano", "Football"]
+print(hobbies[0])</div>
+    </div>
+    <div class="example-box">
+      <div class="example-icon">&#9889;</div>
+      <div class="example-title">JS array</div>
+      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">let hobbies = ["Piano", "Football"];
+console.log(hobbies[0]);</div>
+    </div>
+  </div>
+  <p>Nearly identical. Square brackets, comma-separated, indexed from 0. This barely counts as new syntax.</p>
+
+  <h2>Dictionaries → Objects</h2>
+  <div class="example-grid">
+    <div class="example-box">
+      <div class="example-icon">&#128013;</div>
+      <div class="example-title">Python dict</div>
+      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">player = {"name": "Aariz", "sport": "football"}
+print(player["name"])</div>
+    </div>
+    <div class="example-box">
+      <div class="example-icon">&#9889;</div>
+      <div class="example-title">JS object</div>
+      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">let player = {name: "Aariz", sport: "football"};
+console.log(player.name);
+console.log(player["name"]);</div>
+    </div>
+  </div>
+
+  <div class="fact">One genuinely new thing: JS lets you use <strong>dot notation</strong> - player.name - as well as bracket notation. Python dictionaries only ever let you use brackets. Both work in JS; dot notation is more common when you already know the key name.</div>
+
+  <h2>The moment this all connects</h2>
+  <p>Remember response["choices"][0]["message"]["content"] from your API work? That entire structure - an array containing an object, containing more nested data - is exactly what JavaScript arrays and objects look like too. When you called an API in Python, the JSON you got back would look almost identical if you'd been doing it in JavaScript instead.</p>
+
+  <h2>Try it yourself</h2>
+  <p>Take the 3 events you invented for your HTML task. Build a JS array of 3 objects - one per event, each with name, date, time, location - then use a for...of loop to console.log each one.</p>
+
+  <div class="code-wrap">
+    <div class="code-head">starter</div>
+    <div class="code">let events = [
+    { name: <span class="val">"..."</span>, date: <span class="val">"..."</span>, time: <span class="val">"..."</span>, location: <span class="val">"..."</span> },
+    <span class="cm">// two more events</span>
+];
+
+<span class="kw">for</span> (let event of events) {
+    console.log(event.name + <span class="val">" - "</span> + event.date);
+}</div>
+  </div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Making JS interactive &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-20">
+  <div class="eyebrow">The Real Payoff</div>
+  <h1>Making JS Actually Touch the Page</h1>
+  <p>Everything so far has lived in the console - useful for learning, but not visible on the actual page. Here's how JavaScript reaches out and changes what someone sees.</p>
+
+  <div class="code-wrap">
+    <div class="code-head">click a button, change the page</div>
+    <div class="code"><span class="tag">&lt;button</span> <span class="attr">onclick</span>=<span class="val">"sayHello()"</span><span class="tag">&gt;</span><span class="txt">Click me</span><span class="tag">&lt;/button&gt;</span>
+<span class="tag">&lt;p</span> <span class="attr">id</span>=<span class="val">"message"</span><span class="tag">&gt;&lt;/p&gt;</span>
+
+<span class="tag">&lt;script&gt;</span>
+<span class="kw">function</span> sayHello() {
+    document.getElementById(<span class="val">"message"</span>).textContent = <span class="val">"Hello, Aariz!"</span>;
+}
+<span class="tag">&lt;/script&gt;</span></div>
+  </div>
+
+  <div class="concept">
+    <p class="concept-title">The three pieces</p>
+    <div class="concept-row"><span class="concept-key">onclick</span><span class="concept-val">An attribute on the button, naming a function to run when clicked</span></div>
+    <div class="concept-row"><span class="concept-key">getElementById</span><span class="concept-val">Finds the exact element with that id - remember id from the HTML lesson?</span></div>
+    <div class="concept-row"><span class="concept-key">.textContent</span><span class="concept-val">The text inside that element - set it to change what's displayed</span></div>
+  </div>
+
+  <div class="fact">Every single assignment page Raiyan has ever sent you uses exactly this pattern for its Next and Back buttons. onclick="changePage(1)" - you've clicked this pattern hundreds of times. Now you know what it actually does.</div>
+
+  <p>You can also change style this way, not just text:</p>
+  <div class="code-wrap">
+    <div class="code-head">changing CSS from JS</div>
+    <div class="code">document.body.style.backgroundColor = <span class="val">"lightblue"</span>;</div>
+  </div>
+
+  <div class="tip">This is genuinely the moment HTML, CSS, and JS become one thing instead of three separate lessons - JavaScript reaching out and changing what CSS controls, live, in response to something a person did.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">The final task &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-21">
+  <div class="eyebrow">Build It</div>
+  <h1>Final Task — Bring Your Events Page to Life</h1>
+  <p>Take your events.html from the HTML lesson and level it up with everything from today.</p>
+
+  <div class="card card-orange">
+    <h3>Requirements</h3>
+    <ul class="checklist">
+      <li><div class="cb"></div>Style the table with CSS - a border, a header background color, some padding</li>
+      <li><div class="cb"></div>Add a button below the table</li>
+      <li><div class="cb"></div>Clicking the button should change something on the page using JavaScript - the background color, some text, anything visible</li>
+      <li><div class="cb"></div>Somewhere in a &lt;script&gt; tag, build a JS array of your 3 events as objects, and use a for...of loop to console.log each one</li>
+    </ul>
+  </div>
+
+  <div class="tip">Don't worry about making the button do something complicated - the goal is proving the click-to-change pattern works, not building something fancy. A background color change or a fun message showing up is plenty.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Submit &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-22">
+  <div class="eyebrow">Submitting</div>
+  <h1>Show Me the Final Version</h1>
+
+  <div class="discord-box">
+    <div class="discord-header">
+      <div class="discord-av">A</div>
+      <span class="discord-name">Aariz</span>
+    </div>
+    <div class="discord-msg">added css and js to my events page
+      <div class="discord-code">```html
+&lt;style&gt; ... &lt;/style&gt;
+&lt;button onclick="doSomething()"&gt;Click me&lt;/button&gt;
+&lt;script&gt; ... &lt;/script&gt;
+```</div>
+    </div>
+  </div>
+
+  <div class="card card-green">
+    <h3>Also Include</h3>
+    <ul class="checklist">
+      <li><div class="cb"></div>Your full HTML+CSS+JS code in a Discord code block</li>
+      <li><div class="cb"></div>A screenshot before clicking the button, and one after</li>
+      <li><div class="cb"></div>A screenshot of your console showing the 3 events printed</li>
+      <li><div class="cb"></div>One sentence: which felt more like Python - the variables/loops/functions, or something else?</li>
+    </ul>
+  </div>
+
+  <div class="fact">You now know all three languages that build every website on the internet. That's genuinely the full picture most people take months to get through.</div>
+</div>
+
+</div>
 <!-- end aariz screen -->
 
 <!-- ============================================================ AFRAZ SCREEN ============================================================ -->
 <div class="screen" id="screen-afraz">
 
 <nav class="nav">
-  <span class="nav-logo">Afraz &middot; Functions</span>
+  <span class="nav-logo">Afraz &middot; Variables</span>
   <button class="home-btn" onclick="showScreen('landing')">&#8962; Home</button>
   <div class="page-index" id="afraz-nav-dots"></div>
   <div class="nav-arrows">
@@ -556,293 +1088,143 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
 </nav>
 
 <div class="page active" id="afraz-page-1">
-  <div class="eyebrow">New Topic</div>
-  <h1>Functions</h1>
-  <p>Afraz - today's about functions. A function is a named block of code that you can run any time just by saying its name, instead of retyping the same lines over and over.</p>
+  <div class="eyebrow">Quick Refresh</div>
+  <h1>Back to Basics — Variables</h1>
+  <p>Afraz, let's slow right down and make sure variables feel completely solid. No judgment here - this stuff is genuinely easy to lose track of, and a quick refresh now makes everything after it click faster.</p>
 
   <div class="card card-yellow">
-    <p style="margin:0;">You've actually already used functions loads of times without building your own - <code>print()</code>, <code>input()</code>, <code>len()</code> are all functions. Today you write your own.</p>
+    <p style="margin:0;">Think of a variable as a <strong>labelled box</strong>. You put a value inside it, and you give the box a name so you can find it again later.</p>
   </div>
 
-  <h2>The Basic Shape</h2>
   <div class="code-wrap">
-    <div class="code-head">example.py</div>
-    <div class="code"><span class="kw">def</span> <span class="fn">greet</span>():
-    <span class="fn">print</span>(<span class="st">"Yo what's good"</span>)
-
-<span class="fn">greet</span>()
-<span class="fn">greet</span>()</div>
+    <div class="code-head">the simplest possible example</div>
+    <div class="code">score = 10
+<span class="cm"># the box is named "score", and it holds the value 10</span></div>
   </div>
 
-  <p><code>def</code> means "I'm defining a function." <code>greet</code> is the name - you could call it anything. Everything indented underneath is what runs each time you call it.</p>
+  <div class="tip">That's it. That's a variable. Everything else today just builds on this one idea.</div>
 
-  <h2>Giving It Information — Parameters</h2>
-  <div class="code-wrap">
-    <div class="code-head">example.py</div>
-    <div class="code"><span class="kw">def</span> <span class="fn">greet</span>(name):
-    <span class="fn">print</span>(<span class="st">"Yo "</span> + name + <span class="st">", what's good"</span>)
-
-<span class="fn">greet</span>(<span class="st">"Afraz"</span>)
-<span class="fn">greet</span>(<span class="st">"Aariz"</span>)</div>
-  </div>
-
-  <p><code>name</code> inside the brackets is a parameter - a variable that gets filled in differently each time you call the function.</p>
-
-  <h2>Getting Something Back — Return</h2>
-  <div class="code-wrap">
-    <div class="code-head">example.py</div>
-    <div class="code"><span class="kw">def</span> <span class="fn">double</span>(number):
-    <span class="kw">return</span> number * <span class="nm">2</span>
-
-result = <span class="fn">double</span>(<span class="nm">5</span>)
-<span class="fn">print</span>(result)  <span class="cm"># prints 10</span></div>
-  </div>
-
-  <div class="tip">If you forget <code>return</code>, your function won't crash - it'll just quietly give you back <code>None</code> instead of a real answer.</div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Try it yourself &rarr;</button>
+  <button class="next-btn" onclick="afraz_changePage(1)">Declaring & assigning &rarr;</button>
 </div>
 
 <div class="page" id="afraz-page-2">
-  <div class="eyebrow">Problem 1 of 6</div>
-  <h1>Double the Points</h1>
+  <div class="eyebrow">Quick Refresh</div>
+  <h1>Declaring & Assigning</h1>
+  <p>Creating a variable and putting a value in it is called <strong>assignment</strong>. The <code>=</code> sign does this - and it means something a little different from maths class.</p>
+
+  <div class="code-wrap">
+    <div class="code-head">assignment</div>
+    <div class="code">goals = 3
+<span class="fn">print</span>(goals)   <span class="cm"># prints 3</span></div>
+  </div>
+
+  <p>In maths, <code>=</code> means "these two things are equal." In Python, <code>goals = 3</code> means something different: <strong>"put 3 into the box called goals."</strong> It's an instruction, not a statement of fact.</p>
+
+  <h2>You can change what's inside</h2>
+  <div class="code-wrap">
+    <div class="code-head">reassigning a variable</div>
+    <div class="code">goals = 3
+<span class="fn">print</span>(goals)   <span class="cm"># 3</span>
+
+goals = 5
+<span class="fn">print</span>(goals)   <span class="cm"># 5 - the box now holds a new value</span></div>
+  </div>
+
+  <div class="tip">The old value doesn't stick around anywhere - once you reassign, it's just gone, replaced by the new one. Try this yourself: create a variable, print it, change it, print it again.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Naming variables &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-3">
+  <div class="eyebrow">Quick Refresh</div>
+  <h1>Naming Your Variables</h1>
+  <p>A variable can be called almost anything you want. A few real rules to follow though:</p>
+
+  <div class="concept">
+    <p class="concept-title">The rules</p>
+    <div class="concept-row"><span class="concept-key">letters, numbers, _</span><span class="concept-val">Names can use letters, numbers, and underscores</span></div>
+    <div class="concept-row"><span class="concept-key">can't start with a number</span><span class="concept-val">score1 is fine, 1score is not</span></div>
+    <div class="concept-row"><span class="concept-key">no spaces</span><span class="concept-val">Use an underscore instead - player_name, not player name</span></div>
+    <div class="concept-row"><span class="concept-key">case matters</span><span class="concept-val">Score and score are two completely different variables</span></div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-head">all valid names</div>
+    <div class="code">age = 10
+player_name = <span class="st">"Afraz"</span>
+totalGoals = 7
+_secret = <span class="st">"shh"</span></div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-head">all invalid names</div>
+    <div class="code">1player = <span class="st">"Afraz"</span>      <span class="cm"># can't start with a number</span>
+player name = <span class="st">"Afraz"</span>  <span class="cm"># no spaces allowed</span></div>
+  </div>
+
+  <div class="tip">Pick names that actually describe what's inside the box. score is better than x. player_name is better than p. Your future self reading the code will thank you.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Using variables &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-4">
+  <div class="eyebrow">Quick Refresh</div>
+  <h1>Using Variables</h1>
+  <p>Once a variable holds a value, you can use it just like you'd use the value itself - in maths, in print statements, anywhere.</p>
+
+  <div class="code-wrap">
+    <div class="code-head">using variables in maths</div>
+    <div class="code">goals = 3
+assists = 2
+total = goals + assists
+<span class="fn">print</span>(total)   <span class="cm"># 5</span></div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-head">a variable can even use itself</div>
+    <div class="code">score = 10
+score = score + 1
+<span class="fn">print</span>(score)   <span class="cm"># 11</span></div>
+  </div>
+
+  <p>That last one trips people up at first - <code>score = score + 1</code> looks like it shouldn't work. Read the right side first: "take whatever score currently is, add 1." Then the left side happens: "now put that new number back into score." Right side calculates, left side stores.</p>
+
+  <div class="tip">Try this yourself: make 2 variables holding numbers, add them together into a third variable, and print the result.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">The swap challenge &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-5">
+  <div class="eyebrow">The Real Test</div>
+  <h1>Challenge: Swap Two Variables</h1>
+  <p>Here's a genuinely tricky problem that really tests whether variables make sense to you. Take your time with this one - no need to write anything down or send it anywhere, just work through it until it clicks.</p>
 
   <div class="problem-card">
     <div class="problem-header">
       <div class="problem-num">1</div>
-      <span class="problem-title">Bonus Round Calculator</span>
+      <span class="problem-title">Swap the values</span>
     </div>
-    <p class="problem-desc">Write a function called <code>double_points</code> that takes a basketball score as a parameter, and returns it doubled.</p>
-    <div class="expected">double_points(12) &rarr; 24</div>
-    <button class="hint-btn" onclick="toggleHint('afraz-h1')">Show Hint</button>
-    <div class="hint" id="afraz-h1"><code>def double_points(score):<br>&nbsp;&nbsp;&nbsp;&nbsp;return score * 2</code></div>
+    <p class="problem-desc">You're given two variables: <code>a = 5</code> and <code>b = 10</code>. Write code that swaps them, so afterwards <code>a</code> holds 10 and <code>b</code> holds 5.</p>
+    <div class="expected">Before: a = 5, b = 10<br>After:  a = 10, b = 5</div>
   </div>
 
-  <div class="tip">Test your function with at least 2 different numbers before moving on.</div>
+  <h2>Try it before reading further</h2>
+  <p>Your first instinct might be this:</p>
+  <div class="code-wrap">
+    <div class="code-head">the tempting but WRONG way</div>
+    <div class="code">a = <span class="nm">5</span>
+b = <span class="nm">10</span>
 
-  <button class="next-btn" onclick="afraz_changePage(1)">Next problem &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-3">
-  <div class="eyebrow">Problem 2 of 6</div>
-  <h1>Build a Greeting</h1>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">2</div>
-      <span class="problem-title">Match Day Announcer</span>
-    </div>
-    <p class="problem-desc">Write a function called <code>announce_player</code> that takes a player's name as a parameter, and returns a string like an announcer introducing them before a match.</p>
-    <div class="expected">announce_player("Afraz") &rarr; "Now stepping onto the field... AFRAZ!"</div>
-    <button class="hint-btn" onclick="toggleHint('afraz-h2')">Show Hint</button>
-    <div class="hint" id="afraz-h2"><code>def announce_player(name):<br>&nbsp;&nbsp;&nbsp;&nbsp;return "Now stepping onto the field... " + name.upper() + "!"</code></div>
+a = b   <span class="cm"># a is now 10 - looks right so far</span>
+b = a   <span class="cm"># uh oh</span></div>
   </div>
 
-  <div class="tip">Try it with your own name, then a friend's name, then a made-up player name.</div>
+  <div class="warn">Run this and check what b ends up being. It's not 5. By the time you run b = a, a has ALREADY been overwritten with b's value - so you're really just copying 10 into b too, and a's original 5 is gone forever, nowhere to be found.</div>
 
-  <button class="next-btn" onclick="afraz_changePage(1)">Next problem &rarr;</button>
-</div>
+  <button class="hint-btn" onclick="toggleHint('afraz-h7')">Show hint</button>
+  <div class="hint" id="afraz-h7">You need somewhere to keep the value of "a" safe before you overwrite it. Try creating a third variable - call it temp - and store a's original value in there first, before anything else changes.</div>
 
-<div class="page" id="afraz-page-4">
-  <div class="eyebrow">Problem 3 of 6</div>
-  <h1>Functions + Conditionals</h1>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">3</div>
-      <span class="problem-title">Practice Tracker</span>
-    </div>
-    <p class="problem-desc">Write a function called <code>check_practice</code> that takes minutes practised as a parameter, and returns a different message depending on how long: 30+ minutes returns "Great session!", 10-29 minutes returns "Decent effort.", under 10 minutes returns "Try a bit longer next time."</p>
-    <div class="expected">check_practice(45) &rarr; "Great session!"<br>check_practice(15) &rarr; "Decent effort."<br>check_practice(5) &rarr; "Try a bit longer next time."</div>
-    <button class="hint-btn" onclick="toggleHint('afraz-h3')">Show Hint</button>
-    <div class="hint" id="afraz-h3">The conditional goes right inside the function body:<br><br><code>def check_practice(minutes):<br>&nbsp;&nbsp;&nbsp;&nbsp;if minutes >= 30:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Great session!"<br>&nbsp;&nbsp;&nbsp;&nbsp;elif minutes >= 10:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Decent effort."<br>&nbsp;&nbsp;&nbsp;&nbsp;else:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Try a bit longer next time."</code></div>
-  </div>
-
-  <div class="tip">The function decides which message fits, and hands back exactly one clean answer.</div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Next problem &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-5">
-  <div class="eyebrow">Problem 4 of 6</div>
-  <h1>Functions With Multiple Parameters</h1>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">4</div>
-      <span class="problem-title">Average Practice Score</span>
-    </div>
-    <p class="problem-desc">Write a function called <code>average_score</code> that takes <strong>three</strong> numbers as parameters - three separate practice session scores - and returns their average.</p>
-    <div class="expected">average_score(8, 9, 7) &rarr; 8.0</div>
-    <button class="hint-btn" onclick="toggleHint('afraz-h4')">Show Hint</button>
-    <div class="hint" id="afraz-h4">A function can take more than one parameter - just separate them with commas in both the definition and the call:<br><br><code>def average_score(a, b, c):<br>&nbsp;&nbsp;&nbsp;&nbsp;return (a + b + c) / 3</code></div>
-  </div>
-
-  <div class="tip">This is the first function you've written with more than one parameter - notice the order you pass values in matches the order of the parameter names.</div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Next problem &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-6">
-  <div class="eyebrow">Problem 5 of 6</div>
-  <h1>A Loop Inside a Function</h1>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">5</div>
-      <span class="problem-title">Race Start Countdown</span>
-    </div>
-    <p class="problem-desc">Write a function called <code>print_countdown</code> that takes a starting number as a parameter, and uses a loop to print every number counting down from that number to 1, then prints "Go!" at the end.</p>
-    <div class="expected">print_countdown(3) &rarr; prints 3, 2, 1, Go!</div>
-    <button class="hint-btn" onclick="toggleHint('afraz-h5')">Show Hint</button>
-    <div class="hint" id="afraz-h5">Everything you know about for loops still works exactly the same inside a function:<br><br><code>def print_countdown(start):<br>&nbsp;&nbsp;&nbsp;&nbsp;for i in range(start, 0, -1):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(i)<br>&nbsp;&nbsp;&nbsp;&nbsp;print("Go!")</code></div>
-  </div>
-
-  <div class="tip">A function can contain a loop, an if statement, another function call - anything you already know how to write goes inside just as normal.</div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Last problem &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-7">
-  <div class="eyebrow">Problem 6 of 6</div>
-  <h1>A Function Calling a Function</h1>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">6</div>
-      <span class="problem-title">Bonus Round, Take Two</span>
-    </div>
-    <p class="problem-desc">Write a function called <code>bonus_round</code> that takes a score, calls your earlier <code>double_points</code> function on it, then adds a fixed bonus of 5 points on top, and returns the final total.</p>
-    <div class="expected">bonus_round(10) &rarr; double_points(10) is 20, plus 5 bonus = 25</div>
-    <button class="hint-btn" onclick="toggleHint('afraz-h6')">Show Hint</button>
-    <div class="hint" id="afraz-h6">Functions can call other functions you've already written - just use it like any other value:<br><br><code>def bonus_round(score):<br>&nbsp;&nbsp;&nbsp;&nbsp;doubled = double_points(score)<br>&nbsp;&nbsp;&nbsp;&nbsp;return doubled + 5</code><br><br>Make sure double_points is defined somewhere above this in your file.</div>
-  </div>
-
-  <div class="tip">This is a genuinely important idea - functions don't have to work alone. Once you've built one, other functions can reuse it instead of rewriting the same logic again.</div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Submit &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-8">
-  <div class="eyebrow">Wrap Up</div>
-  <h1>Nice Work</h1>
-  <p>Six functions now - maths, string building, decisions, multiple parameters, a loop inside a function, and functions calling other functions. That covers pretty much everything functions are used for.</p>
-
-  <h2>Submit on Discord</h2>
-  <div class="discord-box">
-    <div class="discord-header">
-      <div class="discord-av">A</div>
-      <span class="discord-name">Afraz</span>
-    </div>
-    <div class="discord-msg">done with all 6 functions
-      <div class="discord-code">```python
-def double_points(score):
-    return score * 2
-
-print(double_points(12))
-
-# ...rest of your answers
-```</div>
-    </div>
-  </div>
-
-  <div class="card card-green">
-    <h3>Also Include</h3>
-    <ul class="checklist">
-      <li><div class="cb"></div>All 6 functions in one Discord code block</li>
-      <li><div class="cb"></div>A test call for each one, showing it actually works</li>
-      <li><div class="cb"></div>Which one felt trickiest, and why</li>
-    </ul>
-  </div>
-</div>
-
-<div class="page" id="afraz-page-9">
-  <div class="eyebrow">New Topic — Read Carefully</div>
-  <h1>What Is a Markup Language?</h1>
-  <p>Afraz, this one's a reading topic rather than a coding one. Go slowly - after each part, there's something you need to do before moving on.</p>
-
-  <div class="card card-purple">
-    <p style="margin:0;">A <strong>markup language</strong> is a way of labelling text using tags or symbols, to describe its structure or meaning. It's different from a programming language like Python - Python gives the computer instructions and makes decisions, but a markup language doesn't do any thinking. It just describes what something IS - a heading, a list, bold text - not what to DO.</p>
-  </div>
-
-  <div class="warn">📝 <strong>Repeat it back:</strong> before you continue, write this definition again in your own words - on paper, in a notes app, wherever. Don't copy it, actually rewrite it from memory.</div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Examples &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-10">
-  <div class="eyebrow">Keep Reading</div>
-  <h1>Examples of Markup Languages</h1>
-  <p>HTML is one markup language, but it's not the only one. Here are three real examples:</p>
-
-  <div class="example-grid">
-    <div class="example-box">
-      <div class="example-icon">&#128221;</div>
-      <div class="example-title">Markdown</div>
-      <div class="example-desc">Simple and lightweight. Discord actually uses this - typing **word** makes it bold, *word* makes it italic.</div>
-    </div>
-    <div class="example-box">
-      <div class="example-icon">&#128196;</div>
-      <div class="example-title">XML</div>
-      <div class="example-desc">Looks like HTML but is used to store and move data around between programs, not to show a page.</div>
-    </div>
-    <div class="example-box">
-      <div class="example-icon">&#8721;</div>
-      <div class="example-title">LaTeX</div>
-      <div class="example-desc">Used by scientists and mathematicians to write papers with complicated equations.</div>
-    </div>
-  </div>
-
-  <p>And of course - <strong>HTML</strong>, the one used to build every webpage you've ever visited.</p>
-
-  <div class="warn">📝 <strong>Repeat it back:</strong> close your eyes (or look away from the screen) and try to name all three examples above from memory. Then check how many you got.</div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">What is HTML? &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-11">
-  <div class="eyebrow">Keep Reading</div>
-  <h1>What Is HTML?</h1>
-
-  <div class="card card-blue">
-    <p style="margin:0;"><strong>HTML</strong> stands for <strong>HyperText Markup Language</strong>. It's the markup language specifically built for web pages. Every website you've ever opened - Google, YouTube, Discord's own webpage, even the assignment pages you're reading right now - is built using HTML underneath.</p>
-  </div>
-
-  <p>HTML uses <strong>tags</strong> - little labels wrapped in angle brackets, like <code>&lt;h1&gt;</code> or <code>&lt;p&gt;</code> - to describe what each piece of content is. A tag doesn't calculate anything or make a decision. It just says "this bit of text is a heading" or "this bit is a paragraph."</p>
-
-  <div class="tip">This is the same distinction from the markup language definition, just applied specifically to HTML: Python decides things, HTML just describes things.</div>
-
-  <div class="warn">📝 <strong>Repeat it back:</strong> in your own words, write one or two sentences explaining the difference between what Python does and what HTML does.</div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Answer the questions &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-12">
-  <div class="eyebrow">Short Answer Questions</div>
-  <h1>Write Your Answers & Send Them Over</h1>
-  <p>Answer these in your own words - a sentence or two each is plenty. Once you're done, send your answers to Raiyan on Discord.</p>
-
-  <div class="card">
-    <ul class="checklist">
-      <li><div class="cb"></div><strong>1.</strong> What does HTML stand for?</li>
-      <li><div class="cb"></div><strong>2.</strong> In your own words, what is a markup language?</li>
-      <li><div class="cb"></div><strong>3.</strong> Name two markup languages other than HTML.</li>
-      <li><div class="cb"></div><strong>4.</strong> What's the difference between a markup language and a programming language like Python?</li>
-      <li><div class="cb"></div><strong>5.</strong> What does a "tag" do in a markup language?</li>
-      <li><div class="cb"></div><strong>6.</strong> Why do you think Markdown might be simpler to write than HTML?</li>
-    </ul>
-  </div>
-
-  <h2>Submit on Discord</h2>
-  <div class="discord-box">
-    <div class="discord-header">
-      <div class="discord-av">A</div>
-      <span class="discord-name">Afraz</span>
-    </div>
-    <div class="discord-msg">here are my answers:<br>1. HyperText Markup Language<br>2. A way of labelling text to describe its structure, not give instructions...<br>3. Markdown and XML<br>...</div>
-  </div>
-
-  <div class="tip">No need for a code block this time - just write your answers as a normal message. Take your time on question 2 and 4, they're the ones that show whether the idea actually landed.</div>
+  <div class="tip" style="margin-top:20px;">If you genuinely get why the naive version fails, and why a temp variable fixes it, variables are solid. That's the whole point of this refresh - no need to submit anything, just walk Raiyan through it whenever you're ready.</div>
 </div>
 
 </div>
@@ -865,7 +1247,7 @@ function toggleHint(id) {
 
 <script>
 (function() {
-  const TOTAL = 9;
+  const TOTAL = 22;
   let cur = 1;
 
   function buildDots() {
@@ -902,7 +1284,7 @@ function toggleHint(id) {
 
 <script>
 (function() {
-  const TOTAL = 12;
+  const TOTAL = 5;
   let cur = 1;
 
   function buildDots() {
