@@ -133,6 +133,27 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
 .landing-desc { font-size: 13.5px; color: #444; line-height: 1.6; margin-bottom: 16px; }
 .landing-meta { display: flex; gap: 6px; flex-wrap: wrap; }
 .landing-go { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; margin-top: 16px; text-transform: uppercase; background: var(--ink); color: var(--white); padding: 8px 16px; }
+
+/* added: previously-undefined helper classes */
+:root { --blue-bg: #E3ECFF; }
+.concept { border: var(--border-w) solid var(--ink); background: var(--white); padding: 14px 18px; margin: 14px 0; box-shadow: var(--shadow-sm); }
+.concept-title { font-family: var(--head-font); font-size: 13px; text-transform: uppercase; margin-bottom: 10px; }
+.concept-row { display: flex; gap: 12px; align-items: baseline; padding: 6px 0; border-top: 2px dashed var(--ink); font-size: 13.5px; line-height: 1.55; }
+.concept-row:first-of-type { border-top: none; }
+.concept-key { flex: 0 0 90px; font-weight: 800; font-family: var(--mono); font-size: 12px; background: var(--yellow); border: 2px solid var(--ink); padding: 1px 8px; text-align: center; }
+.concept-val { flex: 1; }
+.code .tag { color: #FF9DC5; }
+.code .attr { color: #FFD46B; }
+.code .val { color: #7CE8A6; }
+.code .txt { color: #E8E8F0; }
+.watch { background: #FFE3D6; border: var(--border-w) solid var(--ink); padding: 14px 18px; font-size: 13.5px; margin: 14px 0; line-height: 1.6; box-shadow: var(--shadow-sm); }
+.page-index { max-width: 520px; }
+.page-num { width: 28px; }
+.answer { background: #E3ECFF; border: var(--border-w) solid var(--ink); padding: 10px 14px; font-size: 13px; margin-top: 8px; display: none; line-height: 1.6; box-shadow: var(--shadow-sm); }
+.answer.show { display: block; }
+.step-list { counter-reset: s; list-style: none; margin: 12px 0; }
+.step-list li { counter-increment: s; position: relative; padding: 8px 0 8px 44px; font-size: 14px; line-height: 1.6; }
+.step-list li::before { content: counter(s); position: absolute; left: 0; top: 6px; width: 30px; height: 30px; background: var(--yellow); border: 2.5px solid var(--ink); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -147,11 +168,11 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
       <div class="landing-card" onclick="showScreen('aariz')">
         <div class="landing-avatar" style="background:var(--yellow);">A</div>
         <div class="landing-name">Aariz</div>
-        <div class="landing-desc">HTML from zero, then CSS to style it, then JavaScript - going deep, mapped straight back to everything you know in Python.</div>
+        <div class="landing-desc">How the web works, building a real server with Node and Express, and talking to it with curl.</div>
         <div class="landing-meta">
-          <span class="pill p-pink">html</span>
-          <span class="pill p-blue">css</span>
-          <span class="pill p-orange">javascript</span>
+          <span class="pill p-pink">web</span>
+          <span class="pill p-green">node + express</span>
+          <span class="pill p-yellow">curl</span>
         </div>
         <div class="landing-go">Start &rarr;</div>
       </div>
@@ -159,7 +180,7 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
       <div class="landing-card" onclick="showScreen('afraz')">
         <div class="landing-avatar" style="background:var(--pink);color:var(--white);">A</div>
         <div class="landing-name">Afraz</div>
-        <div class="landing-desc">A gentle, no-judgment refresh on variables - what they are, naming them, using them, ending in a real challenge.</div>
+        <div class="landing-desc">Variables, level 2: the basics refreshed, then types, converting, updating, f-strings, swapping and the tricky list-copy trap.</div>
         <div class="landing-meta">
           <span class="pill p-green">variables</span>
         </div>
@@ -174,7 +195,7 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
 <div class="screen" id="screen-aariz">
 
 <nav class="nav">
-  <span class="nav-logo">Aariz &middot; HTML</span>
+  <span class="nav-logo">Aariz &middot; Web</span>
   <button class="home-btn" onclick="showScreen('landing')">&#8962; Home</button>
   <div class="page-index" id="aariz-nav-dots"></div>
   <div class="nav-arrows">
@@ -184,891 +205,515 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
 </nav>
 
 <div class="page active" id="aariz-page-1">
-  <span class="only-tag">For Aariz only</span>
-  <div class="eyebrow">Brand New Topic</div>
-  <h1>What Is HTML?</h1>
-  <p>Aariz - completely new territory today. Everything you've built so far has been Python: logic, functions, data. HTML is a genuinely different kind of thing, and it's worth slowing down for.</p>
-
-  <div class="card card-purple">
-    <p style="margin:0;"><strong>HTML</strong> stands for <strong>HyperText Markup Language</strong>. It's the language every single website on the internet is built with underneath - Google, YouTube, Discord, and every assignment page Raiyan has ever sent you.</p>
-  </div>
-
-  <h2>Try this right now</h2>
-  <p>Open any past assignment page you've used before. Right-click anywhere on it and choose <strong>"Inspect"</strong> (or press Ctrl+U for "View Page Source"). You'll see a wall of text wrapped in angle brackets - that's HTML. You've been looking at it this whole time without knowing it.</p>
-
-  <div class="tip">Don't worry if none of it makes sense yet - by the end of today, it will.</div>
-
-  <h2>The most important distinction</h2>
+  <div class="eyebrow">The Web &middot; Big Picture</div>
+  <h1>How the Web Actually Works</h1>
+  <p>Aariz - every website is built from HTML, CSS and JavaScript, but those just <em>show</em> a page. Today you find out where pages come <em>from</em>, and you build the thing that sends them: a <strong>server</strong>.</p>
+  <h2>Two computers having a conversation</h2>
+  <p>Every time you open a website or an app, two computers talk. That is the whole internet, really. They have two jobs:</p>
   <div class="concept">
-    <p class="concept-title">Two different jobs</p>
-    <div class="concept-row"><span class="concept-key">Python</span><span class="concept-val">Tells the computer what to DO - logic, decisions, calculations, loops</span></div>
-    <div class="concept-row"><span class="concept-key">HTML</span><span class="concept-val">Tells the browser what to SHOW - structure and content, no logic at all</span></div>
+    <p class="concept-title">The two roles</p>
+    <div class="concept-row"><span class="concept-key">client</span><span class="concept-val">the one that <strong>asks</strong>. Your browser, your phone app, or a tool in the terminal.</span></div>
+    <div class="concept-row"><span class="concept-key">server</span><span class="concept-val">the one that <strong>answers</strong>. A program sitting on a computer, waiting for questions.</span></div>
+    <div class="concept-row"><span class="concept-key">request</span><span class="concept-val">the question the client sends: "give me the events page".</span></div>
+    <div class="concept-row"><span class="concept-key">response</span><span class="concept-val">the answer the server sends back: the page, some data, or an error.</span></div>
   </div>
+  <div class="card card-yellow"><h3>Restaurant picture</h3><p>You are the client. The menu is what you are allowed to ask for. The waiter carries your order (the request) to the kitchen (the server), and brings back your food (the response). If you order something not on the menu, the waiter comes back with "sorry, we don't have that" - the web has a number for that too, which you will meet soon.</p></div>
+  <h2>It is just a function call</h2>
+  <p>You already know this pattern from Python. Compare:</p>
+  <div class="code-wrap">
+    <div class="code-head">Python - calling a function</div>
+    <div class="code">result = add(2, 3)     # ask, get an answer back</div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-head">The web - calling a server</div>
+    <div class="code">GET http://localhost:3000/api/events   # ask, get an answer back</div>
+  </div>
+  <div class="fact">A request is like calling a function that lives on another computer. The path (<code>/api/events</code>) is the function's name, and the response is its return value.</div>
+  <h2>What is localhost?</h2>
+  <p>Normally the client and the server are different computers far apart. While you are building, your own computer plays <strong>both</strong> roles. The address <code>localhost</code> just means "this computer", and the number after it, like <code>:3000</code>, is the <strong>port</strong> - which door of your computer the server is listening at.</p>
+  <button class="hint-btn" data-label="Question" onclick="toggleHint('aariz-w1')">Show Question</button>
+  <div class="hint" id="aariz-w1">When you type <code>google.com</code> into a browser, which one is the client and which is the server?<br><br>Answer: your browser is the client. Google's computers are the server. The page you see is the response.</div>
 
-  <p>There's no if/else in HTML. No loops. No variables that change. Just labelled content - "this is a heading," "this is a paragraph," "this is a list." That's genuinely the whole idea, and it's simpler than Python in that specific way, even though the syntax will feel new.</p>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">What is a markup language? &rarr;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">URLs, methods and status codes &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-2">
-  <div class="eyebrow">The Bigger Picture</div>
-  <h1>What Is a Markup Language?</h1>
-  <p>HTML belongs to a whole category of languages called <strong>markup languages</strong>. Worth knowing the category, not just the one example.</p>
-
-  <div class="card card-purple">
-    <p style="margin:0;">A markup language is a system for labelling text with tags or symbols that describe its <strong>structure or meaning</strong> - not a system for giving instructions or doing logic. That's the same Python-vs-HTML distinction from a second ago, just given a proper name.</p>
-  </div>
-
-  <p>HTML isn't the only one. A few others you might actually recognise:</p>
-
-  <div class="example-grid">
-    <div class="example-box">
-      <div class="example-icon">&#128221;</div>
-      <div class="example-title">Markdown</div>
-      <div class="example-desc">Lightweight and simple. You've already used this - Discord uses it! Type **bold** and it shows up bold, *italic* shows up italic.</div>
-    </div>
-    <div class="example-box">
-      <div class="example-icon">&#128196;</div>
-      <div class="example-title">XML</div>
-      <div class="example-desc">Looks a lot like HTML - angle brackets and tags - but it's designed to store and move data around, not to display a page.</div>
-    </div>
-    <div class="example-box">
-      <div class="example-icon">&#8721;</div>
-      <div class="example-title">LaTeX</div>
-      <div class="example-desc">Used by scientists and mathematicians to typeset papers with complicated equations and formulas.</div>
-    </div>
-    <div class="example-box">
-      <div class="example-icon">&#127760;</div>
-      <div class="example-title">HTML</div>
-      <div class="example-desc">The one you're learning today - the markup language built specifically for web pages.</div>
-    </div>
-  </div>
-
+  <div class="eyebrow">The Web &middot; The Language</div>
+  <h1>URLs, Methods and Status Codes</h1>
+  <p>Clients and servers need to agree on how to talk. There are three things to learn, and they come up in every request.</p>
+  <h2>1. The URL has parts</h2>
   <div class="code-wrap">
-    <div class="code-head">Markdown example</div>
-    <div class="code"><span class="cm"># This is a heading</span>
-<span class="txt">I am </span><span class="fn">**bold**</span><span class="txt"> and I am </span><span class="fn">*italic*</span></div>
+    <div class="code-head">anatomy of a URL</div>
+    <div class="code">http://localhost:3000/api/events/2?sort=name</div>
   </div>
-
-  <div class="code-wrap">
-    <div class="code-head">XML example</div>
-    <div class="code"><span class="tag">&lt;person&gt;</span>
-    <span class="tag">&lt;name&gt;</span><span class="txt">Aariz</span><span class="tag">&lt;/name&gt;</span>
-    <span class="tag">&lt;age&gt;</span><span class="txt">10</span><span class="tag">&lt;/age&gt;</span>
-<span class="tag">&lt;/person&gt;</span></div>
+  <div class="concept">
+    <p class="concept-title">Break it up</p>
+    <div class="concept-row"><span class="concept-key">http://</span><span class="concept-val">the protocol - the rules for talking</span></div>
+    <div class="concept-row"><span class="concept-key">localhost</span><span class="concept-val">the host - which computer</span></div>
+    <div class="concept-row"><span class="concept-key">:3000</span><span class="concept-val">the port - which door</span></div>
+    <div class="concept-row"><span class="concept-key">/api/events/2</span><span class="concept-val">the path - which thing you want</span></div>
+    <div class="concept-row"><span class="concept-key">?sort=name</span><span class="concept-val">the query - extra options (we will not need it yet)</span></div>
   </div>
+  <h2>2. The method says what you want to do</h2>
+  <p>Besides the address, every request has a <strong>method</strong> - a verb. And you already know the same four ideas from Python lists:</p>
+  <div class="concept">
+    <p class="concept-title">Methods</p>
+    <div class="concept-row"><span class="concept-key">GET</span><span class="concept-val"><strong>read</strong> something. Like looking at <code>my_list[2]</code>.</span></div>
+    <div class="concept-row"><span class="concept-key">POST</span><span class="concept-val"><strong>create</strong> something new. Like <code>my_list.append(x)</code>.</span></div>
+    <div class="concept-row"><span class="concept-key">PUT</span><span class="concept-val"><strong>replace</strong> something. Like <code>my_list[2] = x</code>.</span></div>
+    <div class="concept-row"><span class="concept-key">DELETE</span><span class="concept-val"><strong>remove</strong> something. Like <code>my_list.remove(x)</code>.</span></div>
+  </div>
+  <div class="tip">When you type an address into your browser and press Enter, the browser always sends a GET. That is why we need a different tool (curl) to send the other kinds.</div>
+  <h2>3. The response has a status code</h2>
+  <p>Every response starts with a number that says how it went:</p>
+  <div class="concept">
+    <p class="concept-title">Status codes</p>
+    <div class="concept-row"><span class="concept-key">200</span><span class="concept-val">OK - here is what you asked for</span></div>
+    <div class="concept-row"><span class="concept-key">201</span><span class="concept-val">Created - I made the new thing</span></div>
+    <div class="concept-row"><span class="concept-key">400</span><span class="concept-val">Bad request - <strong>you</strong> sent something wrong or missing</span></div>
+    <div class="concept-row"><span class="concept-key">404</span><span class="concept-val">Not found - that thing does not exist</span></div>
+    <div class="concept-row"><span class="concept-key">500</span><span class="concept-val">Server error - <strong>I</strong> broke (the server's fault)</span></div>
+  </div>
+  <div class="fact">The first digit tells the story: 2xx means success, 4xx means the client made a mistake, 5xx means the server made a mistake.</div>
+  <h2>Check yourself</h2>
+  <p>A client asks for <code>/api/events/9999</code> but the server only has events 1 to 3. Which code comes back? What if the client tries to create an event but forgets to send a name?</p>
+  <button class="hint-btn" data-label="Answer" onclick="toggleHint('aariz-w2')">Show Answer</button>
+  <div class="hint" id="aariz-w2"><strong>404</strong> for the missing event - it was not found. <strong>400</strong> for the missing name - the client sent a bad request.</div>
 
-  <div class="tip">Notice XML looks almost exactly like HTML - tags, opening and closing, nesting. Same family, different job: HTML describes a page for a human to look at, XML describes data for programs to pass to each other.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Write your first page &rarr;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">APIs and JSON &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-3">
-  <div class="eyebrow">Hands On</div>
-  <h1>Your First HTML Page</h1>
-  <p>Open a plain text editor - Notepad, or VS Code if you have it. Save a new file called <code>index.html</code>. Type this exactly, then save it.</p>
-
+  <div class="eyebrow">The Web &middot; Data</div>
+  <h1>APIs and JSON</h1>
+  <p>A server can send back a whole page (HTML), but apps usually want just the <strong>data</strong>, so they can show it however they like. A server that gives out data like this is called an <strong>API</strong>.</p>
+  <div class="card card-blue"><h3>API in one sentence</h3><p>An API is a menu of things a program is allowed to ask a server for, plus the format the answers come back in.</p></div>
+  <p>The format almost everyone uses is <strong>JSON</strong>. Here are three ways of writing the same event:</p>
   <div class="code-wrap">
-    <div class="code-head">index.html</div>
-    <div class="code"><span class="tag">&lt;!DOCTYPE html&gt;</span>
-<span class="tag">&lt;html&gt;</span>
-<span class="tag">&lt;head&gt;</span>
-    <span class="tag">&lt;title&gt;</span><span class="txt">My First Page</span><span class="tag">&lt;/title&gt;</span>
-<span class="tag">&lt;/head&gt;</span>
-<span class="tag">&lt;body&gt;</span>
-
-    <span class="tag">&lt;h1&gt;</span><span class="txt">Hello, I'm Aariz</span><span class="tag">&lt;/h1&gt;</span>
-    <span class="tag">&lt;p&gt;</span><span class="txt">This is my first ever webpage.</span><span class="tag">&lt;/p&gt;</span>
-
-<span class="tag">&lt;/body&gt;</span>
-<span class="tag">&lt;/html&gt;</span></div>
+    <div class="code-head">Python dictionary</div>
+    <div class="code">event = {'name': 'Piano Recital', 'time': '5pm'}</div>
   </div>
-
+  <div class="code-wrap">
+    <div class="code-head">JavaScript object</div>
+    <div class="code">const event = { name: 'Piano Recital', time: '5pm' };</div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-head">JSON - plain text sent over the web</div>
+    <div class="code">{"name": "Piano Recital", "time": "5pm"}</div>
+  </div>
+  <div class="watch">JSON is stricter than the other two: keys <strong>and</strong> text values must use <strong>double quotes</strong>. Single quotes are not allowed in JSON.</div>
+  <p>JSON is only text, so any language can read it. Your Express server will be JavaScript, but a Python program could call it and understand the answer just as easily. That is why JSON became the common language between computers.</p>
+  <h2>Routes: the names on the menu</h2>
+  <p>Each thing the API can do is called a <strong>route</strong>: a method plus a path. This is the menu you will build in this lesson:</p>
   <div class="concept">
-    <p class="concept-title">What each part means</p>
-    <div class="concept-row"><span class="concept-key">&lt;!DOCTYPE html&gt;</span><span class="concept-val">Tells the browser "this is a modern HTML page" - always the first line</span></div>
-    <div class="concept-row"><span class="concept-key">&lt;html&gt;</span><span class="concept-val">Wraps the entire page - everything else lives inside it</span></div>
-    <div class="concept-row"><span class="concept-key">&lt;head&gt;</span><span class="concept-val">Information about the page - like the browser tab title - not shown on the page itself</span></div>
-    <div class="concept-row"><span class="concept-key">&lt;body&gt;</span><span class="concept-val">Everything that actually displays on the page</span></div>
+    <p class="concept-title">Events API</p>
+    <div class="concept-row"><span class="concept-key">GET /api/events</span><span class="concept-val">give me all events</span></div>
+    <div class="concept-row"><span class="concept-key">GET /api/events/2</span><span class="concept-val">give me just event number 2</span></div>
+    <div class="concept-row"><span class="concept-key">POST /api/events</span><span class="concept-val">create a new event</span></div>
+    <div class="concept-row"><span class="concept-key">DELETE /api/events/2</span><span class="concept-val">remove event number 2</span></div>
   </div>
+  <button class="hint-btn" data-label="Question" onclick="toggleHint('aariz-w3')">Show Question</button>
+  <div class="hint" id="aariz-w3">Which of the routes above is closest to Python's <code>append</code>? Which to <code>remove</code>?<br><br>Answer: <code>POST /api/events</code> is append, <code>DELETE /api/events/2</code> is remove.</div>
 
-  <div class="tip">Notice every tag has an opening and closing version - &lt;h1&gt; and &lt;/h1&gt;. The slash means "this is where it ends." Every tag that opens must close - this is the single most important rule in HTML.</div>
-
-  <h2>Now open it</h2>
-  <p>Find the file you just saved and double-click it. It should open in your browser and actually render as a page - a big heading and a sentence underneath.</p>
-
-  <div class="fact">That moment - plain text becoming a real rendered page - is the whole reveal. You just built something that a browser understands.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">More tags &rarr;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">Install Node &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-4">
-  <div class="eyebrow">Building Your Vocabulary</div>
-  <h1>Headings & Text Formatting</h1>
-  <p>A handful of tags cover almost everything you'll ever need for plain content. Add these to your page one at a time, saving and refreshing the browser after each to see what changes.</p>
-
-  <h2>Heading levels</h2>
-  <div class="code-wrap">
-    <div class="code-head">try this</div>
-    <div class="code"><span class="tag">&lt;h1&gt;</span><span class="txt">Biggest heading</span><span class="tag">&lt;/h1&gt;</span>
-<span class="tag">&lt;h2&gt;</span><span class="txt">A bit smaller</span><span class="tag">&lt;/h2&gt;</span>
-<span class="tag">&lt;h3&gt;</span><span class="txt">Smaller still</span><span class="tag">&lt;/h3&gt;</span></div>
+  <div class="eyebrow">Node &middot; Setup</div>
+  <h1>Running JavaScript Outside the Browser</h1>
+  <p>JavaScript normally runs inside a web page. <strong>Node.js</strong> lets JavaScript run directly on your computer, the same way Python does. That is how we can write a server in JavaScript.</p>
+  <div class="concept">
+    <p class="concept-title">Python world vs Node world</p>
+    <div class="concept-row"><span class="concept-key">python file.py</span><span class="concept-val"><code>node file.js</code> - run a file</span></div>
+    <div class="concept-row"><span class="concept-key">print()</span><span class="concept-val"><code>console.log()</code></span></div>
+    <div class="concept-row"><span class="concept-key">pip install x</span><span class="concept-val"><code>npm install x</code> - download a library</span></div>
+    <div class="concept-row"><span class="concept-key">import x</span><span class="concept-val"><code>const x = require('x')</code></span></div>
   </div>
-  <p>Headings go from <code>h1</code> (biggest) down to <code>h6</code> (smallest) - the number gets bigger as the text gets smaller, which trips a lot of people up at first.</p>
-
-  <h2>Bold and italic</h2>
+  <h2>Step 1: check Node is installed</h2>
+  <p>Open a terminal (Command Prompt, PowerShell, or Terminal on Mac) and type:</p>
   <div class="code-wrap">
-    <div class="code-head">try this</div>
-    <div class="code"><span class="tag">&lt;p&gt;</span><span class="txt">I play </span><span class="tag">&lt;strong&gt;</span><span class="txt">piano</span><span class="tag">&lt;/strong&gt;</span><span class="txt"> and </span><span class="tag">&lt;em&gt;</span><span class="txt">football</span><span class="tag">&lt;/em&gt;</span><span class="txt">.</span><span class="tag">&lt;/p&gt;</span></div>
+    <div class="code-head">terminal</div>
+    <div class="code">node -v
+npm -v</div>
   </div>
-  <p><code>&lt;strong&gt;</code> makes text bold. <code>&lt;em&gt;</code> makes it italic - short for "emphasis."</p>
+  <p>If you see version numbers, you are set. If you get "not recognized", download the <strong>LTS</strong> version from nodejs.org, install it with all the defaults, then close and reopen your terminal.</p>
+  <h2>Step 2: make a project folder</h2>
+  <div class="code-wrap">
+    <div class="code-head">terminal</div>
+    <div class="code">mkdir my-server
+cd my-server</div>
+  </div>
+  <h2>Step 3: your first Node program</h2>
+  <p>Make a file called <code>hello.js</code> in that folder with one line:</p>
+  <div class="code-wrap">
+    <div class="code-head">hello.js</div>
+    <div class="code">console.log('Hello from Node!');</div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-head">terminal</div>
+    <div class="code">node hello.js</div>
+  </div>
+  <h2>Step 4: install Express</h2>
+  <p>Express is the library that makes writing servers easy. It is a one-time setup per project:</p>
+  <div class="code-wrap">
+    <div class="code-head">terminal</div>
+    <div class="code">npm init -y
+npm install express</div>
+  </div>
+  <div class="concept">
+    <p class="concept-title">What just appeared</p>
+    <div class="concept-row"><span class="concept-key">package.json</span><span class="concept-val">the project's ID card: its name and which libraries it uses</span></div>
+    <div class="concept-row"><span class="concept-key">node_modules</span><span class="concept-val">a big folder with the downloaded code. Never edit it, never worry about it.</span></div>
+  </div>
+  <div class="watch">Always run <code>node</code> and <code>npm</code> commands from <strong>inside</strong> your project folder. Most "it can't find express" errors are just a terminal sitting in the wrong folder.</div>
 
-  <div class="tip">Try swapping the order, nesting strong inside em, or making a whole heading bold. There's no way to break this by experimenting - refresh and see what happens.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Links & images &rarr;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">Your first server &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-5">
-  <div class="eyebrow">Building Your Vocabulary</div>
-  <h1>Links & Images</h1>
-  <p>Two more essential tags - and your first look at something new called an <strong>attribute</strong>.</p>
-
+  <div class="eyebrow">Express &middot; Server #1</div>
+  <h1>Your First Server</h1>
+  <p>Create <code>server.js</code> in your folder and type this in. Do not copy-paste - type it, and read each line as you go.</p>
   <div class="code-wrap">
-    <div class="code-head">a link</div>
-    <div class="code"><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://google.com"</span><span class="tag">&gt;</span><span class="txt">Click here</span><span class="tag">&lt;/a&gt;</span></div>
-  </div>
+    <div class="code-head">server.js</div>
+    <div class="code">const express = require('express');
+const app = express();
+const PORT = 3000;
 
-  <div class="code-wrap">
-    <div class="code-head">an image</div>
-    <div class="code"><span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"photo.jpg"</span> <span class="attr">alt</span>=<span class="val">"A photo of me"</span><span class="tag">&gt;</span></div>
-  </div>
+app.get('/hello', (req, res) =&gt; {
+  res.send('Hello from my very first server!');
+});
 
+app.listen(PORT, () =&gt; {
+  console.log('Server running at http://localhost:' + PORT);
+});</div>
+  </div>
+  <h2>Line by line, in Python terms</h2>
   <div class="concept">
-    <p class="concept-title">Attributes — extra info inside a tag</p>
-    <div class="concept-row"><span class="concept-key">href</span><span class="concept-val">Tells a link where to go when clicked</span></div>
-    <div class="concept-row"><span class="concept-key">src</span><span class="concept-val">Tells an image which file to show</span></div>
-    <div class="concept-row"><span class="concept-key">alt</span><span class="concept-val">Backup text shown if the image fails to load</span></div>
+    <p class="concept-title">What it means</p>
+    <div class="concept-row"><span class="concept-key">require</span><span class="concept-val">like <code>import</code> in Python. Brings Express into the file.</span></div>
+    <div class="concept-row"><span class="concept-key">app</span><span class="concept-val">your server. <code>express()</code> creates one, like creating an object.</span></div>
+    <div class="concept-row"><span class="concept-key">app.get</span><span class="concept-val">"when someone sends a GET to this path, run this function".</span></div>
+    <div class="concept-row"><span class="concept-key">(req, res)</span><span class="concept-val">the function's two inputs: <code>req</code> is the request that came in, <code>res</code> is how you send the response out.</span></div>
+    <div class="concept-row"><span class="concept-key">=&gt;</span><span class="concept-val">an arrow function - the same job as Python's <code>def</code>.</span></div>
+    <div class="concept-row"><span class="concept-key">res.send</span><span class="concept-val">send text back as the response.</span></div>
+    <div class="concept-row"><span class="concept-key">app.listen</span><span class="concept-val">open the shop: start waiting for requests on port 3000.</span></div>
   </div>
+  <h2>Run it</h2>
+  <div class="code-wrap">
+    <div class="code-head">terminal</div>
+    <div class="code">node server.js</div>
+  </div>
+  <p>You should see <code>Server running at http://localhost:3000</code>. The terminal now stays busy - that is the server waiting. Open your browser at <code>http://localhost:3000/hello</code> and you will see your message.</p>
+  <div class="tip">To stop the server press <strong>Ctrl + C</strong> in its terminal. Whenever you change <code>server.js</code>, stop it and run <code>node server.js</code> again - the server does not notice edits by itself.</div>
+  <h2>What if it goes wrong?</h2>
+  <button class="hint-btn" data-label="Troubleshooting" onclick="toggleHint('aariz-w4')">Show Troubleshooting</button>
+  <div class="hint" id="aariz-w4"><strong>"Cannot GET /"</strong> - you visited a path with no route. We only built <code>/hello</code>, so add <code>/hello</code> to the address.<br><br><strong>"Cannot find module 'express'"</strong> - run <code>npm install express</code> inside the project folder.<br><br><strong>"EADDRINUSE"</strong> - port 3000 is already taken, usually by an older server you forgot to stop.</div>
 
-  <p>Attributes always live inside the opening tag, written as <code>name="value"</code>. You'll see a lot more of these today.</p>
-
-  <div class="watch">&lt;img&gt; has no closing tag - it's self-contained since there's no content to wrap around, just the tag with its attributes. Almost everything else needs a matching close tag, so this one's worth remembering as the exception.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">div, span & labels &rarr;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">Meet curl &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-6">
-  <div class="eyebrow">Containers & Labels</div>
-  <h1>div, span, and Naming Things</h1>
-  <p>Two more tags, and they work a bit differently from everything else - they don't mean anything specific on their own. They're just containers, boxes for grouping content together.</p>
-
+  <div class="eyebrow">curl &middot; The Command Line Client</div>
+  <h1>Meet curl: A Browser Without the Browser</h1>
+  <p>Your browser can only easily do GET. <strong>curl</strong> is a command-line tool that can send <em>any</em> request and show you the raw answer. Developers use it constantly to test servers. You are going to learn its flags.</p>
+  <div class="watch">You need <strong>two</strong> terminal windows. Terminal 1 keeps running <code>node server.js</code>. Terminal 2 is where you type curl commands. If you stop the server, curl has nobody to talk to.</div>
+  <h2>Your first curl</h2>
   <div class="code-wrap">
-    <div class="code-head">a div example</div>
-    <div class="code"><span class="tag">&lt;div&gt;</span>
-    <span class="tag">&lt;h2&gt;</span><span class="txt">About Me</span><span class="tag">&lt;/h2&gt;</span>
-    <span class="tag">&lt;p&gt;</span><span class="txt">I'm 10 years old and I love coding.</span><span class="tag">&lt;/p&gt;</span>
-<span class="tag">&lt;/div&gt;</span></div>
+    <div class="code-head">terminal 2</div>
+    <div class="code">curl http://localhost:3000/hello</div>
   </div>
-
-  <p><code>&lt;div&gt;</code> groups a whole block of content together as one unit, even though it doesn't add anything visible by itself. <code>&lt;span&gt;</code> does the same job, but for a small bit of text inside a line instead of a whole block.</p>
-
-  <div class="ask" style="background:var(--blue-bg);border:2px solid var(--ink);padding:14px 18px;margin:14px 0;">
-    <p style="margin:0;font-weight:700;">If div and span don't change how anything looks, what's the point of them?</p>
-  </div>
-
-  <div class="tip">Fair question, and the honest answer: on their own, not much. They exist so you can label and group content for later - CSS will use these groupings to decide how things look, and JavaScript will use them to decide how things behave. Today you're just building the boxes; styling them is a future lesson.</div>
-
-  <h2>id and class — naming your boxes</h2>
+  <p>It prints the same message the browser showed. Now let's see what the browser was hiding.</p>
+  <h2>-i shows the response headers</h2>
   <div class="code-wrap">
-    <div class="code-head">using id and class</div>
-    <div class="code"><span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="val">"about-section"</span><span class="tag">&gt;</span>
-    <span class="tag">&lt;p</span> <span class="attr">class</span>=<span class="val">"highlight"</span><span class="tag">&gt;</span><span class="txt">Important note</span><span class="tag">&lt;/p&gt;</span>
-<span class="tag">&lt;/div&gt;</span></div>
+    <div class="code-head">terminal 2</div>
+    <div class="code">curl -i http://localhost:3000/hello</div>
   </div>
+  <div class="code-wrap">
+    <div class="code-head">what comes back</div>
+    <div class="code">HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 32
 
+Hello from my very first server!</div>
+  </div>
+  <p>The first line has the <strong>status code</strong> (200 OK). The lines under it are <strong>headers</strong> - notes about the response. A blank line, then the body.</p>
+  <h2>-v shows the whole conversation</h2>
+  <div class="code-wrap">
+    <div class="code-head">terminal 2</div>
+    <div class="code">curl -v http://localhost:3000/hello</div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-head">trimmed</div>
+    <div class="code">&gt; GET /hello HTTP/1.1
+&gt; Host: localhost:3000
+&gt; User-Agent: curl/8.5.0
+&gt; Accept: */*
+&gt;
+&lt; HTTP/1.1 200 OK
+&lt; Content-Type: text/html; charset=utf-8
+&lt; Content-Length: 32</div>
+  </div>
+  <p>Lines starting with <code>&gt;</code> are what <strong>you sent</strong> (the request). Lines starting with <code>&lt;</code> are what the <strong>server sent back</strong> (the response). That is the whole web conversation, in plain sight.</p>
   <div class="concept">
-    <p class="concept-title">id vs class</p>
-    <div class="concept-row"><span class="concept-key">id="..."</span><span class="concept-val">A unique name for exactly one element on the page - no two elements share an id</span></div>
-    <div class="concept-row"><span class="concept-key">class="..."</span><span class="concept-val">A label you can put on many different elements - used for grouping similar things</span></div>
+    <p class="concept-title">Flags so far</p>
+    <div class="concept-row"><span class="concept-key">-i</span><span class="concept-val">include the response headers in the output</span></div>
+    <div class="concept-row"><span class="concept-key">-v</span><span class="concept-val">verbose: show request and response, line by line</span></div>
+    <div class="concept-row"><span class="concept-key">-s</span><span class="concept-val">silent: hide the progress meter, just print the body</span></div>
   </div>
+  <div class="watch"><strong>Windows PowerShell:</strong> <code>curl</code> is secretly a different command there. Type <code>curl.exe</code> instead of <code>curl</code> everywhere in this lesson. Command Prompt, Mac and Linux are fine with plain <code>curl</code>.</div>
+  <h2>Try it</h2>
+  <ul class="checklist">
+      <li><div class="cb"></div>Run <code>curl</code> on your /hello route</li>
+      <li><div class="cb"></div>Run it again with <code>-i</code> and find the status code</li>
+      <li><div class="cb"></div>Run it with <code>-v</code> and find the line starting with <code>&gt; GET</code></li>
+      <li><div class="cb"></div>Visit a path that does not exist, like <code>/nope</code>, with <code>-i</code>. What status code do you get?</li>
+    </ul>
+  <button class="hint-btn" data-label="Answer" onclick="toggleHint('aariz-w5')">Show Answer</button>
+  <div class="hint" id="aariz-w5">You get <strong>404 Not Found</strong>. The server has no route for <code>/nope</code>.</div>
 
-  <div class="fact">Go back to that page you inspected earlier. Look for class="card" or class="tip" scattered everywhere - that's exactly this. Every one of your assignment pages is full of it.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Lists & tables &rarr;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">Build the events API &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-7">
-  <div class="eyebrow">New Skill</div>
-  <h1>Lists & Tables</h1>
-  <p>Two more tag families - one for simple lists of items, one for arranging data into rows and columns.</p>
-
-  <h2>Lists</h2>
+  <div class="eyebrow">Express &middot; Server #2</div>
+  <h1>An API That Serves Events</h1>
+  <p>Time to make a real API. Replace your <code>server.js</code> with this. It gives the server some data and two GET routes. Compare the data to Python:</p>
   <div class="code-wrap">
-    <div class="code-head">an unordered list</div>
-    <div class="code"><span class="tag">&lt;ul&gt;</span>
-    <span class="tag">&lt;li&gt;</span><span class="txt">Piano</span><span class="tag">&lt;/li&gt;</span>
-    <span class="tag">&lt;li&gt;</span><span class="txt">Football</span><span class="tag">&lt;/li&gt;</span>
-    <span class="tag">&lt;li&gt;</span><span class="txt">Basketball</span><span class="tag">&lt;/li&gt;</span>
-<span class="tag">&lt;/ul&gt;</span></div>
+    <div class="code-head">Python</div>
+    <div class="code">events = [
+    {"id": 1, "name": "Piano Recital"},
+    {"id": 2, "name": "Football Match"},
+]</div>
   </div>
-  <p><code>ul</code> stands for unordered list - gives you bullet points. Swap it for <code>ol</code> (ordered list) and you get numbers instead - try both and compare.</p>
-  <p>More here if you want it: <a href="https://www.w3schools.com/html/html_lists.asp" target="_blank" style="color:var(--blue);font-weight:700;">w3schools.com/html/html_lists.asp</a></p>
-
-  <h2>Tables</h2>
-  <p>A table arranges data into rows and columns - perfect for anything with multiple items that each share the same details. Three tags: <code>table</code>, <code>tr</code> (table row), and two kinds of cell - <code>th</code> (header cell) and <code>td</code> (data cell).</p>
-
   <div class="code-wrap">
-    <div class="code-head">my_schedule.html</div>
-    <div class="code"><span class="tag">&lt;table&gt;</span>
-    <span class="tag">&lt;tr&gt;</span>
-        <span class="tag">&lt;th&gt;</span><span class="txt">Activity</span><span class="tag">&lt;/th&gt;</span>
-        <span class="tag">&lt;th&gt;</span><span class="txt">Day</span><span class="tag">&lt;/th&gt;</span>
-    <span class="tag">&lt;/tr&gt;</span>
-    <span class="tag">&lt;tr&gt;</span>
-        <span class="tag">&lt;td&gt;</span><span class="txt">Piano</span><span class="tag">&lt;/td&gt;</span>
-        <span class="tag">&lt;td&gt;</span><span class="txt">Monday</span><span class="tag">&lt;/td&gt;</span>
-    <span class="tag">&lt;/tr&gt;</span>
-    <span class="tag">&lt;tr&gt;</span>
-        <span class="tag">&lt;td&gt;</span><span class="txt">Football</span><span class="tag">&lt;/td&gt;</span>
-        <span class="tag">&lt;td&gt;</span><span class="txt">Wednesday</span><span class="tag">&lt;/td&gt;</span>
-    <span class="tag">&lt;/tr&gt;</span>
-<span class="tag">&lt;/table&gt;</span></div>
-  </div>
+    <div class="code-head">server.js</div>
+    <div class="code">const express = require('express');
+const app = express();
+const PORT = 3000;
 
+const events = [
+  { id: 1, name: 'Piano Recital', date: 'Saturday', time: '5pm', location: 'Music Hall' },
+  { id: 2, name: 'Football Match', date: 'Sunday', time: '4pm', location: 'School Field' },
+  { id: 3, name: 'Birthday Party', date: 'Friday', time: '6pm', location: 'Funland' }
+];
+let nextId = 4;
+
+app.get('/hello', (req, res) =&gt; {
+  res.send('Hello from my very first server!');
+});
+
+app.get('/api/events', (req, res) =&gt; {
+  res.json(events);
+});
+
+app.get('/api/events/:id', (req, res) =&gt; {
+  const id = Number(req.params.id);
+  const event = events.find(e =&gt; e.id === id);
+  if (!event) {
+    return res.status(404).json({ error: 'Event not found' });
+  }
+  res.json(event);
+});
+
+app.listen(PORT, () =&gt; {
+  console.log('Server running at http://localhost:' + PORT);
+});</div>
+  </div>
+  <h2>New ideas</h2>
   <div class="concept">
-    <p class="concept-title">The three table tags</p>
-    <div class="concept-row"><span class="concept-key">table</span><span class="concept-val">The whole table - everything else lives inside it</span></div>
-    <div class="concept-row"><span class="concept-key">tr</span><span class="concept-val">One row - the first row is usually your column headers</span></div>
-    <div class="concept-row"><span class="concept-key">th / td</span><span class="concept-val">th = header cell (bold, for labels), td = normal data cell</span></div>
+    <p class="concept-title">Read these carefully</p>
+    <div class="concept-row"><span class="concept-key">res.json</span><span class="concept-val">like <code>res.send</code> but converts your JS object/array to JSON text and labels it as JSON.</span></div>
+    <div class="concept-row"><span class="concept-key">:id</span><span class="concept-val">a <strong>placeholder</strong> in the path. Visit <code>/api/events/2</code> and <code>req.params.id</code> becomes <code>"2"</code>.</span></div>
+    <div class="concept-row"><span class="concept-key">Number()</span><span class="concept-val">paths are always text, so we convert it, like Python's <code>int()</code>.</span></div>
+    <div class="concept-row"><span class="concept-key">.find</span><span class="concept-val">goes through the array and returns the first item where the test is true. A Python loop with an <code>if</code> and a <code>return</code> does the same.</span></div>
+    <div class="concept-row"><span class="concept-key">res.status(404)</span><span class="concept-val">set the status code before sending. Without it, you would send 200 even for errors.</span></div>
+    <div class="concept-row"><span class="concept-key">return</span><span class="concept-val">stops the function right there, so the success line below does not also run.</span></div>
   </div>
+  <div class="code-wrap">
+    <div class="code-head">the same search in Python</div>
+    <div class="code">def find_event(events, id):
+    for e in events:
+        if e["id"] == id:
+            return e
+    return None</div>
+  </div>
+  <h2>Call it with curl</h2>
+  <div class="code-wrap">
+    <div class="code-head">terminal 2</div>
+    <div class="code">curl http://localhost:3000/api/events
+curl http://localhost:3000/api/events/2
+curl -i http://localhost:3000/api/events/99</div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-head">expected for the last one</div>
+    <div class="code">HTTP/1.1 404 Not Found
+Content-Type: application/json; charset=utf-8
 
-  <div class="tip">Every row needs the same number of cells for the table to line up properly - if your header row has 2 th tags, every other row needs 2 td tags to match.</div>
+{"error":"Event not found"}</div>
+  </div>
+  <div class="tip">Remember to stop and restart the server (Ctrl + C, then <code>node server.js</code>) every time you change the file.</div>
+  <button class="hint-btn" data-label="Question" onclick="toggleHint('aariz-w6')">Show Question</button>
+  <div class="hint" id="aariz-w6">Why do we write <code>Number(req.params.id)</code> instead of using <code>req.params.id</code> directly?<br><br>Answer: the id from the path is text, like <code>"2"</code>. The ids in the array are numbers. In JavaScript <code>"2" === 2</code> is false, so <code>find</code> would never match anything.</div>
 
-  <p>Full reference: <a href="https://www.w3schools.com/html/html_tables.asp" target="_blank" style="color:var(--blue);font-weight:700;">w3schools.com/html/html_tables.asp</a> &middot; General HTML hub: <a href="https://www.w3schools.com/html/default.asp" target="_blank" style="color:var(--blue);font-weight:700;">w3schools.com/html</a></p>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">The real task &rarr;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">Sending data with POST &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-8">
-  <div class="eyebrow">Build It</div>
-  <h1>Task: An Events Page</h1>
-  <p>Time to put everything from today together in one real page. You're going to invent 3 events - anything you like, a match, a party, a practice session - and build a page that displays them two different ways.</p>
-
-  <div class="card card-orange">
-    <h3>Step 1 — Make up your events</h3>
-    <p style="margin:0;">Think of <strong>3 different events</strong>. For each one, decide on an event name, a date, a time, and a location. Write these down before you start coding - piano recital, football match, birthday party, whatever you like.</p>
-  </div>
-
-  <div class="card card-blue">
-    <h3>Step 2 — Build the page</h3>
-    <p style="margin:0;">Using the 3 events you just made up, build an HTML page with:</p>
-    <ul class="checklist" style="margin-top:10px;">
-      <li><div class="cb"></div>A <strong>table</strong> showing all 3 events - columns for Event Name, Date, Time, Location</li>
-      <li><div class="cb"></div>A <strong>list</strong> below the table, showing just the event names as a quick summary</li>
-      <li><div class="cb"></div>An h1 title for the page, like "Upcoming Events"</li>
-    </ul>
-  </div>
-
+  <div class="eyebrow">Express &middot; Server #3</div>
+  <h1>POST: Sending Data To The Server</h1>
+  <p>So far curl only <em>asked</em> for things. Now we send data <em>to</em> the server to create a new event. Add these two pieces to <code>server.js</code>.</p>
+  <p>First, right after <code>const PORT = 3000;</code>, add one line that teaches Express to read JSON that clients send:</p>
   <div class="code-wrap">
-    <div class="code-head">events.html — skeleton to fill in</div>
-    <div class="code"><span class="tag">&lt;!DOCTYPE html&gt;</span>
-<span class="tag">&lt;html&gt;</span>
-<span class="tag">&lt;head&gt;</span>
-    <span class="tag">&lt;title&gt;</span><span class="txt">My Events</span><span class="tag">&lt;/title&gt;</span>
-<span class="tag">&lt;/head&gt;</span>
-<span class="tag">&lt;body&gt;</span>
-
-    <span class="tag">&lt;h1&gt;</span><span class="txt">Upcoming Events</span><span class="tag">&lt;/h1&gt;</span>
-
-    <span class="tag">&lt;table&gt;</span>
-        <span class="tag">&lt;tr&gt;</span>
-            <span class="tag">&lt;th&gt;</span><span class="txt">Event Name</span><span class="tag">&lt;/th&gt;</span>
-            <span class="tag">&lt;th&gt;</span><span class="txt">Date</span><span class="tag">&lt;/th&gt;</span>
-            <span class="tag">&lt;th&gt;</span><span class="txt">Time</span><span class="tag">&lt;/th&gt;</span>
-            <span class="tag">&lt;th&gt;</span><span class="txt">Location</span><span class="tag">&lt;/th&gt;</span>
-        <span class="tag">&lt;/tr&gt;</span>
-        <span class="cm">&lt;!-- add one &lt;tr&gt; per event --&gt;</span>
-    <span class="tag">&lt;/table&gt;</span>
-
-    <span class="tag">&lt;h2&gt;</span><span class="txt">Quick List</span><span class="tag">&lt;/h2&gt;</span>
-    <span class="tag">&lt;ul&gt;</span>
-        <span class="cm">&lt;!-- one &lt;li&gt; per event name --&gt;</span>
-    <span class="tag">&lt;/ul&gt;</span>
-
-<span class="tag">&lt;/body&gt;</span>
-<span class="tag">&lt;/html&gt;</span></div>
+    <div class="code-head">server.js</div>
+    <div class="code">app.use(express.json());</div>
   </div>
+  <p>Then add this route anywhere above <code>app.listen</code>:</p>
+  <div class="code-wrap">
+    <div class="code-head">server.js</div>
+    <div class="code">app.post('/api/events', (req, res) =&gt; {
+  if (!req.body || !req.body.name) {
+    return res.status(400).json({ error: 'name is required' });
+  }
+  const newEvent = {
+    id: nextId,
+    name: req.body.name,
+    date: req.body.date,
+    time: req.body.time,
+    location: req.body.location
+  };
+  nextId = nextId + 1;
+  events.push(newEvent);
+  res.status(201).json(newEvent);
+});</div>
+  </div>
+  <div class="concept">
+    <p class="concept-title">What each part does</p>
+    <div class="concept-row"><span class="concept-key">req.body</span><span class="concept-val">the JSON data the client sent, already turned into a JS object</span></div>
+    <div class="concept-row"><span class="concept-key">400 check</span><span class="concept-val">if the client forgot the name, refuse politely and say why</span></div>
+    <div class="concept-row"><span class="concept-key">events.push</span><span class="concept-val">JS version of <code>append</code></span></div>
+    <div class="concept-row"><span class="concept-key">201</span><span class="concept-val">"Created" - the correct code for a successful POST</span></div>
+  </div>
+  <h2>The curl command for POST</h2>
+  <div class="code-wrap">
+    <div class="code-head">Mac / Linux / Git Bash</div>
+    <div class="code">curl -X POST -H "Content-Type: application/json" -d '{"name":"Recital","date":"Monday"}' http://localhost:3000/api/events</div>
+  </div>
+  <div class="concept">
+    <p class="concept-title">Flag by flag</p>
+    <div class="concept-row"><span class="concept-key">-X POST</span><span class="concept-val">use the POST method instead of GET</span></div>
+    <div class="concept-row"><span class="concept-key">-H</span><span class="concept-val">add a header. Here: tell the server the body is JSON</span></div>
+    <div class="concept-row"><span class="concept-key">-d</span><span class="concept-val">the data (body) to send</span></div>
+  </div>
+  <div class="watch"><strong>Windows has trouble with the quotes.</strong> In Command Prompt, escape the inner quotes: <code>-d "{\"name\":\"Recital\"}"</code>. The easiest fix that works <strong>everywhere</strong>: put the JSON in a file called <code>body.json</code>, then use <code>-d @body.json</code> (the @ means "read the data from this file").</div>
+  <div class="code-wrap">
+    <div class="code-head">body.json</div>
+    <div class="code">{"name": "Recital", "date": "Monday"}</div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-head">works on every system</div>
+    <div class="code">curl -X POST -H "Content-Type: application/json" -d @body.json http://localhost:3000/api/events</div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-head">expected response (status 201)</div>
+    <div class="code">{"id":4,"name":"Recital","date":"Monday"}</div>
+  </div>
+  <p>Now run <code>curl http://localhost:3000/api/events</code> again. Your new event is in the list!</p>
+  <h2>Experiments</h2>
+  <ul class="checklist">
+      <li><div class="cb"></div>Send a POST with <code>-i</code> and find the 201</li>
+      <li><div class="cb"></div>Send a POST with no <code>"name"</code> in the JSON. What do you get back?</li>
+      <li><div class="cb"></div>Send the POST <strong>without</strong> the <code>-H</code> header. What happens, and why?</li>
+      <li><div class="cb"></div>Stop the server and start it again, then list the events. Where did your event go?</li>
+    </ul>
+  <button class="hint-btn" data-label="Answers" onclick="toggleHint('aariz-w7')">Show Answers</button>
+  <div class="hint" id="aariz-w7">No name: <strong>400</strong> and <code>{"error":"name is required"}</code>.<br><br>No header: also a 400. Without <code>Content-Type: application/json</code> Express does not read the body, so <code>req.body</code> is empty and the name check fails.<br><br>After a restart: gone! The events live in a variable in memory, and memory is wiped when the program stops. This is exactly why programs save to files or databases - the same idea as the file storage lesson.</div>
 
-  <div class="fact">Showing the same data two different ways - a detailed table and a quick-glance list - is something real websites do constantly. Same information, two views, depending on what the reader needs at that moment.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Submit this task &rarr;</button>
+  <button class="next-btn" onclick="aariz_changePage(1)">curl cheat sheet &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-9">
-  <div class="eyebrow">Submitting</div>
-  <h1>Show Me the Events Page</h1>
-
-  <div class="discord-box">
-    <div class="discord-header">
-      <div class="discord-av">A</div>
-      <span class="discord-name">Aariz</span>
-    </div>
-    <div class="discord-msg">built my events page
-      <div class="discord-code">```html
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;body&gt;
-&lt;table&gt;...&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-```</div>
-    </div>
+  <div class="eyebrow">curl &middot; Reference</div>
+  <h1>curl Cheat Sheet and Debugging</h1>
+  <p>Keep this page open while you work. You have used all of these.</p>
+  <div class="concept">
+    <p class="concept-title">curl flags</p>
+    <div class="concept-row"><span class="concept-key">(none)</span><span class="concept-val">a plain GET: <code>curl URL</code></span></div>
+    <div class="concept-row"><span class="concept-key">-i</span><span class="concept-val">show status and headers</span></div>
+    <div class="concept-row"><span class="concept-key">-v</span><span class="concept-val">show the full request and response</span></div>
+    <div class="concept-row"><span class="concept-key">-s</span><span class="concept-val">quiet mode, no progress meter</span></div>
+    <div class="concept-row"><span class="concept-key">-X METHOD</span><span class="concept-val">choose the method: POST, PUT, DELETE</span></div>
+    <div class="concept-row"><span class="concept-key">-H "k: v"</span><span class="concept-val">add a header</span></div>
+    <div class="concept-row"><span class="concept-key">-d '...'</span><span class="concept-val">send a body</span></div>
+    <div class="concept-row"><span class="concept-key">-d @file</span><span class="concept-val">send the contents of a file as the body</span></div>
   </div>
-
-  <div class="card card-green">
-    <h3>Also Include</h3>
-    <ul class="checklist">
-      <li><div class="cb"></div>Your full HTML code in a Discord code block</li>
-      <li><div class="cb"></div>The 3 events you made up</li>
-      <li><div class="cb"></div>A screenshot of the page rendered in a browser</li>
-      <li><div class="cb"></div>One sentence: what was trickier, the table or the list?</li>
-    </ul>
+  <h2>When things break</h2>
+  <div class="concept">
+    <p class="concept-title">Symptom &rarr; cause</p>
+    <div class="concept-row"><span class="concept-key">Failed to connect</span><span class="concept-val">the server is not running, or you used the wrong port. Check Terminal 1.</span></div>
+    <div class="concept-row"><span class="concept-key">Cannot GET /path</span><span class="concept-val">no route matches. Check spelling and the method.</span></div>
+    <div class="concept-row"><span class="concept-key">EADDRINUSE</span><span class="concept-val">another server is still on port 3000. Stop it with Ctrl + C in its terminal.</span></div>
+    <div class="concept-row"><span class="concept-key">400 on every POST</span><span class="concept-val">missing <code>-H "Content-Type: application/json"</code>, broken JSON quotes, or <code>express.json()</code> not added.</span></div>
+    <div class="concept-row"><span class="concept-key">Old behaviour</span><span class="concept-val">you edited the file but did not restart the server.</span></div>
   </div>
+  <div class="fact">Debugging servers is detective work: <code>curl -i</code> first (what status?), then <code>curl -v</code> (what exactly did I send?), then look at the server's terminal for error messages.</div>
+  <h2>Pop quiz</h2>
+  <p>Say what each command does without looking:</p>
+  <div class="code-wrap">
+    <div class="code-head">read these</div>
+    <div class="code">curl -s http://localhost:3000/api/events
+curl -i http://localhost:3000/api/events/99
+curl -X POST -H "Content-Type: application/json" -d @body.json http://localhost:3000/api/events</div>
+  </div>
+  <button class="hint-btn" data-label="Answers" onclick="toggleHint('aariz-w8')">Show Answers</button>
+  <div class="hint" id="aariz-w8">1) A quiet GET of all events.<br>2) A GET for event 99 that also shows the status line - expect a 404.<br>3) A POST that sends body.json as JSON to create a new event - expect 201.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">The challenge &rarr;</button>
 </div>
 
 <div class="page" id="aariz-page-10">
-  <span class="only-tag">For Aariz only</span>
-  <div class="eyebrow">New Topic</div>
-  <h1>Making It Look Good — CSS</h1>
-  <p>Remember the HTML lesson, when your pages looked completely plain and I told you "that's a different lesson"? This is that lesson. Today: CSS to style things, then JavaScript to make things actually <em>do</em> something.</p>
-
-  <div class="card card-purple">
-    <p style="margin:0;"><strong>CSS</strong> stands for Cascading Style Sheets. HTML says what something IS - a heading, a table. CSS says what it LOOKS like - what color, how big, how much space around it.</p>
-  </div>
-
-  <h2>Three ways to add CSS</h2>
-  <div class="code-wrap">
-    <div class="code-head">1. inline — directly on one tag</div>
-    <div class="code"><span class="tag">&lt;p</span> <span class="attr">style</span>=<span class="val">"color: red;"</span><span class="tag">&gt;</span><span class="txt">This text is red</span><span class="tag">&lt;/p&gt;</span></div>
-  </div>
-  <div class="code-wrap">
-    <div class="code-head">2. internal — a style block in the head (what you'll mostly use today)</div>
-    <div class="code"><span class="tag">&lt;head&gt;</span>
-    <span class="tag">&lt;style&gt;</span>
-        p {
-            color: red;
-        }
-    <span class="tag">&lt;/style&gt;</span>
-<span class="tag">&lt;/head&gt;</span></div>
-  </div>
-  <p>There's a third way - a separate .css file linked in - but that's for bigger projects. Internal is perfect for now.</p>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Selectors, properly &rarr;</button>
-</div>
-
-<div class="page" id="aariz-page-11">
-  <div class="eyebrow">CSS Deep Dive</div>
-  <h1>Selectors, Properly</h1>
-  <p>A selector is just the part of your CSS that answers "which elements does this rule apply to?" You've seen the three basics - now let's actually cover the full toolkit.</p>
-
-  <h2>1. Element selector</h2>
-  <div class="code-wrap">
-    <div class="code-head">targets every element of that type</div>
-    <div class="code">p {
-    color: blue;
-}</div>
-  </div>
-  <p>Every &lt;p&gt; on the page turns blue. Simple, but blunt - it can't target just one paragraph, only "all paragraphs everywhere."</p>
-
-  <h2>2. Class selector</h2>
-  <div class="code-wrap">
-    <div class="code-head">targets every element with this class</div>
-    <div class="code">.highlight {
-    background-color: yellow;
-}</div>
-  </div>
-  <p>The dot means "class." Any tag with <code>class="highlight"</code> gets styled - could be a p, a div, a li, anything. This is the selector you'll use most: reusable, flexible, not tied to one tag type.</p>
-
-  <h2>3. ID selector</h2>
-  <div class="code-wrap">
-    <div class="code-head">targets exactly one element</div>
-    <div class="code">#page-title {
-    font-size: 40px;
-}</div>
-  </div>
-  <p>The hash means "id." Since an id can only appear once per page, this always targets exactly one thing.</p>
-
-  <h2>4. Grouping selectors — style several things at once</h2>
-  <div class="code-wrap">
-    <div class="code-head">comma-separated</div>
-    <div class="code">h1, h2, h3 {
-    font-family: Arial;
-    color: darkblue;
-}</div>
-  </div>
-  <p>Same rule, three different selectors, separated by commas. Saves you writing the same block three times.</p>
-
-  <h2>5. Descendant selector — targeting something inside something else</h2>
-  <div class="code-wrap">
-    <div class="code-head">a space means "inside"</div>
-    <div class="code">table td {
-    text-align: center;
-}</div>
-  </div>
-  <p>This means "any &lt;td&gt; that's inside a &lt;table&gt;" - not every td on the whole page, just ones nested inside a table. A space between two selectors always means "descendant of."</p>
-
-  <h2>Bonus: pseudo-classes</h2>
-  <div class="code-wrap">
-    <div class="code-head">:hover — style on mouseover</div>
-    <div class="code">button:hover {
-    background-color: lightgreen;
-}</div>
-  </div>
-  <p>This only applies while the mouse is actually hovering over the button - a small taste of CSS reacting to something happening, without needing any JavaScript at all.</p>
-
-  <div class="concept">
-    <p class="concept-title">Which one do I use?</p>
-    <div class="concept-row"><span class="concept-key">element</span><span class="concept-val">Broad, page-wide defaults - e.g. all paragraphs use this font</span></div>
-    <div class="concept-row"><span class="concept-key">class</span><span class="concept-val">Your main tool - reusable styling for a group of things</span></div>
-    <div class="concept-row"><span class="concept-key">id</span><span class="concept-val">One unique element - used sparingly, more often for JavaScript than styling</span></div>
-  </div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Good practices &rarr;</button>
-</div>
-
-<div class="page" id="aariz-page-12">
-  <div class="eyebrow">CSS Deep Dive</div>
-  <h1>Good Practices</h1>
-  <p>CSS is easy to write badly and still have it "work" - the page looks fine, but the code underneath turns into a mess nobody can maintain, including future-you. A few habits worth building from day one.</p>
-
-  <div class="card card-orange">
-    <h3>1. Prefer classes over ids for styling</h3>
-    <p style="margin:0;">An id can only be used once, so styling with ids means rewriting the same rule over and over for every similar element. Save id for when you genuinely need to target one unique thing - often that's JavaScript's job (getElementById), not CSS's.</p>
-  </div>
-
-  <div class="card card-blue">
-    <h3>2. Avoid inline styles</h3>
-    <p style="margin:0;">style="color: red;" directly on a tag works, but it's mixed in with your content, can't be reused anywhere else, and is genuinely painful to find and update later. Keep styling in your &lt;style&gt; block (or a separate CSS file), and structure in your HTML. Two different jobs, two different places.</p>
-  </div>
-
-  <div class="card card-green">
-    <h3>3. Name classes by purpose, not appearance</h3>
-    <div class="code-wrap" style="margin-top:10px;">
-      <div class="code-head">weaker</div>
-      <div class="code">.yellow-box { background: yellow; }</div>
-    </div>
-    <div class="code-wrap">
-      <div class="code-head">stronger</div>
-      <div class="code">.warning-box { background: yellow; }</div>
-    </div>
-    <p style="margin:0;">If you later decide warnings should be orange instead of yellow, .warning-box still makes sense. .yellow-box would suddenly be a lie.</p>
-  </div>
-
-  <div class="card card-purple">
-    <h3>4. Keep selectors as simple as they can be</h3>
-    <div class="code-wrap" style="margin-top:10px;">
-      <div class="code-head">overly specific — hard to read, hard to override</div>
-      <div class="code">div#content table tbody tr td.highlight { }</div>
-    </div>
-    <div class="code-wrap">
-      <div class="code-head">simple — clear, reusable</div>
-      <div class="code">.highlight { }</div>
-    </div>
-    <p style="margin:0;">The shorter version does the same job and is far easier to reuse anywhere else you need that style.</p>
-  </div>
-
-  <div class="tip">One more small habit: use lowercase-with-hyphens for class names - event-table, not EventTable or eventTable. It's the standard convention, and consistency matters more than which style you pick.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Common properties &rarr;</button>
-</div>
-
-<div class="page" id="aariz-page-13">
-  <div class="eyebrow">CSS Toolkit</div>
-  <h1>Properties You'll Actually Use</h1>
-  <p>A small handful of properties cover most of what you need for now.</p>
-
-  <div class="concept">
-    <p class="concept-title">Your CSS starter kit</p>
-    <div class="concept-row"><span class="concept-key">color</span><span class="concept-val">Text color</span></div>
-    <div class="concept-row"><span class="concept-key">background-color</span><span class="concept-val">Background color of an element</span></div>
-    <div class="concept-row"><span class="concept-key">font-size</span><span class="concept-val">How big the text is, e.g. 20px</span></div>
-    <div class="concept-row"><span class="concept-key">margin</span><span class="concept-val">Space OUTSIDE an element's border</span></div>
-    <div class="concept-row"><span class="concept-key">padding</span><span class="concept-val">Space INSIDE an element, between content and border</span></div>
-    <div class="concept-row"><span class="concept-key">border</span><span class="concept-val">A line around an element, e.g. 1px solid black</span></div>
-    <div class="concept-row"><span class="concept-key">text-align</span><span class="concept-val">left, right, or center</span></div>
-  </div>
-
-  <div class="code-wrap">
-    <div class="code-head">a styled table example</div>
-    <div class="code">table {
-    border: 2px solid black;
-}
-th {
-    background-color: lightblue;
-    padding: 8px;
-}
-td {
-    padding: 8px;
-}</div>
-  </div>
-
-  <h2>Try it now</h2>
-  <p>Open your events.html page from the HTML lesson. Add a <code>&lt;style&gt;</code> block in the head. Style the table with a border, give the header row a background color, and center your h1. Refresh and watch it transform.</p>
-
-  <div class="tip">This is the fastest CSS confidence boost there is - the same content you already built suddenly looking like a real page. Spend a few minutes just experimenting with colors before moving on.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">What is JavaScript? &rarr;</button>
-</div>
-
-<div class="page" id="aariz-page-14">
-  <div class="eyebrow">The Big One</div>
-  <h1>What Is JavaScript?</h1>
-  <p>Here's the missing piece. HTML describes structure. CSS describes appearance. Neither one can make a decision, do maths, or react to a click. JavaScript is different - it's a real programming language, running right inside the browser.</p>
-
-  <div class="card card-purple">
-    <p style="margin:0;"><strong>JavaScript (JS)</strong> is the language that makes web pages actually DO things - respond to clicks, update content, check conditions, run loops. It's the browser's equivalent of Python.</p>
-  </div>
-
-  <div class="concept">
-    <p class="concept-title">The three-layer picture</p>
-    <div class="concept-row"><span class="concept-key">HTML</span><span class="concept-val">Structure - what's on the page</span></div>
-    <div class="concept-row"><span class="concept-key">CSS</span><span class="concept-val">Style - what it looks like</span></div>
-    <div class="concept-row"><span class="concept-key">JavaScript</span><span class="concept-val">Behavior - what happens when things change or get clicked</span></div>
-  </div>
-
-  <p>Here's the good news: you already know how to think like a programmer. You know what a variable is, what a function does, how a loop works, how an if statement makes a decision. JavaScript isn't a new way of thinking - it's the same ideas from Python, wearing different clothes. Today's whole plan is to walk through everything you already know and see its JS outfit.</p>
-
-  <div class="code-wrap">
-    <div class="code-head">where JS lives in a page</div>
-    <div class="code"><span class="tag">&lt;body&gt;</span>
-    <span class="tag">&lt;h1&gt;</span><span class="txt">My Page</span><span class="tag">&lt;/h1&gt;</span>
-
-    <span class="tag">&lt;script&gt;</span>
-        console.log(<span class="val">"Hello from JavaScript"</span>);
-    <span class="tag">&lt;/script&gt;</span>
-<span class="tag">&lt;/body&gt;</span></div>
-  </div>
-
-  <p><code>console.log()</code> is JavaScript's version of <code>print()</code> - it doesn't show on the page, it shows in the browser's developer console (the same Inspect panel you used in the HTML lesson - there's a "Console" tab in there).</p>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Variables in JS &rarr;</button>
-</div>
-
-<div class="page" id="aariz-page-15">
-  <div class="eyebrow">Python, But Make It JS</div>
-  <h1>Variables</h1>
-  <p>Let's go one Python concept at a time. First up - variables.</p>
-
-  <div class="example-grid">
-    <div class="example-box">
-      <div class="example-icon">&#128013;</div>
-      <div class="example-title">Python</div>
-      <div class="example-desc" style="font-family:var(--mono);">name = "Aariz"<br>age = 10</div>
-    </div>
-    <div class="example-box">
-      <div class="example-icon">&#9889;</div>
-      <div class="example-title">JavaScript</div>
-      <div class="example-desc" style="font-family:var(--mono);">let name = "Aariz";<br>let age = 10;</div>
-    </div>
-  </div>
-
-  <div class="concept">
-    <p class="concept-title">What's different</p>
-    <div class="concept-row"><span class="concept-key">let</span><span class="concept-val">JS needs a keyword before a new variable - let (or const, for a value that never changes)</span></div>
-    <div class="concept-row"><span class="concept-key">;</span><span class="concept-val">Lines usually end with a semicolon in JS - Python never uses these</span></div>
-    <div class="concept-row"><span class="concept-key">naming rules</span><span class="concept-val">Same as Python - letters, numbers, underscores, can't start with a number, no spaces</span></div>
-  </div>
-
-  <p>Use <code>const</code> when a value should never change, <code>let</code> when it might. Try both in a script tag and print them with console.log.</p>
-
-  <div class="code-wrap">
-    <div class="code-head">try this</div>
-    <div class="code">let score = <span class="val">5</span>;
-score = score + <span class="val">1</span>;
-console.log(score);  <span class="cm">// 6</span>
-
-const birthYear = <span class="val">2016</span>;
-<span class="cm">// birthYear = 2017;  this would cause an error - const can't change</span></div>
-  </div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Conditionals in JS &rarr;</button>
-</div>
-
-<div class="page" id="aariz-page-16">
-  <div class="eyebrow">Python, But Make It JS</div>
-  <h1>Conditionals</h1>
-
-  <div class="example-grid">
-    <div class="example-box">
-      <div class="example-icon">&#128013;</div>
-      <div class="example-title">Python</div>
-      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">if score >= 20:
-    print("Great!")
-elif score >= 10:
-    print("Good")
-else:
-    print("Try again")</div>
-    </div>
-    <div class="example-box">
-      <div class="example-icon">&#9889;</div>
-      <div class="example-title">JavaScript</div>
-      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">if (score >= 20) {
-  console.log("Great!");
-} else if (score >= 10) {
-  console.log("Good");
-} else {
-  console.log("Try again");
-}</div>
-    </div>
-  </div>
-
-  <div class="concept">
-    <p class="concept-title">What's different</p>
-    <div class="concept-row"><span class="concept-key">( )</span><span class="concept-val">The condition needs parentheses around it</span></div>
-    <div class="concept-row"><span class="concept-key">{ }</span><span class="concept-val">Curly braces replace Python's colon + indentation to mark what's inside</span></div>
-    <div class="concept-row"><span class="concept-key">else if</span><span class="concept-val">Two words instead of Python's single elif</span></div>
-    <div class="concept-row"><span class="concept-key">===</span><span class="concept-val">Use three equals signs to compare values - a JS quirk worth remembering</span></div>
-  </div>
-
-  <div class="warn">Watch out for === vs ==. Always use === (triple equals) when comparing values in JS - == exists too, but it can quietly convert types in confusing ways. === is the safe default, every time.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Loops in JS &rarr;</button>
-</div>
-
-<div class="page" id="aariz-page-17">
-  <div class="eyebrow">Python, But Make It JS</div>
-  <h1>Loops</h1>
-  <p>This is the one that looks the most different at first glance.</p>
-
-  <div class="example-grid">
-    <div class="example-box">
-      <div class="example-icon">&#128013;</div>
-      <div class="example-title">Python</div>
-      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">for i in range(5):
-    print(i)</div>
-    </div>
-    <div class="example-box">
-      <div class="example-icon">&#9889;</div>
-      <div class="example-title">JavaScript</div>
-      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">for (let i = 0; i < 5; i++) {
-  console.log(i);
-}</div>
-    </div>
-  </div>
-
-  <p>JS spells out the three parts Python's <code>range()</code> hides for you: <strong>start</strong> (let i = 0), <strong>condition to keep going</strong> (i &lt; 5), and <strong>what happens each round</strong> (i++, meaning "add 1").</p>
-
-  <h2>The friendlier version — for...of</h2>
-  <p>Looping over a list feels much more like Python if you use <code>for...of</code> instead:</p>
-
-  <div class="example-grid">
-    <div class="example-box">
-      <div class="example-icon">&#128013;</div>
-      <div class="example-title">Python</div>
-      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">hobbies = ["Piano", "Football"]
-for hobby in hobbies:
-    print(hobby)</div>
-    </div>
-    <div class="example-box">
-      <div class="example-icon">&#9889;</div>
-      <div class="example-title">JavaScript</div>
-      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">let hobbies = ["Piano", "Football"];
-for (let hobby of hobbies) {
-  console.log(hobby);
-}</div>
-    </div>
-  </div>
-
-  <div class="tip">Genuinely almost identical to Python here - just add "let" and "of", swap print for console.log. Use for...of whenever you're looping through a list of things; save the three-part for loop for when you specifically need to count.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Functions in JS &rarr;</button>
-</div>
-
-<div class="page" id="aariz-page-18">
-  <div class="eyebrow">Python, But Make It JS</div>
-  <h1>Functions</h1>
-  <p>This one's the closest match of all.</p>
-
-  <div class="example-grid">
-    <div class="example-box">
-      <div class="example-icon">&#128013;</div>
-      <div class="example-title">Python</div>
-      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">def double(number):
-    return number * 2
-
-print(double(5))</div>
-    </div>
-    <div class="example-box">
-      <div class="example-icon">&#9889;</div>
-      <div class="example-title">JavaScript</div>
-      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">function double(number) {
-  return number * 2;
-}
-
-console.log(double(5));</div>
-    </div>
-  </div>
-
-  <div class="concept">
-    <p class="concept-title">What's different</p>
-    <div class="concept-row"><span class="concept-key">function</span><span class="concept-val">Replaces Python's def</span></div>
-    <div class="concept-row"><span class="concept-key">{ }</span><span class="concept-val">Curly braces mark the function body instead of indentation</span></div>
-    <div class="concept-row"><span class="concept-key">return</span><span class="concept-val">Works exactly the same as Python - sends a value back</span></div>
-  </div>
-
-  <p>Parameters, return values, calling a function with different arguments - all of that is identical in spirit. Only the punctuation changed.</p>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Arrays & objects &rarr;</button>
-</div>
-
-<div class="page" id="aariz-page-19">
-  <div class="eyebrow">Python, But Make It JS</div>
-  <h1>Arrays & Objects</h1>
-  <p>This is the one that should feel most familiar of all - you've done a version of this dozens of times already, with your JSON work.</p>
-
-  <h2>Lists → Arrays</h2>
-  <div class="example-grid">
-    <div class="example-box">
-      <div class="example-icon">&#128013;</div>
-      <div class="example-title">Python list</div>
-      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">hobbies = ["Piano", "Football"]
-print(hobbies[0])</div>
-    </div>
-    <div class="example-box">
-      <div class="example-icon">&#9889;</div>
-      <div class="example-title">JS array</div>
-      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">let hobbies = ["Piano", "Football"];
-console.log(hobbies[0]);</div>
-    </div>
-  </div>
-  <p>Nearly identical. Square brackets, comma-separated, indexed from 0. This barely counts as new syntax.</p>
-
-  <h2>Dictionaries → Objects</h2>
-  <div class="example-grid">
-    <div class="example-box">
-      <div class="example-icon">&#128013;</div>
-      <div class="example-title">Python dict</div>
-      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">player = {"name": "Aariz", "sport": "football"}
-print(player["name"])</div>
-    </div>
-    <div class="example-box">
-      <div class="example-icon">&#9889;</div>
-      <div class="example-title">JS object</div>
-      <div class="example-desc" style="font-family:var(--mono);white-space:pre;">let player = {name: "Aariz", sport: "football"};
-console.log(player.name);
-console.log(player["name"]);</div>
-    </div>
-  </div>
-
-  <div class="fact">One genuinely new thing: JS lets you use <strong>dot notation</strong> - player.name - as well as bracket notation. Python dictionaries only ever let you use brackets. Both work in JS; dot notation is more common when you already know the key name.</div>
-
-  <h2>The moment this all connects</h2>
-  <p>Remember response["choices"][0]["message"]["content"] from your API work? That entire structure - an array containing an object, containing more nested data - is exactly what JavaScript arrays and objects look like too. When you called an API in Python, the JSON you got back would look almost identical if you'd been doing it in JavaScript instead.</p>
-
-  <h2>Try it yourself</h2>
-  <p>Take the 3 events you invented for your HTML task. Build a JS array of 3 objects - one per event, each with name, date, time, location - then use a for...of loop to console.log each one.</p>
-
-  <div class="code-wrap">
-    <div class="code-head">starter</div>
-    <div class="code">let events = [
-    { name: <span class="val">"..."</span>, date: <span class="val">"..."</span>, time: <span class="val">"..."</span>, location: <span class="val">"..."</span> },
-    <span class="cm">// two more events</span>
-];
-
-<span class="kw">for</span> (let event of events) {
-    console.log(event.name + <span class="val">" - "</span> + event.date);
-}</div>
-  </div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">Making JS interactive &rarr;</button>
-</div>
-
-<div class="page" id="aariz-page-20">
-  <div class="eyebrow">The Real Payoff</div>
-  <h1>Making JS Actually Touch the Page</h1>
-  <p>Everything so far has lived in the console - useful for learning, but not visible on the actual page. Here's how JavaScript reaches out and changes what someone sees.</p>
-
-  <div class="code-wrap">
-    <div class="code-head">click a button, change the page</div>
-    <div class="code"><span class="tag">&lt;button</span> <span class="attr">onclick</span>=<span class="val">"sayHello()"</span><span class="tag">&gt;</span><span class="txt">Click me</span><span class="tag">&lt;/button&gt;</span>
-<span class="tag">&lt;p</span> <span class="attr">id</span>=<span class="val">"message"</span><span class="tag">&gt;&lt;/p&gt;</span>
-
-<span class="tag">&lt;script&gt;</span>
-<span class="kw">function</span> sayHello() {
-    document.getElementById(<span class="val">"message"</span>).textContent = <span class="val">"Hello, Aariz!"</span>;
-}
-<span class="tag">&lt;/script&gt;</span></div>
-  </div>
-
-  <div class="concept">
-    <p class="concept-title">The three pieces</p>
-    <div class="concept-row"><span class="concept-key">onclick</span><span class="concept-val">An attribute on the button, naming a function to run when clicked</span></div>
-    <div class="concept-row"><span class="concept-key">getElementById</span><span class="concept-val">Finds the exact element with that id - remember id from the HTML lesson?</span></div>
-    <div class="concept-row"><span class="concept-key">.textContent</span><span class="concept-val">The text inside that element - set it to change what's displayed</span></div>
-  </div>
-
-  <div class="fact">Every single assignment page Raiyan has ever sent you uses exactly this pattern for its Next and Back buttons. onclick="changePage(1)" - you've clicked this pattern hundreds of times. Now you know what it actually does.</div>
-
-  <p>You can also change style this way, not just text:</p>
-  <div class="code-wrap">
-    <div class="code-head">changing CSS from JS</div>
-    <div class="code">document.body.style.backgroundColor = <span class="val">"lightblue"</span>;</div>
-  </div>
-
-  <div class="tip">This is genuinely the moment HTML, CSS, and JS become one thing instead of three separate lessons - JavaScript reaching out and changing what CSS controls, live, in response to something a person did.</div>
-
-  <button class="next-btn" onclick="aariz_changePage(1)">The final task &rarr;</button>
-</div>
-
-<div class="page" id="aariz-page-21">
-  <div class="eyebrow">Build It</div>
-  <h1>Final Task — Bring Your Events Page to Life</h1>
-  <p>Take your events.html from the HTML lesson and level it up with everything from today.</p>
-
-  <div class="card card-orange">
-    <h3>Requirements</h3>
-    <ul class="checklist">
-      <li><div class="cb"></div>Style the table with CSS - a border, a header background color, some padding</li>
-      <li><div class="cb"></div>Add a button below the table</li>
-      <li><div class="cb"></div>Clicking the button should change something on the page using JavaScript - the background color, some text, anything visible</li>
-      <li><div class="cb"></div>Somewhere in a &lt;script&gt; tag, build a JS array of your 3 events as objects, and use a for...of loop to console.log each one</li>
-    </ul>
-  </div>
-
-  <div class="tip">Don't worry about making the button do something complicated - the goal is proving the click-to-change pattern works, not building something fancy. A background color change or a fun message showing up is plenty.</div>
+  <div class="eyebrow">Your Turn</div>
+  <h1>Challenge: Finish the Events API</h1>
+  <p>Now build on your own. You already have GET (list), GET (one) and POST. Finish the set and make the server speak HTML as well. Everything you need has been taught or is in the hints.</p>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">1</div><span class="problem-title">DELETE route</span></div><p class="problem-desc">Add <code>DELETE /api/events/:id</code>. If the event exists, remove it and send back the removed event. If not, send a 404 with an error message.</p><button class="hint-btn" data-label="Hint" onclick="toggleHint('aariz-w9')">Show Hint</button>
+  <div class="hint" id="aariz-w9">You need the <strong>position</strong> of the event: <code>events.findIndex(e =&gt; e.id === id)</code> gives it, or <code>-1</code> if it is missing. Then <code>events.splice(index, 1)</code> removes one item at that position and returns it as an array.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">2</div><span class="problem-title">An HTML page from your server</span></div><p class="problem-desc">Add <code>GET /events-page</code> that returns a real HTML page listing every event in a <code>&lt;ul&gt;</code>. Build the HTML as a string by looping over the array. Open it in your browser and check it is a list.</p><button class="hint-btn" data-label="Hint" onclick="toggleHint('aariz-w10')">Show Hint</button>
+  <div class="hint" id="aariz-w10">Start with <code>let html = '&lt;h1&gt;Events&lt;/h1&gt;&lt;ul&gt;';</code>. Inside <code>for (const e of events)</code> do <code>html = html + '&lt;li&gt;' + e.name + ' - ' + e.date + '&lt;/li&gt;';</code>. After the loop add the closing <code>&lt;/ul&gt;</code> and <code>res.send(html)</code>.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">3</div><span class="problem-title">Test everything with curl</span></div><p class="problem-desc">Using only curl, do this in order: list the events, add a new one, fetch it by its id, delete it, then fetch it again and confirm you get a 404.</p></div>
+  <h2>Stretch goals</h2>
+  <div class="card card-purple"><h3>Serve your own web page</h3><p>Make a folder called <code>public</code> next to <code>server.js</code> and put any simple HTML page in it, named <code>index.html</code>. Add this one line near the top of the server: <code>app.use(express.static('public'));</code>. Then open <code>http://localhost:3000/</code>. Your page now comes from a real server you built.</p></div>
+  <div class="card card-orange"><h3>Your own API</h3><p>Make a second list called <code>habits</code> with piano, football and basketball, and give it GET and POST routes of its own. Same ideas, different data.</p></div>
 
   <button class="next-btn" onclick="aariz_changePage(1)">Submit &rarr;</button>
 </div>
 
-<div class="page" id="aariz-page-22">
+<div class="page" id="aariz-page-11">
   <div class="eyebrow">Submitting</div>
-  <h1>Show Me the Final Version</h1>
-
-  <div class="discord-box">
-    <div class="discord-header">
-      <div class="discord-av">A</div>
-      <span class="discord-name">Aariz</span>
+  <h1>Show Me Your Server</h1>
+  <p>Send this in Discord. Keep each piece in its own message so it is easy to read.</p>
+  <div class="discord-box"><div class="discord-header"><div class="discord-av">A</div><span class="discord-name">Aariz</span></div><div class="discord-msg">my server.js
+      <div class="discord-code">```js
+// paste your whole server.js here
+```</div>
     </div>
-    <div class="discord-msg">added css and js to my events page
-      <div class="discord-code">```html
-&lt;style&gt; ... &lt;/style&gt;
-&lt;button onclick="doSomething()"&gt;Click me&lt;/button&gt;
-&lt;script&gt; ... &lt;/script&gt;
+    <div class="discord-msg">my curl commands and what came back
+      <div class="discord-code">```
+$ curl -i http://localhost:3000/api/events/99
+HTTP/1.1 404 Not Found
+...
 ```</div>
     </div>
   </div>
-
-  <div class="card card-green">
-    <h3>Also Include</h3>
-    <ul class="checklist">
-      <li><div class="cb"></div>Your full HTML+CSS+JS code in a Discord code block</li>
-      <li><div class="cb"></div>A screenshot before clicking the button, and one after</li>
-      <li><div class="cb"></div>A screenshot of your console showing the 3 events printed</li>
-      <li><div class="cb"></div>One sentence: which felt more like Python - the variables/loops/functions, or something else?</li>
-    </ul>
-  </div>
-
-  <div class="fact">You now know all three languages that build every website on the internet. That's genuinely the full picture most people take months to get through.</div>
+  <div class="card card-green"><h3>Include</h3><ul class="checklist">
+      <li><div class="cb"></div>Your full <code>server.js</code> in a code block</li>
+      <li><div class="cb"></div>Terminal output of <code>curl</code> for: list all, get one, <code>-i</code> on a missing id, POST, DELETE</li>
+      <li><div class="cb"></div>A screenshot of <code>/events-page</code> in your browser</li>
+      <li><div class="cb"></div>In your own words: what are a client and a server?</li>
+      <li><div class="cb"></div>Which status code did your POST return, and why that one and not 200?</li>
+      <li><div class="cb"></div>One thing that went wrong and how you fixed it</li>
+    </ul></div>
+  <div class="fact">You now understand the real shape of the internet: clients ask, servers answer, and they speak in methods, paths, status codes and JSON. Every app on your phone does exactly this. Next up, we can connect a web page to your server so it fetches its own events.</div>
 </div>
 
 </div>
@@ -1225,6 +870,428 @@ b = a   <span class="cm"># uh oh</span></div>
   <div class="hint" id="afraz-h7">You need somewhere to keep the value of "a" safe before you overwrite it. Try creating a third variable - call it temp - and store a's original value in there first, before anything else changes.</div>
 
   <div class="tip" style="margin-top:20px;">If you genuinely get why the naive version fails, and why a temp variable fixes it, variables are solid. That's the whole point of this refresh - no need to submit anything, just walk Raiyan through it whenever you're ready.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Level 2: go deeper &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-6">
+  <div class="eyebrow">Level 2 &middot; Types</div>
+  <h1>Variables Hold Different Kinds of Things</h1>
+
+  <p>Afraz - you already know a variable is a labelled box. Here's the next idea: the stuff <em>inside</em> the box has a <strong>type</strong>, and the type decides what you're allowed to do with it.</p>
+  <div class="concept">
+    <p class="concept-title">The four types you use all the time</p>
+    <div class="concept-row"><span class="concept-key">int</span><span class="concept-val">a whole number: <code>age = 10</code></span></div>
+    <div class="concept-row"><span class="concept-key">float</span><span class="concept-val">a number with a decimal point: <code>height = 1.45</code></span></div>
+    <div class="concept-row"><span class="concept-key">str</span><span class="concept-val">text, always in quotes: <code>name = "Afraz"</code></span></div>
+    <div class="concept-row"><span class="concept-key">bool</span><span class="concept-val">only True or False: <code>is_hungry = True</code></span></div>
+  </div>
+  <p>Python can tell you the type of anything with <code>type()</code>:</p>
+  <div class="code-wrap">
+    <div class="code-head">ask Python what type it is</div>
+    <div class="code">age = 10
+height = 1.45
+name = "Afraz"
+is_hungry = True
+
+print(type(age))        # &lt;class 'int'&gt;
+print(type(height))     # &lt;class 'float'&gt;
+print(type(name))       # &lt;class 'str'&gt;
+print(type(is_hungry))  # &lt;class 'bool'&gt;</div>
+  </div>
+  <div class="watch">The quotes matter! <code>7</code> is a number, but <code>"7"</code> is text that happens to look like a number. Python treats them completely differently - you'll see why on the next page.</div>
+  <h2>Quick check</h2>
+  <p>What type is each one? Say your answers out loud, then check.</p>
+  <ul class="checklist">
+    <li><div class="cb"></div><code>x = 3.0</code></li>
+    <li><div class="cb"></div><code>y = "True"</code></li>
+    <li><div class="cb"></div><code>z = False</code></li>
+    <li><div class="cb"></div><code>w = "100"</code></li>
+  </ul>
+  <button class="hint-btn" data-label="Answers" onclick="toggleHint('afraz-h8')">Show Answers</button>
+  <div class="hint" id="afraz-h8"><code>x</code> is a float (it has a decimal point, even though it's .0). <code>y</code> is a str - it's in quotes, so it's just text that says True. <code>z</code> is a bool. <code>w</code> is a str, because of the quotes.</div>
+
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Converting types &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-7">
+  <div class="eyebrow">Level 2 &middot; Converting</div>
+  <h1>Changing One Type Into Another</h1>
+
+  <p>Remember the "7" vs 7 warning? Watch what happens when we add them:</p>
+  <div class="code-wrap">
+    <div class="code-head">same symbols, different types</div>
+    <div class="code">print(5 + 5)       # 10   (numbers add up)
+print("5" + "5")   # 55   (text sticks together)</div>
+  </div>
+  <p>You can switch a value from one type to another using the type's name as a function:</p>
+  <div class="concept">
+    <p class="concept-title">Converters</p>
+    <div class="concept-row"><span class="concept-key">int()</span><span class="concept-val">turns "42" or 4.9 into the whole number 42 or 4</span></div>
+    <div class="concept-row"><span class="concept-key">float()</span><span class="concept-val">turns "3" into 3.0</span></div>
+    <div class="concept-row"><span class="concept-key">str()</span><span class="concept-val">turns 42 into the text "42"</span></div>
+  </div>
+  <h2>The famous input() trap</h2>
+  <p><code>input()</code> <strong>always</strong> gives you text back - even if the person types a number. So this breaks:</p>
+  <div class="code-wrap">
+    <div class="code-head">this crashes</div>
+    <div class="code">age = input("How old are you? ")
+print(age + 1)    # TypeError: can only concatenate str to str</div>
+  </div>
+  <p>The fix is to convert it straight away:</p>
+  <div class="code-wrap">
+    <div class="code-head">this works</div>
+    <div class="code">age = int(input("How old are you? "))
+print(age + 1)</div>
+  </div>
+  <div class="fact">Read <code>int(input(...))</code> from the inside out: first input() collects the text, then int() turns that text into a number, then the whole thing is stored in <code>age</code>.</div>
+  <div class="tip">Careful: <code>int(4.9)</code> gives <code>4</code>, not 5. It chops the decimal off, it doesn't round.</div>
+
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Updating variables &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-8">
+  <div class="eyebrow">Level 2 &middot; Updating</div>
+  <h1>Variables Can Change Over Time</h1>
+
+  <p>A variable isn't stuck with its first value. Games do this constantly: your score goes up, your lives go down. The pattern looks odd at first:</p>
+  <div class="code-wrap">
+    <div class="code-head">read it right to left</div>
+    <div class="code">score = 0
+score = score + 10
+print(score)   # 10</div>
+  </div>
+  <p>In maths, <code>score = score + 10</code> would be nonsense. In Python the <code>=</code> doesn't mean "is equal to" - it means <strong>"store the answer on the right into the box on the left"</strong>. Python works out the right side first (current score + 10), then saves the result back into <code>score</code>.</p>
+  <p>Because this is so common, there are shortcuts:</p>
+  <div class="concept">
+    <p class="concept-title">Shortcuts</p>
+    <div class="concept-row"><span class="concept-key">+=</span><span class="concept-val"><code>score += 10</code> same as <code>score = score + 10</code></span></div>
+    <div class="concept-row"><span class="concept-key">-=</span><span class="concept-val"><code>lives -= 1</code> same as <code>lives = lives - 1</code></span></div>
+    <div class="concept-row"><span class="concept-key">*=</span><span class="concept-val"><code>coins *= 2</code> doubles it</span></div>
+    <div class="concept-row"><span class="concept-key">/=</span><span class="concept-val"><code>pizza /= 4</code> splits it into 4</span></div>
+  </div>
+  <h2>Trace it like a detective</h2>
+  <p>Keep track of the value after every line:</p>
+  <div class="code-wrap">
+    <div class="code-head">what is coins at the end?</div>
+    <div class="code">coins = 5
+coins += 3
+coins *= 2
+coins -= 4
+print(coins)</div>
+  </div>
+  <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-h9')">Show Answer</button>
+  <div class="hint" id="afraz-h9">Step by step: 5, then 8, then 16, then 12. Final answer printed: <strong>12</strong>.</div>
+
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Printing nicely &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-9">
+  <div class="eyebrow">Level 2 &middot; f-strings</div>
+  <h1>Putting Variables Inside Sentences</h1>
+
+  <p>You've been printing like <code>print("Score:", score)</code>. There's a cleaner way called an <strong>f-string</strong>. Put the letter <code>f</code> before the opening quote and wrap variable names in curly braces:</p>
+  <div class="code-wrap">
+    <div class="code-head">f-string</div>
+    <div class="code">name = "Afraz"
+age = 10
+print(f"{name} is {age} years old")</div>
+  </div>
+  <p>Output: <code>Afraz is 10 years old</code></p>
+  <p>The really cool part: inside the braces you can do <em>calculations</em>, not only names.</p>
+  <div class="code-wrap">
+    <div class="code-head">maths inside the braces</div>
+    <div class="code">price = 4
+how_many = 3
+print(f"{how_many} snacks cost {price * how_many} dollars")
+print(f"Next year I will be {age + 1}")</div>
+  </div>
+  <p>Output:</p>
+  <div class="expected">3 snacks cost 12 dollars<br>Next year I will be 11</div>
+  <div class="warn">Forgetting the <code>f</code> at the start is the classic mistake. Without it, Python prints the curly braces literally: <code>{name} is {age} years old</code>.</div>
+  <h2>Your turn</h2>
+  <p>Make variables for your favourite food and how many you could eat, then print a sentence with an f-string that also shows double that number.</p>
+  <button class="hint-btn" data-label="Example" onclick="toggleHint('afraz-h10')">Show Example</button>
+  <div class="hint" id="afraz-h10"><code>food = "pizza"</code><br><code>slices = 4</code><br><code>print(f"I could eat {slices} slices of {food}, or {slices * 2} if I'm really hungry")</code></div>
+
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Two at once &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-10">
+  <div class="eyebrow">Level 2 &middot; Shortcuts</div>
+  <h1>Two Variables at Once</h1>
+
+  <p>Python lets you create several variables on one line:</p>
+  <div class="code-wrap">
+    <div class="code-head">multiple assignment</div>
+    <div class="code">x, y = 3, 7
+a = b = 0
+
+print(x, y)   # 3 7
+print(a, b)   # 0 0</div>
+  </div>
+  <p>Remember the swap challenge, with the <code>temp</code> variable? Python has a secret shortcut that does the same job in one line:</p>
+  <div class="code-wrap">
+    <div class="code-head">the Python swap</div>
+    <div class="code">a = 5
+b = 10
+a, b = b, a
+print(a, b)   # 10 5</div>
+  </div>
+  <div class="fact">Why does this work? Python collects both values on the right (10 and 5) <em>before</em> storing anything, and only then puts them into <code>a</code> and <code>b</code>. So nothing gets overwritten too early - it's a built-in temp variable.</div>
+  <h2>Names that never change</h2>
+  <p>Sometimes a value should never change while the program runs, like the number of lives you start with. Programmers write those names in <strong>CAPITAL_LETTERS</strong> as a signal: "don't touch me".</p>
+  <div class="code-wrap">
+    <div class="code-head">constants</div>
+    <div class="code">STARTING_LIVES = 3
+MAX_SCORE = 100
+
+lives = STARTING_LIVES
+lives -= 1</div>
+  </div>
+  <div class="tip">Python won't actually stop you from changing a CAPITAL name. It's a promise between programmers, not a lock.</div>
+  <h2>Your turn</h2>
+  <p>Three variables: <code>first = "red"</code>, <code>second = "green"</code>, <code>third = "blue"</code>. Rotate them in a single line so that first becomes green, second becomes blue, third becomes red.</p>
+  <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-h11')">Show Answer</button>
+  <div class="hint" id="afraz-h11"><code>first, second, third = second, third, first</code><br><br>All three values on the right are collected first, then dropped into the boxes on the left.</div>
+
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Variables and lists &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-11">
+  <div class="eyebrow">Level 2 &middot; Tricky Part</div>
+  <h1>Variables and Lists: Two Labels, One Box</h1>
+
+  <p>This is the page that surprises even experienced programmers, so read slowly. With numbers and text, copying a variable really copies the value:</p>
+  <div class="code-wrap">
+    <div class="code-head">numbers copy</div>
+    <div class="code">x = 4
+y = x
+x = 10
+print(y)   # 4 - y kept its own copy</div>
+  </div>
+  <p>But with <strong>lists</strong>, something different happens:</p>
+  <div class="code-wrap">
+    <div class="code-head">lists do NOT copy</div>
+    <div class="code">a = [1, 2]
+b = a          # this does NOT make a second list
+b.append(3)
+print(a)       # [1, 2, 3]</div>
+  </div>
+  <p>Wait - we added 3 to <code>b</code>, but <code>a</code> changed too! Here's the picture to remember:</p>
+  <div class="concept">
+    <p class="concept-title">Think of it like this</p>
+    <div class="concept-row"><span class="concept-key">numbers</span><span class="concept-val">each variable is its own box with its own number inside</span></div>
+    <div class="concept-row"><span class="concept-key">lists</span><span class="concept-val">the list is ONE box. <code>a</code> and <code>b</code> are two sticky-note labels stuck on the same box</span></div>
+  </div>
+  <p>So <code>b = a</code> just sticks a second label on the same list. Change the list through either label and both labels see the change.</p>
+  <h2>How to really make a copy</h2>
+  <div class="code-wrap">
+    <div class="code-head">.copy() makes a new box</div>
+    <div class="code">a = [1, 2]
+b = a.copy()   # a brand new list with the same items
+b.append(3)
+print(a)       # [1, 2]  - untouched
+print(b)       # [1, 2, 3]</div>
+  </div>
+  <div class="fact">Rule of thumb: when a program changes a list "by accident" somewhere you didn't expect, ask yourself - did I use <code>=</code> when I needed <code>.copy()</code>?</div>
+  <h2>Quick check</h2>
+  <div class="code-wrap">
+    <div class="code-head">what do a and b hold at the end?</div>
+    <div class="code">a = ["pizza", "burger"]
+b = a
+b.remove("pizza")
+print(a)</div>
+  </div>
+  <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-h12')">Show Answer</button>
+  <div class="hint" id="afraz-h12">['burger'] - the removal through <code>b</code> also shows up in <code>a</code>, because both labels point to the same list.</div>
+
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Predict the output &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-12">
+  <div class="eyebrow">Level 2 &middot; Practice</div>
+  <h1>Predict the Output</h1>
+
+  <p>No computer allowed for the first try! Read the code, decide what it prints, say it out loud, <em>then</em> open the answer. Going wrong here is great - the answer explains why.</p>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">1</div>
+      <span class="problem-title">What does it print?</span>
+    </div>
+    <div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">x = 4
+y = x
+x = 10
+print(y)</div>
+  </div>
+    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p1')">Show Answer</button>
+  <div class="hint" id="afraz-p1"><strong>4</strong><br>y copied the 4 when <code>y = x</code> ran. Changing x afterwards can't touch y.</div>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">2</div>
+      <span class="problem-title">What does it print?</span>
+    </div>
+    <div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">score = 10
+score += 5
+score *= 2
+print(score)</div>
+  </div>
+    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p2')">Show Answer</button>
+  <div class="hint" id="afraz-p2"><strong>30</strong><br>10, then 15, then 30.</div>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">3</div>
+      <span class="problem-title">What does it print?</span>
+    </div>
+    <div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">a = "5"
+b = "5"
+print(a + b)</div>
+  </div>
+    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p3')">Show Answer</button>
+  <div class="hint" id="afraz-p3"><strong>55</strong><br>They are text, so <code>+</code> glues them together instead of adding.</div>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">4</div>
+      <span class="problem-title">What does it print?</span>
+    </div>
+    <div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">a = [1, 2]
+b = a
+b.append(3)
+print(a)</div>
+  </div>
+    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p4')">Show Answer</button>
+  <div class="hint" id="afraz-p4"><strong>[1, 2, 3]</strong><br>Both labels stick to the same list, so the append shows up in <code>a</code>.</div>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">5</div>
+      <span class="problem-title">What does it print?</span>
+    </div>
+    <div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">name = "Afraz"
+age = 10
+print(f"{name} will be {age + 1} next year")</div>
+  </div>
+    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p5')">Show Answer</button>
+  <div class="hint" id="afraz-p5"><strong>Afraz will be 11 next year</strong><br>The f-string works out <code>age + 1</code> inside the braces.</div>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">6</div>
+      <span class="problem-title">What does it print?</span>
+    </div>
+    <div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">x = 3
+x = x * x
+x = x - 1
+print(x)</div>
+  </div>
+    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p6')">Show Answer</button>
+  <div class="hint" id="afraz-p6"><strong>8</strong><br>3, then 9, then 8.</div>
+  </div>
+
+  <div class="problem-card">
+    <div class="problem-header">
+      <div class="problem-num">7</div>
+      <span class="problem-title">What does it print?</span>
+    </div>
+    <div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">a, b = 1, 2
+a, b = b, a
+print(a, b)</div>
+  </div>
+    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p7')">Show Answer</button>
+  <div class="hint" id="afraz-p7"><strong>2 1</strong><br>Python collects both values first, then swaps them.</div>
+  </div>
+
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Bug hunt &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-13">
+  <div class="eyebrow">Level 2 &middot; Final</div>
+  <h1>Bug Hunt and Mini Challenges</h1>
+
+  <p>Last page. No submitting - just do these in Thonny, then show Raiyan whichever ones you're proud of.</p>
+  <h2>Part 1: Find and fix the bug</h2>
+  <div class="problem-card">
+    <div class="problem-header"><div class="problem-num">A</div><span class="problem-title">The age bug</span></div>
+    <div class="code-wrap">
+    <div class="code-head">crashes - why?</div>
+    <div class="code">age = input("Age? ")
+print("Next year you will be", age + 1)</div>
+  </div>
+    <button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-b1')">Show Fix</button>
+  <div class="hint" id="afraz-b1"><code>input()</code> gives text. Convert it: <code>age = int(input("Age? "))</code></div>
+  </div>
+  <div class="problem-card">
+    <div class="problem-header"><div class="problem-num">B</div><span class="problem-title">The two-prices bug</span></div>
+    <div class="code-wrap">
+    <div class="code-head">wanted 10 but got 5</div>
+    <div class="code">total = 0
+price = 5
+total = price
+total = price
+print(total)</div>
+  </div>
+    <button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-b2')">Show Fix</button>
+  <div class="hint" id="afraz-b2">Each line replaces total instead of adding to it. Use <code>total += price</code> twice.</div>
+  </div>
+  <div class="problem-card">
+    <div class="problem-header"><div class="problem-num">C</div><span class="problem-title">The backup bug</span></div>
+    <div class="code-wrap">
+    <div class="code-head">backup should stay the same</div>
+    <div class="code">team = ["Ali", "Sam"]
+backup = team
+team.append("Zed")
+print(backup)    # we wanted ["Ali", "Sam"]</div>
+  </div>
+    <button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-b3')">Show Fix</button>
+  <div class="hint" id="afraz-b3"><code>backup = team</code> only adds a second label. Use <code>backup = team.copy()</code>.</div>
+  </div>
+  <h2>Part 2: Build these</h2>
+  <div class="card card-yellow">
+    <h3>Snack budget</h3>
+    <p>Start with <code>money = 20</code>. Buy a snack that costs 6, then another that costs 4, using <code>-=</code>. Print one f-string saying how much money is left.</p>
+  </div>
+  <div class="card card-blue">
+    <h3>Birthday machine</h3>
+    <p>Ask for a name and an age using <code>input()</code> (remember to convert the age!). Print: <em>"Afraz, next year you will be 11!"</em> using an f-string.</p>
+  </div>
+  <div class="card card-pink">
+    <h3>Three-way rotate</h3>
+    <p>Make a list of three favourite games. Save a safe copy with <code>.copy()</code>, then remove the first game from the original list. Print both lists to prove the copy is untouched.</p>
+  </div>
+  <button class="hint-btn" data-label="Example solutions" onclick="toggleHint('afraz-b4')">Show Example solutions</button>
+  <div class="hint" id="afraz-b4">Snack: <code>money = 20</code> / <code>money -= 6</code> / <code>money -= 4</code> / <code>print(f"Money left: {money}")</code><br><br>Birthday: <code>name = input("Name? ")</code> / <code>age = int(input("Age? "))</code> / <code>print(f"{name}, next year you will be {age + 1}!")</code><br><br>Rotate: <code>games = ["a", "b", "c"]</code> / <code>safe = games.copy()</code> / <code>games.remove("a")</code> / <code>print(games, safe)</code></div>
+  <div class="fact">You can now explain types, conversion, updating, f-strings, multiple assignment and list aliasing. That's well past "just variables" - nice work, Afraz.</div>
+
 </div>
 
 </div>
@@ -1241,13 +1308,14 @@ function toggleHint(id) {
   const h = document.getElementById(id);
   h.classList.toggle('show');
   const btn = h.previousElementSibling;
-  btn.textContent = h.classList.contains('show') ? 'Hide Hint' : 'Show Hint';
+  const label = btn.dataset.label || 'Hint';
+  btn.textContent = (h.classList.contains('show') ? 'Hide ' : 'Show ') + label;
 }
 </script>
 
 <script>
 (function() {
-  const TOTAL = 22;
+  const TOTAL = 11;
   let cur = 1;
 
   function buildDots() {
@@ -1284,7 +1352,7 @@ function toggleHint(id) {
 
 <script>
 (function() {
-  const TOTAL = 5;
+  const TOTAL = 13;
   let cur = 1;
 
   function buildDots() {
