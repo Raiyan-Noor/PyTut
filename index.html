@@ -168,10 +168,11 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
       <div class="landing-card" onclick="showScreen('aariz')">
         <div class="landing-avatar" style="background:var(--yellow);">A</div>
         <div class="landing-name">Aariz</div>
-        <div class="landing-desc">How the web works, building a real server with Node and Express, and talking to it with curl.</div>
+        <div class="landing-desc">How the web works, a real server with Node and Express, curl - then build your own full website, front end and back end.</div>
         <div class="landing-meta">
           <span class="pill p-pink">web</span>
           <span class="pill p-green">node + express</span>
+          <span class="pill p-blue">full website</span>
           <span class="pill p-yellow">curl</span>
         </div>
         <div class="landing-go">Start &rarr;</div>
@@ -180,9 +181,9 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
       <div class="landing-card" onclick="showScreen('afraz')">
         <div class="landing-avatar" style="background:var(--pink);color:var(--white);">A</div>
         <div class="landing-name">Afraz</div>
-        <div class="landing-desc">Variables, level 2: the basics refreshed, then types, converting, updating, f-strings, swapping and the tricky list-copy trap.</div>
+        <div class="landing-desc">Comparisons and if / else - how your programs ask yes/no questions and make decisions. Short lesson, no submission.</div>
         <div class="landing-meta">
-          <span class="pill p-green">variables</span>
+          <span class="pill p-yellow">if / else</span>
         </div>
         <div class="landing-go">Start &rarr;</div>
       </div>
@@ -713,7 +714,419 @@ HTTP/1.1 404 Not Found
       <li><div class="cb"></div>Which status code did your POST return, and why that one and not 200?</li>
       <li><div class="cb"></div>One thing that went wrong and how you fixed it</li>
     </ul></div>
-  <div class="fact">You now understand the real shape of the internet: clients ask, servers answer, and they speak in methods, paths, status codes and JSON. Every app on your phone does exactly this. Next up, we can connect a web page to your server so it fetches its own events.</div>
+  <div class="fact">You now understand the real shape of the internet: clients ask, servers answer, and they speak in methods, paths, status codes and JSON. Every app on your phone does exactly this. Next up, you connect a real web page to your server and build a full website of your own.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Part 2: a full website &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-12">
+  <div class="eyebrow">Part 2 &middot; Full Website</div>
+  <h1>Serve a Real Page From Your Server</h1>
+  <p>So far your server only sends text and JSON. A real website also sends <strong>HTML, CSS and JavaScript files</strong>. Express can do this with one line, and you already met it as a stretch goal:</p>
+  <div class="code-wrap">
+    <div class="code-head">server.js</div>
+    <div class="code">app.use(express.static('public'));</div>
+  </div>
+  <p>This says: "if someone asks for a file, look for it inside the <code>public</code> folder and send it". Now your project folder looks like this:</p>
+  <div class="code-wrap">
+    <div class="code-head">folder layout</div>
+    <div class="code">my-server/
+  server.js          &lt;- the back end (Node)
+  package.json
+  public/            &lt;- the front end (what the browser gets)
+    index.html
+    style.css
+    app.js</div>
+  </div>
+  <div class="concept">
+    <p class="concept-title">How files are found</p>
+    <div class="concept-row"><span class="concept-key">/</span><span class="concept-val">sends <code>public/index.html</code> automatically</span></div>
+    <div class="concept-row"><span class="concept-key">/style.css</span><span class="concept-val">sends <code>public/style.css</code></span></div>
+    <div class="concept-row"><span class="concept-key">/app.js</span><span class="concept-val">sends <code>public/app.js</code></span></div>
+  </div>
+  <p>Try it. Make <code>public/index.html</code> with a heading, restart the server, and open <code>http://localhost:3000/</code>:</p>
+  <div class="code-wrap">
+    <div class="code-head">public/index.html</div>
+    <div class="code">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;My Events&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;My Events&lt;/h1&gt;
+  &lt;ul id="list"&gt;&lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+  </div>
+  <div class="fact">Your server now has <strong>two jobs</strong>: it serves the page (files) and it serves the data (API routes starting with <code>/api</code>). The page will ask the API for data, and that conversation is what makes a website dynamic.</div>
+  <div class="tip">Because the page and the API come from the same address, the page can call <code>/api/events</code> with no full URL. Same address means no extra browser security hurdles to fight.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">fetch(): reading data &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-13">
+  <div class="eyebrow">Part 2 &middot; Front End Talks To Back End</div>
+  <h1>fetch(): Show Server Data On The Page</h1>
+  <p><code>fetch()</code> is how JavaScript in the browser makes a request, the same thing curl did, but from code. Here is a complete page that loads your events and displays them:</p>
+  <div class="code-wrap">
+    <div class="code-head">inside public/index.html, before </body></div>
+    <div class="code">&lt;script&gt;
+  async function loadEvents() {
+    const response = await fetch('/api/events');
+    const events = await response.json();
+
+    const list = document.getElementById('list');
+    list.innerHTML = '';
+    for (const e of events) {
+      const li = document.createElement('li');
+      li.textContent = e.name + ' - ' + e.date;
+      list.appendChild(li);
+    }
+  }
+
+  loadEvents();
+&lt;/script&gt;</div>
+  </div>
+  <h2>New ideas, in Python terms</h2>
+  <div class="concept">
+    <p class="concept-title">Read carefully</p>
+    <div class="concept-row"><span class="concept-key">fetch(url)</span><span class="concept-val">sends a GET request, like <code>curl url</code></span></div>
+    <div class="concept-row"><span class="concept-key">await</span><span class="concept-val">"wait here until the answer arrives". Like <code>input()</code> pausing Python until the user types.</span></div>
+    <div class="concept-row"><span class="concept-key">async</span><span class="concept-val">a function that uses <code>await</code> must be marked <code>async</code></span></div>
+    <div class="concept-row"><span class="concept-key">response.json()</span><span class="concept-val">turns the JSON text into a real JS array, like <code>json.loads</code></span></div>
+    <div class="concept-row"><span class="concept-key">createElement</span><span class="concept-val">builds a new HTML tag from JS</span></div>
+    <div class="concept-row"><span class="concept-key">textContent</span><span class="concept-val">puts text inside it, safely</span></div>
+  </div>
+  <div class="warn"><strong>Security rule:</strong> when you show text that a user typed, use <code>textContent</code>, never <code>innerHTML</code>. If someone types <code>&lt;script&gt;...&lt;/script&gt;</code> as an event name, <code>innerHTML</code> would actually run it. <code>textContent</code> just shows it as harmless text. This mistake is called XSS and it is one of the most common ways websites get hacked.</div>
+  <h2>Check</h2>
+  <ul class="checklist">
+      <li><div class="cb"></div>Open the page: do you see your events from the server?</li>
+      <li><div class="cb"></div>Add an event with curl, refresh the page, and watch it appear</li>
+      <li><div class="cb"></div>Open DevTools (F12) &rarr; Network tab &rarr; reload. Find the <code>events</code> request and look at its status and response, the same things <code>curl -i</code> showed you</li>
+    </ul>
+  <button class="hint-btn" data-label="Question" onclick="toggleHint('aariz-w11')">Show Question</button>
+  <div class="hint" id="aariz-w11">Why is <code>loadEvents</code> declared <code>async</code>?<br><br>Answer: because it uses <code>await</code>. Fetching takes time, and <code>await</code> lets the function pause until the server has replied without freezing the whole page.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">fetch(): sending data &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-14">
+  <div class="eyebrow">Part 2 &middot; Forms</div>
+  <h1>Sending Data With A Form</h1>
+  <p>Now let a person add an event from the page instead of curl. Add a form above the list:</p>
+  <div class="code-wrap">
+    <div class="code-head">index.html</div>
+    <div class="code">&lt;form id="form"&gt;
+  &lt;input id="name" placeholder="Event name"&gt;
+  &lt;input id="date" placeholder="Date"&gt;
+  &lt;button type="submit"&gt;Add&lt;/button&gt;
+&lt;/form&gt;
+&lt;p id="msg"&gt;&lt;/p&gt;
+&lt;ul id="list"&gt;&lt;/ul&gt;</div>
+  </div>
+  <p>And this function in your script, with one line after it that connects it to the form:</p>
+  <div class="code-wrap">
+    <div class="code-head">script</div>
+    <div class="code">async function addEvent(evt) {
+  evt.preventDefault();
+  const name = document.getElementById('name').value;
+  const date = document.getElementById('date').value;
+
+  const response = await fetch('/api/events', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: name, date: date })
+  });
+
+  const msg = document.getElementById('msg');
+  if (!response.ok) {
+    const problem = await response.json();
+    msg.textContent = 'Error: ' + problem.error;
+    return;
+  }
+  msg.textContent = 'Added!';
+  document.getElementById('form').reset();
+  await loadEvents();
+}
+
+document.getElementById('form').addEventListener('submit', addEvent);</div>
+  </div>
+  <h2>Match it to your curl command</h2>
+  <div class="concept">
+    <p class="concept-title">The same pieces you used before</p>
+    <div class="concept-row"><span class="concept-key">method: 'POST'</span><span class="concept-val"><code>-X POST</code></span></div>
+    <div class="concept-row"><span class="concept-key">headers</span><span class="concept-val"><code>-H "Content-Type: application/json"</code></span></div>
+    <div class="concept-row"><span class="concept-key">body</span><span class="concept-val"><code>-d '{"name": ...}'</code></span></div>
+    <div class="concept-row"><span class="concept-key">JSON.stringify</span><span class="concept-val">turns a JS object into JSON text, like <code>json.dumps</code></span></div>
+    <div class="concept-row"><span class="concept-key">response.ok</span><span class="concept-val">true for status 200 to 299, false for 400 or 404 and friends</span></div>
+    <div class="concept-row"><span class="concept-key">preventDefault</span><span class="concept-val">stops the browser reloading the page when a form is submitted, which is its default behaviour</span></div>
+  </div>
+  <div class="fact">Notice how the page shows the server's own error message when something is wrong. Good websites always tell the person what went wrong instead of silently doing nothing.</div>
+  <button class="hint-btn" data-label="Check yourself" onclick="toggleHint('aariz-w12')">Show Check yourself</button>
+  <div class="hint" id="aariz-w12">Add an event with an empty name. What appears, and which status code did the server send?<br><br>Answer: the page shows <code>Error: name is required</code>, and the server sent <strong>400</strong>. Look in the Network tab to confirm.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Saving data to a file &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-15">
+  <div class="eyebrow">Part 2 &middot; Memory That Lasts</div>
+  <h1>Saving Data To A File</h1>
+  <p>Right now a server restart wipes everything, because the data lives in a variable. A real website keeps its data in a file or database. Let's use a <strong>JSON file</strong>. You did this in Python before:</p>
+  <div class="code-wrap">
+    <div class="code-head">Python</div>
+    <div class="code">import json
+
+with open("events.json") as f:
+    events = json.load(f)
+
+with open("events.json", "w") as f:
+    json.dump(events, f)</div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-head">Node (add near the top of server.js)</div>
+    <div class="code">const fs = require('fs');
+const FILE = 'events.json';
+
+function loadEvents() {
+  if (!fs.existsSync(FILE)) {
+    return [];
+  }
+  const text = fs.readFileSync(FILE, 'utf8');
+  return JSON.parse(text);
+}
+
+function saveEvents(events) {
+  fs.writeFileSync(FILE, JSON.stringify(events, null, 2));
+}</div>
+  </div>
+  <div class="concept">
+    <p class="concept-title">Python vs Node</p>
+    <div class="concept-row"><span class="concept-key">json.load</span><span class="concept-val"><code>JSON.parse(text)</code></span></div>
+    <div class="concept-row"><span class="concept-key">json.dump</span><span class="concept-val"><code>JSON.stringify(data)</code></span></div>
+    <div class="concept-row"><span class="concept-key">open(...).read()</span><span class="concept-val"><code>fs.readFileSync(file, 'utf8')</code></span></div>
+    <div class="concept-row"><span class="concept-key">open(..., "w")</span><span class="concept-val"><code>fs.writeFileSync(file, text)</code></span></div>
+    <div class="concept-row"><span class="concept-key">os.path.exists</span><span class="concept-val"><code>fs.existsSync(file)</code></span></div>
+  </div>
+  <p>Then change your routes so they <strong>load, change, save</strong> instead of using a global array:</p>
+  <div class="code-wrap">
+    <div class="code-head">server.js</div>
+    <div class="code">app.get('/api/events', (req, res) =&gt; {
+  res.json(loadEvents());
+});
+
+app.post('/api/events', (req, res) =&gt; {
+  if (!req.body || !req.body.name) {
+    return res.status(400).json({ error: 'name is required' });
+  }
+  const events = loadEvents();
+  const newEvent = { id: Date.now(), name: req.body.name, date: req.body.date };
+  events.push(newEvent);
+  saveEvents(events);
+  res.status(201).json(newEvent);
+});</div>
+  </div>
+  <div class="tip"><code>Date.now()</code> is the current time in milliseconds, so every new event gets its own unique id without having to count. Fine for a small project like this.</div>
+  <h2>Make your life easier</h2>
+  <p>Instead of stopping and restarting after every edit, start the server like this and it restarts itself whenever you save <code>server.js</code>:</p>
+  <div class="code-wrap">
+    <div class="code-head">terminal</div>
+    <div class="code">node --watch server.js</div>
+  </div>
+  <button class="hint-btn" data-label="Test" onclick="toggleHint('aariz-w13')">Show Test</button>
+  <div class="hint" id="aariz-w13">Add an event on the page, stop the server, start it again, then refresh. Is the event still there? Open <code>events.json</code> in your folder and look at it.<br><br>It should survive the restart, and the file contents are exactly the JSON the API sends. That is the whole trick: the database here is just a text file.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Your project &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-16">
+  <div class="eyebrow">The Assignment</div>
+  <h1>Build Your Own Website, End to End</h1>
+  <p>Everything is on the table now: HTML, CSS, JavaScript, a Node server, an API and a data file. Your assignment is to put it all together into <strong>one complete website that you design yourself</strong>, with a back end that stores real data and a front end that looks good.</p>
+  <h2>Pick a topic</h2>
+  <div class="card card-yellow"><h3>Choose one, or invent your own</h3><ul><li><strong>Training Log:</strong> log piano, football and basketball sessions with minutes and notes, see totals</li><li><strong>Match Tracker:</strong> record scores of games you play or watch, see wins and losses</li><li><strong>Homework Planner:</strong> subjects, deadlines, mark as done</li><li><strong>Collection list:</strong> favourite games, books or players with ratings</li><li><strong>Your idea:</strong> tell Raiyan first so he can check it fits</li></ul></div>
+  <h2>The back end must have</h2>
+  <ul class="checklist">
+      <li><div class="cb"></div>A <code>server.js</code> using Express</li>
+      <li><div class="cb"></div>At least three routes: <strong>GET</strong> (list), <strong>POST</strong> (add), <strong>DELETE</strong> (remove)</li>
+      <li><div class="cb"></div>Data saved to a <strong>JSON file</strong>, so it survives a restart</li>
+      <li><div class="cb"></div>Validation: reject bad input with a <strong>400</strong> and a helpful error message, and a missing id with a <strong>404</strong></li>
+      <li><div class="cb"></div>Tested with curl before you build the page</li>
+    </ul>
+  <h2>The front end must have</h2>
+  <ul class="checklist">
+      <li><div class="cb"></div>Separate files inside <code>public/</code>: <code>index.html</code>, <code>style.css</code>, <code>app.js</code></li>
+      <li><div class="cb"></div>A form to add things, a list that shows them, and a delete button on each</li>
+      <li><div class="cb"></div>Server error messages shown to the person in the page</li>
+      <li><div class="cb"></div>A friendly message when the list is empty</li>
+      <li><div class="cb"></div>At least one <strong>smart feature</strong>: totals or stats, a filter, or search</li>
+      <li><div class="cb"></div>A design you are proud of (next page tells you how)</li>
+    </ul>
+  <h2>Using AI</h2>
+  <div class="fact">You may use AI as a helper, the way you would ask a tutor. The rule is simple: <strong>you must be able to explain every line</strong> of your project out loud. When we meet, I will point at random lines and ask what they do. If you cannot explain it, it does not count yet.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Designing the front end &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-17">
+  <div class="eyebrow">The Assignment</div>
+  <h1>Making The Front End Look Good</h1>
+  <p>A website that works but looks messy is only half done. Good design is not magic. It is five habits. Follow them and your page will look professional.</p>
+  <h2>1. Pick a small palette and name it</h2>
+  <p>Choose <strong>one main colour, one background, one text colour</strong>, plus maybe a few accent colours. Store them as CSS variables so you can change the whole site in one place:</p>
+  <div class="code-wrap">
+    <div class="code-head">style.css</div>
+    <div class="code">:root {
+  --bg: #f4f1ff;
+  --card: #ffffff;
+  --ink: #1d1b2e;
+  --brand: #5b3df5;
+  --radius: 16px;
+}
+body { background: var(--bg); color: var(--ink); }</div>
+  </div>
+  <h2>2. One font, a few sizes</h2>
+  <p>Use a single font family and only a handful of sizes: a big title, a section heading, normal text, small text. Too many fonts or sizes looks chaotic.</p>
+  <div class="code-wrap">
+    <div class="code-head">style.css</div>
+    <div class="code">body { font-family: system-ui, 'Segoe UI', sans-serif; line-height: 1.5; }
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.1rem; }</div>
+  </div>
+  <h2>3. Space is the secret</h2>
+  <p>Beginners squash everything together. Give things room: <code>padding</code> inside boxes, <code>gap</code> between them, and a maximum width so text lines do not stretch across the whole screen. Put content in <strong>cards</strong>:</p>
+  <div class="code-wrap">
+    <div class="code-head">style.css</div>
+    <div class="code">.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: 0 6px 20px rgba(40, 20, 120, 0.08);
+}
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; display: grid; gap: 20px; }</div>
+  </div>
+  <h2>4. Every state needs a design</h2>
+  <div class="concept">
+    <p class="concept-title">Do not forget</p>
+    <div class="concept-row"><span class="concept-key">hover</span><span class="concept-val">buttons react when the mouse is over them: <code>.btn:hover</code></span></div>
+    <div class="concept-row"><span class="concept-key">focus</span><span class="concept-val">inputs show which one you are typing in: <code>input:focus</code></span></div>
+    <div class="concept-row"><span class="concept-key">empty</span><span class="concept-val">a friendly message when there is no data yet</span></div>
+    <div class="concept-row"><span class="concept-key">error</span><span class="concept-val">errors in a clear colour, near the form</span></div>
+  </div>
+  <h2>5. It must work on a phone</h2>
+  <div class="code-wrap">
+    <div class="code-head">style.css</div>
+    <div class="code">@media (max-width: 600px) {
+  .stats { grid-template-columns: 1fr; }
+  .form { flex-direction: column; }
+}</div>
+  </div>
+  <p>Always add this line in your HTML <code>&lt;head&gt;</code>, or phones will show a tiny zoomed-out page: <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code>. Test by making your browser window narrow.</p>
+  <div class="card card-purple"><h3>Good CSS habits</h3><ul><li>Style with <strong>classes</strong>, not ids and not inline <code>style="..."</code></li><li>Name classes by what they are (<code>.card</code>, <code>.btn</code>), not how they look (<code>.big-red</code>)</li><li>Put colours and sizes in variables, never repeat the same hex code twenty times</li><li>One stylesheet, organised top to bottom: variables, base, layout, components, small screens</li></ul></div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Plan and workflow &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-18">
+  <div class="eyebrow">The Assignment</div>
+  <h1>How The Pieces Fit, and How To Work</h1>
+  <p>Here is the whole journey of one click, from the person to the file and back. Keep this picture in your head:</p>
+  <div class="code-wrap">
+    <div class="code-head">what happens when someone clicks "Add"</div>
+    <div class="code">1. Browser: JS reads the form and calls fetch(POST /api/things)
+2. Server:  Express route runs, checks the data
+3. Server:  loadThings() reads things.json
+4. Server:  adds the new item, saveThings() writes the file
+5. Server:  replies 201 with the new item (or 400 with an error)
+6. Browser: JS gets the reply, calls fetch(GET /api/things)
+7. Browser: JS rebuilds the list on the page</div>
+  </div>
+  <h2>Build in this order</h2>
+  <div class="concept">
+    <p class="concept-title">Do not start with the design</p>
+    <div class="concept-row"><span class="concept-key">1</span><span class="concept-val"><strong>Back end first.</strong> Routes plus the JSON file. Test every route with curl.</span></div>
+    <div class="concept-row"><span class="concept-key">2</span><span class="concept-val"><strong>Plain page.</strong> HTML with a form and an empty list, no styling.</span></div>
+    <div class="concept-row"><span class="concept-key">3</span><span class="concept-val"><strong>Connect it.</strong> fetch to load, fetch to add, fetch to delete.</span></div>
+    <div class="concept-row"><span class="concept-key">4</span><span class="concept-val"><strong>Smart feature.</strong> Stats, filter or search.</span></div>
+    <div class="concept-row"><span class="concept-key">5</span><span class="concept-val"><strong>Design.</strong> Now make it beautiful, one habit at a time.</span></div>
+  </div>
+  <h2>Your tools</h2>
+  <div class="concept">
+    <p class="concept-title">Where to look when it breaks</p>
+    <div class="concept-row"><span class="concept-key">terminal</span><span class="concept-val">the server's errors and anything you <code>console.log</code> in server.js</span></div>
+    <div class="concept-row"><span class="concept-key">Console tab</span><span class="concept-val">the browser's errors from your <code>app.js</code> (F12)</span></div>
+    <div class="concept-row"><span class="concept-key">Network tab</span><span class="concept-val">every request the page makes, with status and response</span></div>
+    <div class="concept-row"><span class="concept-key">curl</span><span class="concept-val">test the API alone, to find out if the bug is front end or back end</span></div>
+  </div>
+  <div class="tip">The fastest way to find a bug: ask "<strong>does it work with curl?</strong>". If curl works, the server is fine and the bug is in the page. If curl fails, ignore the page and fix the server first.</div>
+  <button class="hint-btn" data-label="Debugging example" onclick="toggleHint('aariz-w14')">Show Debugging example</button>
+  <div class="hint" id="aariz-w14"><strong>Symptom:</strong> you click Add and nothing happens.<br><br>1) Open Console: is there a red error? 2) Open Network: was a request sent? If not, the form is not connected to your function. If yes, what status did it get? 3) If it got a 400, read the response: the server is telling you what is wrong.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Milestones &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-19">
+  <div class="eyebrow">The Assignment</div>
+  <h1>Milestones: Level Up Your Project</h1>
+  <p>Work through the levels in order. Tell Raiyan each time you finish one, so you can show it and get feedback early.</p>
+  <div class="card card-green"><h3>Level 1: It works</h3><ul class="checklist">
+      <li><div class="cb"></div>Server has GET, POST and DELETE</li>
+      <li><div class="cb"></div>Data survives a restart (JSON file)</li>
+      <li><div class="cb"></div>Page lists items, adds with a form, deletes with a button</li>
+      <li><div class="cb"></div>Bad input gets a 400 and the page shows the message</li>
+    </ul></div>
+  <div class="card card-blue"><h3>Level 2: It looks good</h3><ul class="checklist">
+      <li><div class="cb"></div>CSS variables for colours</li>
+      <li><div class="cb"></div>Cards, spacing and one consistent font</li>
+      <li><div class="cb"></div>Hover and focus styles, an empty-state message</li>
+      <li><div class="cb"></div>Works on a narrow phone-sized window</li>
+    </ul></div>
+  <div class="card card-orange"><h3>Level 3: It is smart</h3><ul class="checklist">
+      <li><div class="cb"></div>Stats on top (totals, counts, or best item)</li>
+      <li><div class="cb"></div>A filter or search that updates the list</li>
+      <li><div class="cb"></div>Server checks types and limits (for example minutes must be 1 to 600)</li>
+      <li><div class="cb"></div>Newest items first</li>
+    </ul></div>
+  <div class="card card-purple"><h3>Stretch</h3><ul class="checklist">
+      <li><div class="cb"></div>Edit an existing item with a PUT route</li>
+      <li><div class="cb"></div>A simple bar chart made from coloured divs whose width comes from your numbers</li>
+      <li><div class="cb"></div>A dark mode switch, easy if you used CSS variables</li>
+      <li><div class="cb"></div>Sort buttons (newest, biggest)</li>
+    </ul></div>
+  <div class="fact">Aim for a finished Level 2 over a messy Level 3. A smaller website that is clean and works beats a big one that is half broken.</div>
+
+  <button class="next-btn" onclick="aariz_changePage(1)">Submit &rarr;</button>
+</div>
+
+<div class="page" id="aariz-page-20">
+  <div class="eyebrow">Submitting</div>
+  <h1>Show Me Your Website</h1>
+  <p>Send this in Discord, each item as its own message.</p>
+  <div class="discord-box"><div class="discord-header"><div class="discord-av">A</div><span class="discord-name">Aariz</span></div><div class="discord-msg">server.js
+      <div class="discord-code">```js
+// paste your full server.js
+```</div>
+    </div>
+    <div class="discord-msg">public/app.js
+      <div class="discord-code">```js
+// paste your full app.js
+```</div>
+    </div>
+    <div class="discord-msg">screenshots: desktop and phone-width
+    </div>
+  </div>
+  <div class="card card-green"><h3>Include</h3><ul class="checklist">
+      <li><div class="cb"></div><code>server.js</code> and <code>app.js</code> in code blocks (index.html and style.css too if they fit, or attach them as files)</li>
+      <li><div class="cb"></div>A screenshot of the page with some data in it, and one with a narrow window</li>
+      <li><div class="cb"></div>A screenshot of your <code>.json</code> data file</li>
+      <li><div class="cb"></div>A short video or a few screenshots showing add, filter and delete working</li>
+      <li><div class="cb"></div>Which level you reached</li>
+    </ul></div>
+  <div class="card card-yellow"><h3>Answer these in your own words</h3><ul class="checklist">
+      <li><div class="cb"></div>Walk through what happens from clicking Add to the item appearing, step by step</li>
+      <li><div class="cb"></div>Which status codes does your server send, and when?</li>
+      <li><div class="cb"></div>What are three design decisions you made, and why?</li>
+      <li><div class="cb"></div>Describe one bug you hit and how you found it</li>
+      <li><div class="cb"></div>If you used AI: what did you ask it for, and what did you change or fix yourself?</li>
+    </ul></div>
+  <div class="fact">When you finish this, you will have built every layer of a real website by yourself: data file, server, API, page and design. That is exactly how professional web apps are structured, just bigger.</div>
 </div>
 
 </div>
@@ -723,7 +1136,7 @@ HTTP/1.1 404 Not Found
 <div class="screen" id="screen-afraz">
 
 <nav class="nav">
-  <span class="nav-logo">Afraz &middot; Variables</span>
+  <span class="nav-logo">Afraz &middot; If / Else</span>
   <button class="home-btn" onclick="showScreen('landing')">&#8962; Home</button>
   <div class="page-index" id="afraz-nav-dots"></div>
   <div class="nav-arrows">
@@ -733,565 +1146,304 @@ HTTP/1.1 404 Not Found
 </nav>
 
 <div class="page active" id="afraz-page-1">
-  <div class="eyebrow">Quick Refresh</div>
-  <h1>Back to Basics — Variables</h1>
-  <p>Afraz, let's slow right down and make sure variables feel completely solid. No judgment here - this stuff is genuinely easy to lose track of, and a quick refresh now makes everything after it click faster.</p>
-
-  <div class="card card-yellow">
-    <p style="margin:0;">Think of a variable as a <strong>labelled box</strong>. You put a value inside it, and you give the box a name so you can find it again later.</p>
+  <div class="eyebrow">Decisions &middot; Decisions</div>
+  <h1>Questions That Answer True or False</h1>
+  <p>Afraz - so far your programs run every line, top to bottom, no matter what. Real programs <strong>decide</strong> things. To decide, a program first asks a yes/no question. In Python, a yes/no question is called a <strong>comparison</strong>, and the answer is always a <code>bool</code> - <code>True</code> or <code>False</code>. A bool is a value that can only be True or False.</p>
+  <div class="concept">
+    <p class="concept-title">The six comparisons</p>
+    <div class="concept-row"><span class="concept-key">==</span><span class="concept-val">is equal to</span></div>
+    <div class="concept-row"><span class="concept-key">!=</span><span class="concept-val">is NOT equal to</span></div>
+    <div class="concept-row"><span class="concept-key">&amp;gt;</span><span class="concept-val">is greater than</span></div>
+    <div class="concept-row"><span class="concept-key">&amp;lt;</span><span class="concept-val">is less than</span></div>
+    <div class="concept-row"><span class="concept-key">&amp;gt;=</span><span class="concept-val">greater than or equal to</span></div>
+    <div class="concept-row"><span class="concept-key">&amp;lt;=</span><span class="concept-val">less than or equal to</span></div>
   </div>
-
   <div class="code-wrap">
-    <div class="code-head">the simplest possible example</div>
-    <div class="code">score = 10
-<span class="cm"># the box is named "score", and it holds the value 10</span></div>
+    <div class="code-head">try these</div>
+    <div class="code">print(5 &gt; 3)
+print(10 == 10)
+print(4 != 4)
+print(7 &lt;= 6)</div>
   </div>
+  <p>Python answers:</p>
+  <div class="expected">True<br>True<br>False<br>False</div>
+  <div class="watch"><strong>The most common mistake in all of Python:</strong> <code>=</code> and <code>==</code> are different! One equals sign <strong>stores</strong> a value (<code>age = 10</code>). Two equals signs <strong>ask a question</strong> (<code>age == 10</code> means "is age equal to 10?").</div>
+  <h2>Variables work too</h2>
+  <div class="code-wrap">
+    <div class="code-head">with variables</div>
+    <div class="code">height = 130
+print(height &gt;= 120)
+print(height == 100)</div>
+  </div>
+  <p>Output: <code>True</code> then <code>False</code></p>
+  <h2>Say your answers out loud</h2>
+  <ul class="checklist">
+      <li><div class="cb"></div><code>8 &gt; 8</code></li>
+      <li><div class="cb"></div><code>8 &gt;= 8</code></li>
+      <li><div class="cb"></div><code>3 != 4</code></li>
+      <li><div class="cb"></div><code>10 == 5 + 5</code></li>
+    </ul>
+  <button class="hint-btn" data-label="Answers" onclick="toggleHint('afraz-c1')">Show Answers</button>
+  <div class="hint" id="afraz-c1"><code>8 &gt; 8</code> is <strong>False</strong> (8 is not bigger than itself).<br> <code>8 &gt;= 8</code> is <strong>True</strong>.<br> <code>3 != 4</code> is <strong>True</strong>.<br> <code>10 == 5 + 5</code> is <strong>True</strong> - the maths on the right happens first.</div>
 
-  <div class="tip">That's it. That's a variable. Everything else today just builds on this one idea.</div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Declaring & assigning &rarr;</button>
+  <button class="next-btn" onclick="afraz_changePage(1)">The if statement &rarr;</button>
 </div>
 
 <div class="page" id="afraz-page-2">
-  <div class="eyebrow">Quick Refresh</div>
-  <h1>Declaring & Assigning</h1>
-  <p>Creating a variable and putting a value in it is called <strong>assignment</strong>. The <code>=</code> sign does this - and it means something a little different from maths class.</p>
-
+  <div class="eyebrow">Decisions &middot; if</div>
+  <h1>Making Python Decide With if</h1>
+  <p>Now we use those True/False answers to make decisions. An <code>if</code> says: <strong>"only run this code when the question is True."</strong></p>
   <div class="code-wrap">
-    <div class="code-head">assignment</div>
-    <div class="code">goals = 3
-<span class="fn">print</span>(goals)   <span class="cm"># prints 3</span></div>
+    <div class="code-head">your first if</div>
+    <div class="code">height = 130
+
+if height &gt;= 120:
+    print("You can ride the roller coaster!")</div>
   </div>
-
-  <p>In maths, <code>=</code> means "these two things are equal." In Python, <code>goals = 3</code> means something different: <strong>"put 3 into the box called goals."</strong> It's an instruction, not a statement of fact.</p>
-
-  <h2>You can change what's inside</h2>
+  <p>Output: <code>You can ride the roller coaster!</code></p>
+  <div class="concept">
+    <p class="concept-title">Three rules you must remember</p>
+    <div class="concept-row"><span class="concept-key">1. colon</span><span class="concept-val">the <code>if</code> line ends with a <code>:</code></span></div>
+    <div class="concept-row"><span class="concept-key">2. indent</span><span class="concept-val">the code that belongs to the <code>if</code> is pushed in with 4 spaces (or one Tab)</span></div>
+    <div class="concept-row"><span class="concept-key">3. True only</span><span class="concept-val">if the question is False, Python skips the indented lines completely</span></div>
+  </div>
+  <h2>What if the answer is False?</h2>
   <div class="code-wrap">
-    <div class="code-head">reassigning a variable</div>
-    <div class="code">goals = 3
-<span class="fn">print</span>(goals)   <span class="cm"># 3</span>
+    <div class="code-head">height is too small</div>
+    <div class="code">height = 100
 
-goals = 5
-<span class="fn">print</span>(goals)   <span class="cm"># 5 - the box now holds a new value</span></div>
+if height &gt;= 120:
+    print("You can ride the roller coaster!")
+
+print("Have a nice day")</div>
   </div>
+  <p>Output: <code>Have a nice day</code></p>
+  <p>Only the last line printed. Look at <code>print("Have a nice day")</code> - it is <strong>not indented</strong>, so it is not part of the <code>if</code>. It always runs. <strong>Indentation is how Python knows which lines belong inside.</strong></p>
+  <div class="warn">Forgetting the indent gives <code>IndentationError</code>. Forgetting the colon gives <code>SyntaxError</code>. Both are very normal. Read the error message, it tells you which line.</div>
+  <h2>Check yourself</h2>
+  <div class="code-wrap">
+    <div class="code-head">what prints?</div>
+    <div class="code">coins = 5
 
-  <div class="tip">The old value doesn't stick around anywhere - once you reassign, it's just gone, replaced by the new one. Try this yourself: create a variable, print it, change it, print it again.</div>
+if coins &gt; 10:
+    print("Rich!")
 
-  <button class="next-btn" onclick="afraz_changePage(1)">Naming variables &rarr;</button>
+print("Done")</div>
+  </div>
+  <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-c2')">Show Answer</button>
+  <div class="hint" id="afraz-c2">Only <strong>Done</strong>. The question <code>5 &gt; 10</code> is False, so "Rich!" is skipped.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">else: the other path &rarr;</button>
 </div>
 
 <div class="page" id="afraz-page-3">
-  <div class="eyebrow">Quick Refresh</div>
-  <h1>Naming Your Variables</h1>
-  <p>A variable can be called almost anything you want. A few real rules to follow though:</p>
+  <div class="eyebrow">Decisions &middot; else</div>
+  <h1>else: The Plan B</h1>
+  <p>Skipping when False is fine, but often you want to do <strong>something different</strong> instead. That is what <code>else</code> is for. Think of a fork in a road: the question picks which way you go, and you always take exactly one of them.</p>
+  <div class="code-wrap">
+    <div class="code-head">if and else</div>
+    <div class="code">height = 100
 
+if height &gt;= 120:
+    print("You can ride!")
+else:
+    print("Sorry, too small.")</div>
+  </div>
+  <p>Output: <code>Sorry, too small.</code></p>
   <div class="concept">
-    <p class="concept-title">The rules</p>
-    <div class="concept-row"><span class="concept-key">letters, numbers, _</span><span class="concept-val">Names can use letters, numbers, and underscores</span></div>
-    <div class="concept-row"><span class="concept-key">can't start with a number</span><span class="concept-val">score1 is fine, 1score is not</span></div>
-    <div class="concept-row"><span class="concept-key">no spaces</span><span class="concept-val">Use an underscore instead - player_name, not player name</span></div>
-    <div class="concept-row"><span class="concept-key">case matters</span><span class="concept-val">Score and score are two completely different variables</span></div>
+    <p class="concept-title">Rules</p>
+    <div class="concept-row"><span class="concept-key">else</span><span class="concept-val">has no question of its own. It means "otherwise".</span></div>
+    <div class="concept-row"><span class="concept-key">colon</span><span class="concept-val"><code>else:</code> also ends with a colon</span></div>
+    <div class="concept-row"><span class="concept-key">align</span><span class="concept-val"><code>else</code> lines up exactly under its <code>if</code></span></div>
+    <div class="concept-row"><span class="concept-key">indent</span><span class="concept-val">its own code is indented too</span></div>
   </div>
-
+  <div class="fact">Exactly <strong>one</strong> of the two blocks runs, never both and never neither. That makes if/else great for yes-or-no decisions.</div>
+  <h2>Example: even or odd</h2>
+  <p>The <code>%</code> sign gives the <strong>remainder</strong> after dividing. <code>7 % 2</code> is <code>1</code> because 7 is 3 groups of 2 with 1 left over. If a number divided by 2 has remainder 0, it is even.</p>
   <div class="code-wrap">
-    <div class="code-head">all valid names</div>
-    <div class="code">age = 10
-player_name = <span class="st">"Afraz"</span>
-totalGoals = 7
-_secret = <span class="st">"shh"</span></div>
+    <div class="code-head">even or odd</div>
+    <div class="code">number = 8
+
+if number % 2 == 0:
+    print("even")
+else:
+    print("odd")</div>
   </div>
+  <p>Output: <code>even</code>. Change <code>number</code> to 7 and run it again in Thonny.</p>
+  <h2>Your turn</h2>
+  <p>Make a variable <code>money = 15</code> and a variable <code>price = 20</code>. Print <code>"I can buy it!"</code> if money is enough, otherwise print <code>"I need more money."</code></p>
+  <button class="hint-btn" data-label="Solution" onclick="toggleHint('afraz-c3')">Show Solution</button>
+  <div class="hint" id="afraz-c3"><code>money = 15</code><br><code>price = 20</code><br><code>if money &gt;= price:</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>print("I can buy it!")</code><br><code>else:</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>print("I need more money.")</code><br><br>With 15 and 20 it prints: <strong>I need more money.</strong></div>
 
-  <div class="code-wrap">
-    <div class="code-head">all invalid names</div>
-    <div class="code">1player = <span class="st">"Afraz"</span>      <span class="cm"># can't start with a number</span>
-player name = <span class="st">"Afraz"</span>  <span class="cm"># no spaces allowed</span></div>
-  </div>
-
-  <div class="tip">Pick names that actually describe what's inside the box. score is better than x. player_name is better than p. Your future self reading the code will thank you.</div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Using variables &rarr;</button>
+  <button class="next-btn" onclick="afraz_changePage(1)">Text and input &rarr;</button>
 </div>
 
 <div class="page" id="afraz-page-4">
-  <div class="eyebrow">Quick Refresh</div>
-  <h1>Using Variables</h1>
-  <p>Once a variable holds a value, you can use it just like you'd use the value itself - in maths, in print statements, anywhere.</p>
-
+  <div class="eyebrow">Decisions &middot; Text</div>
+  <h1>Comparing Text and Asking Questions</h1>
+  <p>Comparisons work on text as well. Putting it together with <code>input()</code> lets your program react to the person using it.</p>
   <div class="code-wrap">
-    <div class="code-head">using variables in maths</div>
-    <div class="code">goals = 3
-assists = 2
-total = goals + assists
-<span class="fn">print</span>(total)   <span class="cm"># 5</span></div>
-  </div>
+    <div class="code-head">a password check</div>
+    <div class="code">password = "tiger"
 
+guess = input("Password? ")
+
+if guess == password:
+    print("Welcome in!")
+else:
+    print("Wrong password.")</div>
+  </div>
+  <p>Type <code>tiger</code> and you get in. Type <code>Tiger</code> with a capital T and you get <strong>Wrong password</strong>. Python is picky: capital and small letters count as different.</p>
+  <h2>Be less picky with .lower()</h2>
   <div class="code-wrap">
-    <div class="code-head">a variable can even use itself</div>
-    <div class="code">score = 10
-score = score + 1
-<span class="fn">print</span>(score)   <span class="cm"># 11</span></div>
+    <div class="code-head">.lower() makes everything small letters</div>
+    <div class="code">print("Tiger".lower())      # tiger
+print("TIGER".lower())      # tiger
+
+guess = input("Password? ")
+if guess.lower() == "tiger":
+    print("Welcome in!")</div>
   </div>
-
-  <p>That last one trips people up at first - <code>score = score + 1</code> looks like it shouldn't work. Read the right side first: "take whatever score currently is, add 1." Then the left side happens: "now put that new number back into score." Right side calculates, left side stores.</p>
-
-  <div class="tip">Try this yourself: make 2 variables holding numbers, add them together into a third variable, and print the result.</div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">The swap challenge &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-5">
-  <div class="eyebrow">The Real Test</div>
-  <h1>Challenge: Swap Two Variables</h1>
-  <p>Here's a genuinely tricky problem that really tests whether variables make sense to you. Take your time with this one - no need to write anything down or send it anywhere, just work through it until it clicks.</p>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">1</div>
-      <span class="problem-title">Swap the values</span>
-    </div>
-    <p class="problem-desc">You're given two variables: <code>a = 5</code> and <code>b = 10</code>. Write code that swaps them, so afterwards <code>a</code> holds 10 and <code>b</code> holds 5.</p>
-    <div class="expected">Before: a = 5, b = 10<br>After:  a = 10, b = 5</div>
-  </div>
-
-  <h2>Try it before reading further</h2>
-  <p>Your first instinct might be this:</p>
+  <div class="fact">Read <code>guess.lower() == "tiger"</code> in two steps: first <code>guess.lower()</code> turns whatever they typed into small letters, then <code>== "tiger"</code> asks if it matches.</div>
+  <h2>Numbers from input()</h2>
+  <p>Remember: <code>input()</code> always gives text, even when someone types a number. To compare with a number, convert first:</p>
   <div class="code-wrap">
-    <div class="code-head">the tempting but WRONG way</div>
-    <div class="code">a = <span class="nm">5</span>
-b = <span class="nm">10</span>
-
-a = b   <span class="cm"># a is now 10 - looks right so far</span>
-b = a   <span class="cm"># uh oh</span></div>
-  </div>
-
-  <div class="warn">Run this and check what b ends up being. It's not 5. By the time you run b = a, a has ALREADY been overwritten with b's value - so you're really just copying 10 into b too, and a's original 5 is gone forever, nowhere to be found.</div>
-
-  <button class="hint-btn" onclick="toggleHint('afraz-h7')">Show hint</button>
-  <div class="hint" id="afraz-h7">You need somewhere to keep the value of "a" safe before you overwrite it. Try creating a third variable - call it temp - and store a's original value in there first, before anything else changes.</div>
-
-  <div class="tip" style="margin-top:20px;">If you genuinely get why the naive version fails, and why a temp variable fixes it, variables are solid. That's the whole point of this refresh - no need to submit anything, just walk Raiyan through it whenever you're ready.</div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Level 2: go deeper &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-6">
-  <div class="eyebrow">Level 2 &middot; Types</div>
-  <h1>Variables Hold Different Kinds of Things</h1>
-
-  <p>Afraz - you already know a variable is a labelled box. Here's the next idea: the stuff <em>inside</em> the box has a <strong>type</strong>, and the type decides what you're allowed to do with it.</p>
-  <div class="concept">
-    <p class="concept-title">The four types you use all the time</p>
-    <div class="concept-row"><span class="concept-key">int</span><span class="concept-val">a whole number: <code>age = 10</code></span></div>
-    <div class="concept-row"><span class="concept-key">float</span><span class="concept-val">a number with a decimal point: <code>height = 1.45</code></span></div>
-    <div class="concept-row"><span class="concept-key">str</span><span class="concept-val">text, always in quotes: <code>name = "Afraz"</code></span></div>
-    <div class="concept-row"><span class="concept-key">bool</span><span class="concept-val">only True or False: <code>is_hungry = True</code></span></div>
-  </div>
-  <p>Python can tell you the type of anything with <code>type()</code>:</p>
-  <div class="code-wrap">
-    <div class="code-head">ask Python what type it is</div>
-    <div class="code">age = 10
-height = 1.45
-name = "Afraz"
-is_hungry = True
-
-print(type(age))        # &lt;class 'int'&gt;
-print(type(height))     # &lt;class 'float'&gt;
-print(type(name))       # &lt;class 'str'&gt;
-print(type(is_hungry))  # &lt;class 'bool'&gt;</div>
-  </div>
-  <div class="watch">The quotes matter! <code>7</code> is a number, but <code>"7"</code> is text that happens to look like a number. Python treats them completely differently - you'll see why on the next page.</div>
-  <h2>Quick check</h2>
-  <p>What type is each one? Say your answers out loud, then check.</p>
-  <ul class="checklist">
-    <li><div class="cb"></div><code>x = 3.0</code></li>
-    <li><div class="cb"></div><code>y = "True"</code></li>
-    <li><div class="cb"></div><code>z = False</code></li>
-    <li><div class="cb"></div><code>w = "100"</code></li>
-  </ul>
-  <button class="hint-btn" data-label="Answers" onclick="toggleHint('afraz-h8')">Show Answers</button>
-  <div class="hint" id="afraz-h8"><code>x</code> is a float (it has a decimal point, even though it's .0). <code>y</code> is a str - it's in quotes, so it's just text that says True. <code>z</code> is a bool. <code>w</code> is a str, because of the quotes.</div>
-
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Converting types &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-7">
-  <div class="eyebrow">Level 2 &middot; Converting</div>
-  <h1>Changing One Type Into Another</h1>
-
-  <p>Remember the "7" vs 7 warning? Watch what happens when we add them:</p>
-  <div class="code-wrap">
-    <div class="code-head">same symbols, different types</div>
-    <div class="code">print(5 + 5)       # 10   (numbers add up)
-print("5" + "5")   # 55   (text sticks together)</div>
-  </div>
-  <p>You can switch a value from one type to another using the type's name as a function:</p>
-  <div class="concept">
-    <p class="concept-title">Converters</p>
-    <div class="concept-row"><span class="concept-key">int()</span><span class="concept-val">turns "42" or 4.9 into the whole number 42 or 4</span></div>
-    <div class="concept-row"><span class="concept-key">float()</span><span class="concept-val">turns "3" into 3.0</span></div>
-    <div class="concept-row"><span class="concept-key">str()</span><span class="concept-val">turns 42 into the text "42"</span></div>
-  </div>
-  <h2>The famous input() trap</h2>
-  <p><code>input()</code> <strong>always</strong> gives you text back - even if the person types a number. So this breaks:</p>
-  <div class="code-wrap">
-    <div class="code-head">this crashes</div>
-    <div class="code">age = input("How old are you? ")
-print(age + 1)    # TypeError: can only concatenate str to str</div>
-  </div>
-  <p>The fix is to convert it straight away:</p>
-  <div class="code-wrap">
-    <div class="code-head">this works</div>
+    <div class="code-head">age check</div>
     <div class="code">age = int(input("How old are you? "))
-print(age + 1)</div>
+
+if age &gt;= 10:
+    print("You are 10 or older")
+else:
+    print("You are under 10")</div>
   </div>
-  <div class="fact">Read <code>int(input(...))</code> from the inside out: first input() collects the text, then int() turns that text into a number, then the whole thing is stored in <code>age</code>.</div>
-  <div class="tip">Careful: <code>int(4.9)</code> gives <code>4</code>, not 5. It chops the decimal off, it doesn't round.</div>
-
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Updating variables &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-8">
-  <div class="eyebrow">Level 2 &middot; Updating</div>
-  <h1>Variables Can Change Over Time</h1>
-
-  <p>A variable isn't stuck with its first value. Games do this constantly: your score goes up, your lives go down. The pattern looks odd at first:</p>
+  <div class="watch">If you forget <code>int()</code>, Python tries to compare text with a number and shows a <code>TypeError</code>. The fix: wrap the input in <code>int()</code>.</div>
+  <h2>Question</h2>
+  <p>What does this print if the person types <code>BOB</code>?</p>
   <div class="code-wrap">
-    <div class="code-head">read it right to left</div>
-    <div class="code">score = 0
-score = score + 10
-print(score)   # 10</div>
+    <div class="code-head">predict</div>
+    <div class="code">name = input("Name? ")
+
+if name.lower() == "bob":
+    print("Hi Bob!")
+else:
+    print("Who are you?")</div>
   </div>
-  <p>In maths, <code>score = score + 10</code> would be nonsense. In Python the <code>=</code> doesn't mean "is equal to" - it means <strong>"store the answer on the right into the box on the left"</strong>. Python works out the right side first (current score + 10), then saves the result back into <code>score</code>.</p>
-  <p>Because this is so common, there are shortcuts:</p>
-  <div class="concept">
-    <p class="concept-title">Shortcuts</p>
-    <div class="concept-row"><span class="concept-key">+=</span><span class="concept-val"><code>score += 10</code> same as <code>score = score + 10</code></span></div>
-    <div class="concept-row"><span class="concept-key">-=</span><span class="concept-val"><code>lives -= 1</code> same as <code>lives = lives - 1</code></span></div>
-    <div class="concept-row"><span class="concept-key">*=</span><span class="concept-val"><code>coins *= 2</code> doubles it</span></div>
-    <div class="concept-row"><span class="concept-key">/=</span><span class="concept-val"><code>pizza /= 4</code> splits it into 4</span></div>
-  </div>
-  <h2>Trace it like a detective</h2>
-  <p>Keep track of the value after every line:</p>
-  <div class="code-wrap">
-    <div class="code-head">what is coins at the end?</div>
-    <div class="code">coins = 5
-coins += 3
-coins *= 2
-coins -= 4
-print(coins)</div>
-  </div>
-  <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-h9')">Show Answer</button>
-  <div class="hint" id="afraz-h9">Step by step: 5, then 8, then 16, then 12. Final answer printed: <strong>12</strong>.</div>
-
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Printing nicely &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-9">
-  <div class="eyebrow">Level 2 &middot; f-strings</div>
-  <h1>Putting Variables Inside Sentences</h1>
-
-  <p>You've been printing like <code>print("Score:", score)</code>. There's a cleaner way called an <strong>f-string</strong>. Put the letter <code>f</code> before the opening quote and wrap variable names in curly braces:</p>
-  <div class="code-wrap">
-    <div class="code-head">f-string</div>
-    <div class="code">name = "Afraz"
-age = 10
-print(f"{name} is {age} years old")</div>
-  </div>
-  <p>Output: <code>Afraz is 10 years old</code></p>
-  <p>The really cool part: inside the braces you can do <em>calculations</em>, not only names.</p>
-  <div class="code-wrap">
-    <div class="code-head">maths inside the braces</div>
-    <div class="code">price = 4
-how_many = 3
-print(f"{how_many} snacks cost {price * how_many} dollars")
-print(f"Next year I will be {age + 1}")</div>
-  </div>
-  <p>Output:</p>
-  <div class="expected">3 snacks cost 12 dollars<br>Next year I will be 11</div>
-  <div class="warn">Forgetting the <code>f</code> at the start is the classic mistake. Without it, Python prints the curly braces literally: <code>{name} is {age} years old</code>.</div>
-  <h2>Your turn</h2>
-  <p>Make variables for your favourite food and how many you could eat, then print a sentence with an f-string that also shows double that number.</p>
-  <button class="hint-btn" data-label="Example" onclick="toggleHint('afraz-h10')">Show Example</button>
-  <div class="hint" id="afraz-h10"><code>food = "pizza"</code><br><code>slices = 4</code><br><code>print(f"I could eat {slices} slices of {food}, or {slices * 2} if I'm really hungry")</code></div>
-
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Two at once &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-10">
-  <div class="eyebrow">Level 2 &middot; Shortcuts</div>
-  <h1>Two Variables at Once</h1>
-
-  <p>Python lets you create several variables on one line:</p>
-  <div class="code-wrap">
-    <div class="code-head">multiple assignment</div>
-    <div class="code">x, y = 3, 7
-a = b = 0
-
-print(x, y)   # 3 7
-print(a, b)   # 0 0</div>
-  </div>
-  <p>Remember the swap challenge, with the <code>temp</code> variable? Python has a secret shortcut that does the same job in one line:</p>
-  <div class="code-wrap">
-    <div class="code-head">the Python swap</div>
-    <div class="code">a = 5
-b = 10
-a, b = b, a
-print(a, b)   # 10 5</div>
-  </div>
-  <div class="fact">Why does this work? Python collects both values on the right (10 and 5) <em>before</em> storing anything, and only then puts them into <code>a</code> and <code>b</code>. So nothing gets overwritten too early - it's a built-in temp variable.</div>
-  <h2>Names that never change</h2>
-  <p>Sometimes a value should never change while the program runs, like the number of lives you start with. Programmers write those names in <strong>CAPITAL_LETTERS</strong> as a signal: "don't touch me".</p>
-  <div class="code-wrap">
-    <div class="code-head">constants</div>
-    <div class="code">STARTING_LIVES = 3
-MAX_SCORE = 100
-
-lives = STARTING_LIVES
-lives -= 1</div>
-  </div>
-  <div class="tip">Python won't actually stop you from changing a CAPITAL name. It's a promise between programmers, not a lock.</div>
-  <h2>Your turn</h2>
-  <p>Three variables: <code>first = "red"</code>, <code>second = "green"</code>, <code>third = "blue"</code>. Rotate them in a single line so that first becomes green, second becomes blue, third becomes red.</p>
-  <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-h11')">Show Answer</button>
-  <div class="hint" id="afraz-h11"><code>first, second, third = second, third, first</code><br><br>All three values on the right are collected first, then dropped into the boxes on the left.</div>
-
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Variables and lists &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-11">
-  <div class="eyebrow">Level 2 &middot; Tricky Part</div>
-  <h1>Variables and Lists: Two Labels, One Box</h1>
-
-  <p>This is the page that surprises even experienced programmers, so read slowly. With numbers and text, copying a variable really copies the value:</p>
-  <div class="code-wrap">
-    <div class="code-head">numbers copy</div>
-    <div class="code">x = 4
-y = x
-x = 10
-print(y)   # 4 - y kept its own copy</div>
-  </div>
-  <p>But with <strong>lists</strong>, something different happens:</p>
-  <div class="code-wrap">
-    <div class="code-head">lists do NOT copy</div>
-    <div class="code">a = [1, 2]
-b = a          # this does NOT make a second list
-b.append(3)
-print(a)       # [1, 2, 3]</div>
-  </div>
-  <p>Wait - we added 3 to <code>b</code>, but <code>a</code> changed too! Here's the picture to remember:</p>
-  <div class="concept">
-    <p class="concept-title">Think of it like this</p>
-    <div class="concept-row"><span class="concept-key">numbers</span><span class="concept-val">each variable is its own box with its own number inside</span></div>
-    <div class="concept-row"><span class="concept-key">lists</span><span class="concept-val">the list is ONE box. <code>a</code> and <code>b</code> are two sticky-note labels stuck on the same box</span></div>
-  </div>
-  <p>So <code>b = a</code> just sticks a second label on the same list. Change the list through either label and both labels see the change.</p>
-  <h2>How to really make a copy</h2>
-  <div class="code-wrap">
-    <div class="code-head">.copy() makes a new box</div>
-    <div class="code">a = [1, 2]
-b = a.copy()   # a brand new list with the same items
-b.append(3)
-print(a)       # [1, 2]  - untouched
-print(b)       # [1, 2, 3]</div>
-  </div>
-  <div class="fact">Rule of thumb: when a program changes a list "by accident" somewhere you didn't expect, ask yourself - did I use <code>=</code> when I needed <code>.copy()</code>?</div>
-  <h2>Quick check</h2>
-  <div class="code-wrap">
-    <div class="code-head">what do a and b hold at the end?</div>
-    <div class="code">a = ["pizza", "burger"]
-b = a
-b.remove("pizza")
-print(a)</div>
-  </div>
-  <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-h12')">Show Answer</button>
-  <div class="hint" id="afraz-h12">['burger'] - the removal through <code>b</code> also shows up in <code>a</code>, because both labels point to the same list.</div>
-
+  <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-c4')">Show Answer</button>
+  <div class="hint" id="afraz-c4"><strong>Hi Bob!</strong> - <code>"BOB".lower()</code> becomes <code>"bob"</code>, which equals <code>"bob"</code>.</div>
 
   <button class="next-btn" onclick="afraz_changePage(1)">Predict the output &rarr;</button>
 </div>
 
-<div class="page" id="afraz-page-12">
-  <div class="eyebrow">Level 2 &middot; Practice</div>
+<div class="page" id="afraz-page-5">
+  <div class="eyebrow">Decisions &middot; Practice</div>
   <h1>Predict the Output</h1>
-
-  <p>No computer allowed for the first try! Read the code, decide what it prints, say it out loud, <em>then</em> open the answer. Going wrong here is great - the answer explains why.</p>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">1</div>
-      <span class="problem-title">What does it print?</span>
-    </div>
-    <div class="code-wrap">
+  <p>Cover the answers, read the code, say what it prints, then open the answer. Wrong guesses are the fastest way to learn.</p>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">1</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
     <div class="code-head">predict</div>
-    <div class="code">x = 4
-y = x
-x = 10
-print(y)</div>
-  </div>
-    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p1')">Show Answer</button>
-  <div class="hint" id="afraz-p1"><strong>4</strong><br>y copied the 4 when <code>y = x</code> ran. Changing x afterwards can't touch y.</div>
-  </div>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">2</div>
-      <span class="problem-title">What does it print?</span>
-    </div>
-    <div class="code-wrap">
-    <div class="code-head">predict</div>
-    <div class="code">score = 10
-score += 5
-score *= 2
-print(score)</div>
-  </div>
-    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p2')">Show Answer</button>
-  <div class="hint" id="afraz-p2"><strong>30</strong><br>10, then 15, then 30.</div>
-  </div>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">3</div>
-      <span class="problem-title">What does it print?</span>
-    </div>
-    <div class="code-wrap">
-    <div class="code-head">predict</div>
-    <div class="code">a = "5"
-b = "5"
-print(a + b)</div>
-  </div>
-    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p3')">Show Answer</button>
-  <div class="hint" id="afraz-p3"><strong>55</strong><br>They are text, so <code>+</code> glues them together instead of adding.</div>
-  </div>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">4</div>
-      <span class="problem-title">What does it print?</span>
-    </div>
-    <div class="code-wrap">
-    <div class="code-head">predict</div>
-    <div class="code">a = [1, 2]
-b = a
-b.append(3)
-print(a)</div>
-  </div>
-    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p4')">Show Answer</button>
-  <div class="hint" id="afraz-p4"><strong>[1, 2, 3]</strong><br>Both labels stick to the same list, so the append shows up in <code>a</code>.</div>
-  </div>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">5</div>
-      <span class="problem-title">What does it print?</span>
-    </div>
-    <div class="code-wrap">
-    <div class="code-head">predict</div>
-    <div class="code">name = "Afraz"
-age = 10
-print(f"{name} will be {age + 1} next year")</div>
-  </div>
-    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p5')">Show Answer</button>
-  <div class="hint" id="afraz-p5"><strong>Afraz will be 11 next year</strong><br>The f-string works out <code>age + 1</code> inside the braces.</div>
-  </div>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">6</div>
-      <span class="problem-title">What does it print?</span>
-    </div>
-    <div class="code-wrap">
+    <div class="code">x = 7
+if x &gt; 5:
+    print("big")
+else:
+    print("small")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q1')">Show Answer</button>
+  <div class="hint" id="afraz-q1"><strong>big</strong><br>7 is greater than 5, so the first path runs.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">2</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
     <div class="code-head">predict</div>
     <div class="code">x = 3
-x = x * x
-x = x - 1
-print(x)</div>
-  </div>
-    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p6')">Show Answer</button>
-  <div class="hint" id="afraz-p6"><strong>8</strong><br>3, then 9, then 8.</div>
-  </div>
-
-  <div class="problem-card">
-    <div class="problem-header">
-      <div class="problem-num">7</div>
-      <span class="problem-title">What does it print?</span>
-    </div>
-    <div class="code-wrap">
+if x == 4:
+    print("four")
+else:
+    print("not four")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q2')">Show Answer</button>
+  <div class="hint" id="afraz-q2"><strong>not four</strong><br>3 == 4 is False, so Python takes the else path.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">3</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
     <div class="code-head">predict</div>
-    <div class="code">a, b = 1, 2
-a, b = b, a
-print(a, b)</div>
-  </div>
-    <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-p7')">Show Answer</button>
-  <div class="hint" id="afraz-p7"><strong>2 1</strong><br>Python collects both values first, then swaps them.</div>
-  </div>
+    <div class="code">score = 10
+if score &gt;= 10:
+    print("pass")
+print("end")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q3')">Show Answer</button>
+  <div class="hint" id="afraz-q3"><strong>pass then end</strong><br>The if is True, so pass prints. "end" is not indented so it always runs.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">4</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">score = 9
+if score &gt;= 10:
+    print("pass")
+print("end")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q4')">Show Answer</button>
+  <div class="hint" id="afraz-q4"><strong>end</strong><br>The if is False, so pass is skipped. "end" still runs.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">5</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">n = 15
+if n % 2 == 0:
+    print("even")
+else:
+    print("odd")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q5')">Show Answer</button>
+  <div class="hint" id="afraz-q5"><strong>odd</strong><br>15 divided by 2 leaves remainder 1, which is not 0, so it is odd.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">6</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">word = "Cat"
+if word == "cat":
+    print("same")
+else:
+    print("different")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q6')">Show Answer</button>
+  <div class="hint" id="afraz-q6"><strong>different</strong><br>Capital C and small c are different to Python.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">7</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">a = 5
+b = 5
+print(a == b)
+print(a != b)</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q7')">Show Answer</button>
+  <div class="hint" id="afraz-q7"><strong>True then False</strong><br>Both are the same number, so == is True and != is False.</div></div>
 
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Bug hunt &rarr;</button>
+  <button class="next-btn" onclick="afraz_changePage(1)">Build and fix &rarr;</button>
 </div>
 
-<div class="page" id="afraz-page-13">
-  <div class="eyebrow">Level 2 &middot; Final</div>
-  <h1>Bug Hunt and Mini Challenges</h1>
-
-  <p>Last page. No submitting - just do these in Thonny, then show Raiyan whichever ones you're proud of.</p>
-  <h2>Part 1: Find and fix the bug</h2>
-  <div class="problem-card">
-    <div class="problem-header"><div class="problem-num">A</div><span class="problem-title">The age bug</span></div>
-    <div class="code-wrap">
-    <div class="code-head">crashes - why?</div>
+<div class="page" id="afraz-page-6">
+  <div class="eyebrow">Decisions &middot; Final</div>
+  <h1>Fix It and Build It</h1>
+  <p>Last page. Do these in Thonny. Nothing to submit - show Raiyan the ones you are proud of.</p>
+  <h2>Part 1: Fix the bugs</h2>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">A</div><span class="problem-title">Missing indent</span></div><div class="code-wrap">
+    <div class="code-head">error</div>
+    <div class="code">age = 12
+if age &gt;= 10:
+print("big kid")</div>
+  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-d1')">Show Fix</button>
+  <div class="hint" id="afraz-d1">The <code>print</code> line must be indented (4 spaces) so it belongs to the <code>if</code>.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">B</div><span class="problem-title">One equals sign</span></div><div class="code-wrap">
+    <div class="code-head">error</div>
+    <div class="code">score = 10
+if score = 10:
+    print("perfect")</div>
+  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-d2')">Show Fix</button>
+  <div class="hint" id="afraz-d2">Asking a question needs <code>==</code>, not <code>=</code>: <code>if score == 10:</code></div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">C</div><span class="problem-title">Forgot to convert</span></div><div class="code-wrap">
+    <div class="code-head">error</div>
     <div class="code">age = input("Age? ")
-print("Next year you will be", age + 1)</div>
-  </div>
-    <button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-b1')">Show Fix</button>
-  <div class="hint" id="afraz-b1"><code>input()</code> gives text. Convert it: <code>age = int(input("Age? "))</code></div>
-  </div>
-  <div class="problem-card">
-    <div class="problem-header"><div class="problem-num">B</div><span class="problem-title">The two-prices bug</span></div>
-    <div class="code-wrap">
-    <div class="code-head">wanted 10 but got 5</div>
-    <div class="code">total = 0
-price = 5
-total = price
-total = price
-print(total)</div>
-  </div>
-    <button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-b2')">Show Fix</button>
-  <div class="hint" id="afraz-b2">Each line replaces total instead of adding to it. Use <code>total += price</code> twice.</div>
-  </div>
-  <div class="problem-card">
-    <div class="problem-header"><div class="problem-num">C</div><span class="problem-title">The backup bug</span></div>
-    <div class="code-wrap">
-    <div class="code-head">backup should stay the same</div>
-    <div class="code">team = ["Ali", "Sam"]
-backup = team
-team.append("Zed")
-print(backup)    # we wanted ["Ali", "Sam"]</div>
-  </div>
-    <button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-b3')">Show Fix</button>
-  <div class="hint" id="afraz-b3"><code>backup = team</code> only adds a second label. Use <code>backup = team.copy()</code>.</div>
-  </div>
+if age &gt;= 10:
+    print("10 or older")</div>
+  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-d3')">Show Fix</button>
+  <div class="hint" id="afraz-d3"><code>input()</code> gives text. Use <code>age = int(input("Age? "))</code>.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">D</div><span class="problem-title">Missing colon</span></div><div class="code-wrap">
+    <div class="code-head">error</div>
+    <div class="code">number = 4
+if number % 2 == 0
+    print("even")
+else:
+    print("odd")</div>
+  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-d4')">Show Fix</button>
+  <div class="hint" id="afraz-d4">The <code>if</code> line is missing its colon at the end: <code>if number % 2 == 0:</code></div></div>
   <h2>Part 2: Build these</h2>
-  <div class="card card-yellow">
-    <h3>Snack budget</h3>
-    <p>Start with <code>money = 20</code>. Buy a snack that costs 6, then another that costs 4, using <code>-=</code>. Print one f-string saying how much money is left.</p>
-  </div>
-  <div class="card card-blue">
-    <h3>Birthday machine</h3>
-    <p>Ask for a name and an age using <code>input()</code> (remember to convert the age!). Print: <em>"Afraz, next year you will be 11!"</em> using an f-string.</p>
-  </div>
-  <div class="card card-pink">
-    <h3>Three-way rotate</h3>
-    <p>Make a list of three favourite games. Save a safe copy with <code>.copy()</code>, then remove the first game from the original list. Print both lists to prove the copy is untouched.</p>
-  </div>
-  <button class="hint-btn" data-label="Example solutions" onclick="toggleHint('afraz-b4')">Show Example solutions</button>
-  <div class="hint" id="afraz-b4">Snack: <code>money = 20</code> / <code>money -= 6</code> / <code>money -= 4</code> / <code>print(f"Money left: {money}")</code><br><br>Birthday: <code>name = input("Name? ")</code> / <code>age = int(input("Age? "))</code> / <code>print(f"{name}, next year you will be {age + 1}!")</code><br><br>Rotate: <code>games = ["a", "b", "c"]</code> / <code>safe = games.copy()</code> / <code>games.remove("a")</code> / <code>print(games, safe)</code></div>
-  <div class="fact">You can now explain types, conversion, updating, f-strings, multiple assignment and list aliasing. That's well past "just variables" - nice work, Afraz.</div>
-
+  <div class="card card-yellow"><h3>Snack machine</h3><p>Start with <code>money = 8</code> and <code>price = 6</code>. If there is enough money, subtract the price and print how much is left with an f-string. Otherwise print that there is not enough.</p></div>
+  <div class="card card-blue"><h3>Age gate</h3><p>Ask for the person's age with <code>input()</code> (remember <code>int()</code>). If they are 13 or older print <em>"Welcome!"</em>, otherwise print how many years they need to wait, using an f-string.</p></div>
+  <div class="card card-pink"><h3>Secret word</h3><p>Pick a secret word. Ask the player to guess it, and accept it in any capitals. Print <em>"You got it!"</em> or <em>"Nope, try again"</em>.</p></div>
+  <button class="hint-btn" data-label="Example solutions" onclick="toggleHint('afraz-d5')">Show Example solutions</button>
+  <div class="hint" id="afraz-d5">Snack: <code>if money &gt;= price:</code> then <code>money = money - price</code> and <code>print(f"Left: {money}")</code>, else <code>print("Not enough money")</code>.<br><br>Age gate: <code>age = int(input("Age? "))</code>, <code>if age &gt;= 13:</code> print Welcome, else <code>print(f"Wait {13 - age} more years")</code>.<br><br>Secret word: <code>if guess.lower() == "pizza":</code> ... else ...</div>
+  <div class="fact">You can now make your programs <strong>decide</strong>: ask a True/False question, run one path or the other. Almost every game and app is built from this one idea. Great work, Afraz!</div>
 </div>
 
 </div>
@@ -1315,7 +1467,7 @@ function toggleHint(id) {
 
 <script>
 (function() {
-  const TOTAL = 11;
+  const TOTAL = 20;
   let cur = 1;
 
   function buildDots() {
@@ -1352,7 +1504,7 @@ function toggleHint(id) {
 
 <script>
 (function() {
-  const TOTAL = 13;
+  const TOTAL = 6;
   let cur = 1;
 
   function buildDots() {
