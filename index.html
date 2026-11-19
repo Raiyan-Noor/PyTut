@@ -182,9 +182,10 @@ code { font-family: var(--mono); font-size: 12px; background: var(--yellow); pad
       <div class="landing-card" onclick="showScreen('afraz')">
         <div class="landing-avatar" style="background:var(--pink);color:var(--white);">A</div>
         <div class="landing-name">Afraz</div>
-        <div class="landing-desc">Comparisons and if / else - how your programs ask yes/no questions and make decisions. Short lesson, no submission.</div>
+        <div class="landing-desc">Today: elif for choosing between many paths, then your first for loop to make Python repeat things. No submission.</div>
         <div class="landing-meta">
-          <span class="pill p-yellow">if / else</span>
+          <span class="pill p-yellow">elif</span>
+          <span class="pill p-green">for loop</span>
         </div>
         <div class="landing-go">Start &rarr;</div>
       </div>
@@ -1059,7 +1060,7 @@ test('a valid message returns the reply with status 200', async () =&gt; {
 <div class="screen" id="screen-afraz">
 
 <nav class="nav">
-  <span class="nav-logo">Afraz &middot; If / Else</span>
+  <span class="nav-logo">Afraz &middot; Elif &amp; Loops</span>
   <button class="home-btn" onclick="showScreen('landing')">&#8962; Home</button>
   <div class="page-index" id="afraz-nav-dots"></div>
   <div class="nav-arrows">
@@ -1069,304 +1070,437 @@ test('a valid message returns the reply with status 200', async () =&gt; {
 </nav>
 
 <div class="page active" id="afraz-page-1">
-  <div class="eyebrow">Decisions &middot; Decisions</div>
-  <h1>Questions That Answer True or False</h1>
-  <p>Afraz - so far your programs run every line, top to bottom, no matter what. Real programs <strong>decide</strong> things. To decide, a program first asks a yes/no question. In Python, a yes/no question is called a <strong>comparison</strong>, and the answer is always a <code>bool</code> - <code>True</code> or <code>False</code>. A bool is a value that can only be True or False.</p>
-  <div class="concept">
-    <p class="concept-title">The six comparisons</p>
-    <div class="concept-row"><span class="concept-key">==</span><span class="concept-val">is equal to</span></div>
-    <div class="concept-row"><span class="concept-key">!=</span><span class="concept-val">is NOT equal to</span></div>
-    <div class="concept-row"><span class="concept-key">&amp;gt;</span><span class="concept-val">is greater than</span></div>
-    <div class="concept-row"><span class="concept-key">&amp;lt;</span><span class="concept-val">is less than</span></div>
-    <div class="concept-row"><span class="concept-key">&amp;gt;=</span><span class="concept-val">greater than or equal to</span></div>
-    <div class="concept-row"><span class="concept-key">&amp;lt;=</span><span class="concept-val">less than or equal to</span></div>
-  </div>
+  <div class="eyebrow">elif &middot; Many Paths</div>
+  <h1>When Two Paths Are Not Enough</h1>
+  <p>Afraz - <code>if</code> and <code>else</code> give you two paths. But what if you need <strong>three or four</strong>? A test score should turn into an A, a B, a C, or "keep practicing". Two paths cannot do that. For this you add <code>elif</code>, short for <strong>"else, if"</strong>.</p>
   <div class="code-wrap">
-    <div class="code-head">try these</div>
-    <div class="code">print(5 &gt; 3)
-print(10 == 10)
-print(4 != 4)
-print(7 &lt;= 6)</div>
-  </div>
-  <p>Python answers:</p>
-  <div class="expected">True<br>True<br>False<br>False</div>
-  <div class="watch"><strong>The most common mistake in all of Python:</strong> <code>=</code> and <code>==</code> are different! One equals sign <strong>stores</strong> a value (<code>age = 10</code>). Two equals signs <strong>ask a question</strong> (<code>age == 10</code> means "is age equal to 10?").</div>
-  <h2>Variables work too</h2>
-  <div class="code-wrap">
-    <div class="code-head">with variables</div>
-    <div class="code">height = 130
-print(height &gt;= 120)
-print(height == 100)</div>
-  </div>
-  <p>Output: <code>True</code> then <code>False</code></p>
-  <h2>Say your answers out loud</h2>
-  <ul class="checklist">
-      <li><div class="cb"></div><code>8 &gt; 8</code></li>
-      <li><div class="cb"></div><code>8 &gt;= 8</code></li>
-      <li><div class="cb"></div><code>3 != 4</code></li>
-      <li><div class="cb"></div><code>10 == 5 + 5</code></li>
-    </ul>
-  <button class="hint-btn" data-label="Answers" onclick="toggleHint('afraz-c1')">Show Answers</button>
-  <div class="hint" id="afraz-c1"><code>8 &gt; 8</code> is <strong>False</strong> (8 is not bigger than itself).<br> <code>8 &gt;= 8</code> is <strong>True</strong>.<br> <code>3 != 4</code> is <strong>True</strong>.<br> <code>10 == 5 + 5</code> is <strong>True</strong> - the maths on the right happens first.</div>
+    <div class="code-head">grades with elif</div>
+    <div class="code">score = 85
 
-  <button class="next-btn" onclick="afraz_changePage(1)">The if statement &rarr;</button>
+if score &gt;= 90:
+    print("A")
+elif score &gt;= 80:
+    print("B")
+elif score &gt;= 70:
+    print("C")
+else:
+    print("Keep practicing")</div>
+  </div>
+  <p>Output:</p>
+  <div class="expected">B</div>
+  <div class="concept">
+    <p class="concept-title">The pattern</p>
+    <div class="concept-row"><span class="concept-key">if</span><span class="concept-val">the first question</span></div>
+    <div class="concept-row"><span class="concept-key">elif</span><span class="concept-val">"otherwise, if this is true..." You can have as many as you like</span></div>
+    <div class="concept-row"><span class="concept-key">else</span><span class="concept-val">the last resort, when nothing above was True. It is optional</span></div>
+    <div class="concept-row"><span class="concept-key">colon + indent</span><span class="concept-val">every one of them ends with a <code>:</code> and has its own indented lines</span></div>
+  </div>
+  <div class="fact">Python reads <strong>top to bottom</strong> and runs the <strong>first</strong> one that is True. Then it skips all the rest, even if they would also be True. In the example, 85 is also &gt;= 70, but Python already stopped at the B.</div>
+  <h2>Say it out loud</h2>
+  <p>What does it print when <code>score = 95</code>? And when <code>score = 50</code>?</p>
+  <button class="hint-btn" data-label="Answers" onclick="toggleHint('afraz-e1')">Show Answers</button>
+  <div class="hint" id="afraz-e1">95 prints <strong>A</strong> (the first question is True, so it stops there). 50 prints <strong>Keep practicing</strong> because every question above was False.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Order matters &rarr;</button>
 </div>
 
 <div class="page" id="afraz-page-2">
-  <div class="eyebrow">Decisions &middot; if</div>
-  <h1>Making Python Decide With if</h1>
-  <p>Now we use those True/False answers to make decisions. An <code>if</code> says: <strong>"only run this code when the question is True."</strong></p>
+  <div class="eyebrow">elif &middot; Order</div>
+  <h1>The Order of Questions Matters</h1>
+  <p>Because Python stops at the first True, the <strong>order</strong> of your <code>if</code> and <code>elif</code> lines can change the answer. Look at this one, where the person has a score of 95:</p>
   <div class="code-wrap">
-    <div class="code-head">your first if</div>
-    <div class="code">height = 130
+    <div class="code-head">what will it print?</div>
+    <div class="code">score = 95
 
-if height &gt;= 120:
-    print("You can ride the roller coaster!")</div>
+if score &gt;= 70:
+    print("C")
+elif score &gt;= 90:
+    print("A")</div>
   </div>
-  <p>Output: <code>You can ride the roller coaster!</code></p>
-  <div class="concept">
-    <p class="concept-title">Three rules you must remember</p>
-    <div class="concept-row"><span class="concept-key">1. colon</span><span class="concept-val">the <code>if</code> line ends with a <code>:</code></span></div>
-    <div class="concept-row"><span class="concept-key">2. indent</span><span class="concept-val">the code that belongs to the <code>if</code> is pushed in with 4 spaces (or one Tab)</span></div>
-    <div class="concept-row"><span class="concept-key">3. True only</span><span class="concept-val">if the question is False, Python skips the indented lines completely</span></div>
-  </div>
-  <h2>What if the answer is False?</h2>
+  <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-e2')">Show Answer</button>
+  <div class="hint" id="afraz-e2">It prints <strong>C</strong>, not A! <code>95 &gt;= 70</code> is True, so Python stops at the very first question and never reaches the A.</div>
+  <h2>The fix: biggest first</h2>
+  <p>When you test with <code>&gt;=</code>, put the <strong>hardest</strong> (biggest) question first and work down:</p>
   <div class="code-wrap">
-    <div class="code-head">height is too small</div>
-    <div class="code">height = 100
+    <div class="code-head">correct order</div>
+    <div class="code">score = 95
 
-if height &gt;= 120:
-    print("You can ride the roller coaster!")
-
-print("Have a nice day")</div>
+if score &gt;= 90:
+    print("A")
+elif score &gt;= 70:
+    print("C")</div>
   </div>
-  <p>Output: <code>Have a nice day</code></p>
-  <p>Only the last line printed. Look at <code>print("Have a nice day")</code> - it is <strong>not indented</strong>, so it is not part of the <code>if</code>. It always runs. <strong>Indentation is how Python knows which lines belong inside.</strong></p>
-  <div class="warn">Forgetting the indent gives <code>IndentationError</code>. Forgetting the colon gives <code>SyntaxError</code>. Both are very normal. Read the error message, it tells you which line.</div>
-  <h2>Check yourself</h2>
+  <p>Output: <code>A</code></p>
+  <h2>if, if, if is NOT the same as elif</h2>
+  <p>Watch what happens if you write separate <code>if</code>s instead:</p>
   <div class="code-wrap">
-    <div class="code-head">what prints?</div>
-    <div class="code">coins = 5
+    <div class="code-head">three separate ifs</div>
+    <div class="code">score = 95
 
-if coins &gt; 10:
-    print("Rich!")
-
-print("Done")</div>
+if score &gt;= 90:
+    print("A")
+if score &gt;= 80:
+    print("B")
+if score &gt;= 70:
+    print("C")</div>
   </div>
-  <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-c2')">Show Answer</button>
-  <div class="hint" id="afraz-c2">Only <strong>Done</strong>. The question <code>5 &gt; 10</code> is False, so "Rich!" is skipped.</div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">else: the other path &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-3">
-  <div class="eyebrow">Decisions &middot; else</div>
-  <h1>else: The Plan B</h1>
-  <p>Skipping when False is fine, but often you want to do <strong>something different</strong> instead. That is what <code>else</code> is for. Think of a fork in a road: the question picks which way you go, and you always take exactly one of them.</p>
-  <div class="code-wrap">
-    <div class="code-head">if and else</div>
-    <div class="code">height = 100
-
-if height &gt;= 120:
-    print("You can ride!")
-else:
-    print("Sorry, too small.")</div>
-  </div>
-  <p>Output: <code>Sorry, too small.</code></p>
-  <div class="concept">
-    <p class="concept-title">Rules</p>
-    <div class="concept-row"><span class="concept-key">else</span><span class="concept-val">has no question of its own. It means "otherwise".</span></div>
-    <div class="concept-row"><span class="concept-key">colon</span><span class="concept-val"><code>else:</code> also ends with a colon</span></div>
-    <div class="concept-row"><span class="concept-key">align</span><span class="concept-val"><code>else</code> lines up exactly under its <code>if</code></span></div>
-    <div class="concept-row"><span class="concept-key">indent</span><span class="concept-val">its own code is indented too</span></div>
-  </div>
-  <div class="fact">Exactly <strong>one</strong> of the two blocks runs, never both and never neither. That makes if/else great for yes-or-no decisions.</div>
-  <h2>Example: even or odd</h2>
-  <p>The <code>%</code> sign gives the <strong>remainder</strong> after dividing. <code>7 % 2</code> is <code>1</code> because 7 is 3 groups of 2 with 1 left over. If a number divided by 2 has remainder 0, it is even.</p>
-  <div class="code-wrap">
-    <div class="code-head">even or odd</div>
-    <div class="code">number = 8
-
-if number % 2 == 0:
-    print("even")
-else:
-    print("odd")</div>
-  </div>
-  <p>Output: <code>even</code>. Change <code>number</code> to 7 and run it again in Thonny.</p>
-  <h2>Your turn</h2>
-  <p>Make a variable <code>money = 15</code> and a variable <code>price = 20</code>. Print <code>"I can buy it!"</code> if money is enough, otherwise print <code>"I need more money."</code></p>
-  <button class="hint-btn" data-label="Solution" onclick="toggleHint('afraz-c3')">Show Solution</button>
-  <div class="hint" id="afraz-c3"><code>money = 15</code><br><code>price = 20</code><br><code>if money &gt;= price:</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>print("I can buy it!")</code><br><code>else:</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>print("I need more money.")</code><br><br>With 15 and 20 it prints: <strong>I need more money.</strong></div>
-
-  <button class="next-btn" onclick="afraz_changePage(1)">Text and input &rarr;</button>
-</div>
-
-<div class="page" id="afraz-page-4">
-  <div class="eyebrow">Decisions &middot; Text</div>
-  <h1>Comparing Text and Asking Questions</h1>
-  <p>Comparisons work on text as well. Putting it together with <code>input()</code> lets your program react to the person using it.</p>
-  <div class="code-wrap">
-    <div class="code-head">a password check</div>
-    <div class="code">password = "tiger"
-
-guess = input("Password? ")
-
-if guess == password:
-    print("Welcome in!")
-else:
-    print("Wrong password.")</div>
-  </div>
-  <p>Type <code>tiger</code> and you get in. Type <code>Tiger</code> with a capital T and you get <strong>Wrong password</strong>. Python is picky: capital and small letters count as different.</p>
-  <h2>Be less picky with .lower()</h2>
-  <div class="code-wrap">
-    <div class="code-head">.lower() makes everything small letters</div>
-    <div class="code">print("Tiger".lower())      # tiger
-print("TIGER".lower())      # tiger
-
-guess = input("Password? ")
-if guess.lower() == "tiger":
-    print("Welcome in!")</div>
-  </div>
-  <div class="fact">Read <code>guess.lower() == "tiger"</code> in two steps: first <code>guess.lower()</code> turns whatever they typed into small letters, then <code>== "tiger"</code> asks if it matches.</div>
-  <h2>Numbers from input()</h2>
-  <p>Remember: <code>input()</code> always gives text, even when someone types a number. To compare with a number, convert first:</p>
-  <div class="code-wrap">
-    <div class="code-head">age check</div>
-    <div class="code">age = int(input("How old are you? "))
-
-if age &gt;= 10:
-    print("You are 10 or older")
-else:
-    print("You are under 10")</div>
-  </div>
-  <div class="watch">If you forget <code>int()</code>, Python tries to compare text with a number and shows a <code>TypeError</code>. The fix: wrap the input in <code>int()</code>.</div>
-  <h2>Question</h2>
-  <p>What does this print if the person types <code>BOB</code>?</p>
-  <div class="code-wrap">
-    <div class="code-head">predict</div>
-    <div class="code">name = input("Name? ")
-
-if name.lower() == "bob":
-    print("Hi Bob!")
-else:
-    print("Who are you?")</div>
-  </div>
-  <button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-c4')">Show Answer</button>
-  <div class="hint" id="afraz-c4"><strong>Hi Bob!</strong> - <code>"BOB".lower()</code> becomes <code>"bob"</code>, which equals <code>"bob"</code>.</div>
+  <p>Output: <code>A</code> then <code>B</code> then <code>C</code></p>
+  <div class="fact">Separate <code>if</code>s are <strong>all</strong> checked, so you can get several answers. An <code>if / elif / elif</code> chain is checked as one group, and <strong>exactly one</strong> block runs.</div>
 
   <button class="next-btn" onclick="afraz_changePage(1)">Predict the output &rarr;</button>
 </div>
 
-<div class="page" id="afraz-page-5">
-  <div class="eyebrow">Decisions &middot; Practice</div>
+<div class="page" id="afraz-page-3">
+  <div class="eyebrow">elif &middot; Practice</div>
   <h1>Predict the Output</h1>
-  <p>Cover the answers, read the code, say what it prints, then open the answer. Wrong guesses are the fastest way to learn.</p>
+  <p>Read the code, say what it prints, then check. Go slowly: keep asking "which question is the <strong>first</strong> True one?"</p>
   <div class="problem-card"><div class="problem-header"><div class="problem-num">1</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
     <div class="code-head">predict</div>
-    <div class="code">x = 7
-if x &gt; 5:
+    <div class="code">x = 15
+if x &gt; 20:
     print("big")
+elif x &gt; 10:
+    print("medium")
 else:
     print("small")</div>
-  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q1')">Show Answer</button>
-  <div class="hint" id="afraz-q1"><strong>big</strong><br>7 is greater than 5, so the first path runs.</div></div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-ep1')">Show Answer</button>
+  <div class="hint" id="afraz-ep1"><strong>medium</strong><br>15 is not over 20, but it is over 10, so medium.</div></div>
   <div class="problem-card"><div class="problem-header"><div class="problem-num">2</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
     <div class="code-head">predict</div>
-    <div class="code">x = 3
-if x == 4:
-    print("four")
+    <div class="code">x = 5
+if x &gt; 20:
+    print("big")
+elif x &gt; 10:
+    print("medium")
 else:
-    print("not four")</div>
-  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q2')">Show Answer</button>
-  <div class="hint" id="afraz-q2"><strong>not four</strong><br>3 == 4 is False, so Python takes the else path.</div></div>
+    print("small")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-ep2')">Show Answer</button>
+  <div class="hint" id="afraz-ep2"><strong>small</strong><br>Both questions are False, so Python uses the else.</div></div>
   <div class="problem-card"><div class="problem-header"><div class="problem-num">3</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
     <div class="code-head">predict</div>
-    <div class="code">score = 10
-if score &gt;= 10:
-    print("pass")
-print("end")</div>
-  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q3')">Show Answer</button>
-  <div class="hint" id="afraz-q3"><strong>pass then end</strong><br>The if is True, so pass prints. "end" is not indented so it always runs.</div></div>
+    <div class="code">age = 8
+if age &lt; 5:
+    print("free")
+elif age &lt; 13:
+    print("kid")
+else:
+    print("adult")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-ep3')">Show Answer</button>
+  <div class="hint" id="afraz-ep3"><strong>kid</strong><br>8 is not under 5, but it is under 13.</div></div>
   <div class="problem-card"><div class="problem-header"><div class="problem-num">4</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
     <div class="code-head">predict</div>
-    <div class="code">score = 9
-if score &gt;= 10:
-    print("pass")
-print("end")</div>
-  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q4')">Show Answer</button>
-  <div class="hint" id="afraz-q4"><strong>end</strong><br>The if is False, so pass is skipped. "end" still runs.</div></div>
+    <div class="code">n = 12
+if n &gt; 5:
+    print("over 5")
+elif n &gt; 10:
+    print("over 10")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-ep4')">Show Answer</button>
+  <div class="hint" id="afraz-ep4"><strong>over 5</strong><br>12 is over 5, so it stops there. The second question is never asked.</div></div>
   <div class="problem-card"><div class="problem-header"><div class="problem-num">5</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
     <div class="code-head">predict</div>
-    <div class="code">n = 15
-if n % 2 == 0:
-    print("even")
-else:
-    print("odd")</div>
-  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q5')">Show Answer</button>
-  <div class="hint" id="afraz-q5"><strong>odd</strong><br>15 divided by 2 leaves remainder 1, which is not 0, so it is odd.</div></div>
+    <div class="code">n = 12
+if n &gt; 5:
+    print("over 5")
+if n &gt; 10:
+    print("over 10")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-ep5')">Show Answer</button>
+  <div class="hint" id="afraz-ep5"><strong>over 5 then over 10</strong><br>Two separate ifs, so both run.</div></div>
   <div class="problem-card"><div class="problem-header"><div class="problem-num">6</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
     <div class="code-head">predict</div>
-    <div class="code">word = "Cat"
+    <div class="code">word = "dog"
 if word == "cat":
-    print("same")
+    print("meow")
+elif word == "dog":
+    print("woof")
 else:
-    print("different")</div>
-  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q6')">Show Answer</button>
-  <div class="hint" id="afraz-q6"><strong>different</strong><br>Capital C and small c are different to Python.</div></div>
-  <div class="problem-card"><div class="problem-header"><div class="problem-num">7</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
-    <div class="code-head">predict</div>
-    <div class="code">a = 5
-b = 5
-print(a == b)
-print(a != b)</div>
-  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-q7')">Show Answer</button>
-  <div class="hint" id="afraz-q7"><strong>True then False</strong><br>Both are the same number, so == is True and != is False.</div></div>
+    print("???")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-ep6')">Show Answer</button>
+  <div class="hint" id="afraz-ep6"><strong>woof</strong><br>The first question is False, the second is True.</div></div>
 
-  <button class="next-btn" onclick="afraz_changePage(1)">Build and fix &rarr;</button>
+  <button class="next-btn" onclick="afraz_changePage(1)">Fix it and build it &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-4">
+  <div class="eyebrow">elif &middot; Final</div>
+  <h1>Fix It and Build It</h1>
+  <p>Do these in Thonny. Nothing to submit. Show Raiyan the ones you like.</p>
+  <h2>Part 1: Fix the bugs</h2>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">A</div><span class="problem-title">Missing colon</span></div><div class="code-wrap">
+    <div class="code-head">error</div>
+    <div class="code">age = 10
+if age &lt; 5:
+    print("free")
+elif age &lt; 13
+    print("kid")
+else:
+    print("adult")</div>
+  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-ef1')">Show Fix</button>
+  <div class="hint" id="afraz-ef1">The <code>elif</code> line is missing its colon: <code>elif age &lt; 13:</code></div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">B</div><span class="problem-title">Wrong order</span></div><div class="code-wrap">
+    <div class="code-head">wanted "gold" for 100, but gets "bronze"</div>
+    <div class="code">points = 100
+
+if points &gt;= 10:
+    print("bronze")
+elif points &gt;= 50:
+    print("silver")
+elif points &gt;= 100:
+    print("gold")</div>
+  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-ef2')">Show Fix</button>
+  <div class="hint" id="afraz-ef2">Biggest question first. Put <code>points &gt;= 100</code> at the top, then 50, then 10.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">C</div><span class="problem-title">One equals sign</span></div><div class="code-wrap">
+    <div class="code-head">error</div>
+    <div class="code">colour = "red"
+if colour = "red":
+    print("stop")
+elif colour == "green":
+    print("go")</div>
+  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-ef3')">Show Fix</button>
+  <div class="hint" id="afraz-ef3">Asking a question needs two equals signs: <code>if colour == "red":</code></div></div>
+  <h2>Part 2: Build these</h2>
+  <div class="card card-yellow"><h3>Ticket price</h3><p>Ask for an age with <code>input()</code> (remember <code>int()</code>). Under 5 pays 0, ages 5 to 12 pay 5, and everyone else pays 10. Print the price.</p></div>
+  <div class="card card-blue"><h3>Traffic light</h3><p>Ask for a colour. If it is <code>"red"</code> print <em>Stop</em>, if <code>"yellow"</code> print <em>Get ready</em>, if <code>"green"</code> print <em>Go</em>, otherwise print <em>That is not a traffic light colour</em>.</p></div>
+  <div class="card card-pink"><h3>Weather advice</h3><p>Ask for the temperature. Over 30: <em>Stay cool and drink water</em>. Over 20: <em>Great day for football</em>. Over 10: <em>Bring a jacket</em>. Otherwise: <em>Brrr, stay warm</em>.</p></div>
+  <button class="hint-btn" data-label="Example solutions" onclick="toggleHint('afraz-ef4')">Show Example solutions</button>
+  <div class="hint" id="afraz-ef4">Ticket: <code>age = int(input("Age? "))</code>, <code>if age &lt; 5:</code> price = 0, <code>elif age &lt; 13:</code> price = 5, <code>else:</code> price = 10, then <code>print(price)</code>.<br><br>Traffic light: <code>colour = input("Colour? ").lower()</code> then <code>if</code> / <code>elif</code> / <code>elif</code> / <code>else</code>.<br><br>Weather: start with the biggest, <code>temp &gt; 30</code>, then 20, then 10, then <code>else</code>.</div>
+  <div class="fact">That is <code>elif</code> done. Now you can make a program choose between as many paths as you like. Next up: making Python <strong>repeat</strong> things for you.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Loops: repeating things &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-5">
+  <div class="eyebrow">Loops &middot; The for Loop</div>
+  <h1>Make Python Repeat Things</h1>
+  <p>Imagine you must print "Hello!" five times. You could write five lines. But what about 500? A <strong>loop</strong> repeats code for you. Today you learn <strong>one</strong> kind of loop: the <code>for</code> loop.</p>
+  <div class="code-wrap">
+    <div class="code-head">the slow way</div>
+    <div class="code">print("Hello!")
+print("Hello!")
+print("Hello!")
+print("Hello!")
+print("Hello!")</div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-head">the loop way</div>
+    <div class="code">for i in range(5):
+    print("Hello!")</div>
+  </div>
+  <p>Both print:</p>
+  <div class="expected">Hello!<br>Hello!<br>Hello!<br>Hello!<br>Hello!</div>
+  <div class="concept">
+    <p class="concept-title">Read the loop line piece by piece</p>
+    <div class="concept-row"><span class="concept-key">for</span><span class="concept-val">"do this again and again"</span></div>
+    <div class="concept-row"><span class="concept-key">i</span><span class="concept-val">a variable that Python fills in for you each time round. You can call it anything</span></div>
+    <div class="concept-row"><span class="concept-key">range(5)</span><span class="concept-val">"repeat 5 times"</span></div>
+    <div class="concept-row"><span class="concept-key">:</span><span class="concept-val">the colon again, just like <code>if</code></span></div>
+    <div class="concept-row"><span class="concept-key">indent</span><span class="concept-val">the lines pushed in (4 spaces) are what gets repeated</span></div>
+  </div>
+  <h2>Inside the loop, or after it?</h2>
+  <p>Indentation decides what repeats. This is the same rule as <code>if</code>:</p>
+  <div class="code-wrap">
+    <div class="code-head">only the indented line repeats</div>
+    <div class="code">for i in range(3):
+    print("tick")
+print("done")</div>
+  </div>
+  <p>Output: <code>tick</code> then <code>tick</code> then <code>tick</code> then <code>done</code></p>
+  <p><code>"done"</code> is not indented, so it prints <strong>once</strong>, after the loop has finished.</p>
+  <h2>Your turn</h2>
+  <p>Write a loop that prints <code>"Goal!"</code> 4 times. Then change it to print 10 times by changing only <strong>one number</strong>.</p>
+  <button class="hint-btn" data-label="Solution" onclick="toggleHint('afraz-l1')">Show Solution</button>
+  <div class="hint" id="afraz-l1"><code>for i in range(4):</code><br>&nbsp;&nbsp;&nbsp;&nbsp;<code>print("Goal!")</code><br><br>Change the <code>4</code> to <code>10</code>. That one number is how many times it repeats.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Counting with range &rarr;</button>
 </div>
 
 <div class="page" id="afraz-page-6">
-  <div class="eyebrow">Decisions &middot; Final</div>
+  <div class="eyebrow">Loops &middot; range</div>
+  <h1>The Loop Variable and Counting</h1>
+  <p>The variable after <code>for</code> (we called it <code>i</code>) is not wasted. Python gives it a <strong>new value each time round</strong>. Let's print it:</p>
+  <div class="code-wrap">
+    <div class="code-head">print the loop variable</div>
+    <div class="code">for i in range(5):
+    print(i)</div>
+  </div>
+  <p>Output: <code>0</code> then <code>1</code> then <code>2</code> then <code>3</code> then <code>4</code></p>
+  <div class="watch"><strong>Surprise:</strong> it starts at <strong>0</strong> and stops at <strong>4</strong>. <code>range(5)</code> gives 5 numbers, but Python counts from zero. So the last number is always one less than the number in the brackets.</div>
+  <h2>Start where you want</h2>
+  <p>Give <code>range</code> two numbers and it starts at the first and stops <strong>before</strong> the second:</p>
+  <div class="code-wrap">
+    <div class="code-head">range(start, stop)</div>
+    <div class="code">for i in range(1, 6):
+    print(i)</div>
+  </div>
+  <p>Output: <code>1</code> then <code>2</code> then <code>3</code> then <code>4</code> then <code>5</code></p>
+  <div class="concept">
+    <p class="concept-title">Remember</p>
+    <div class="concept-row"><span class="concept-key">range(5)</span><span class="concept-val">0, 1, 2, 3, 4</span></div>
+    <div class="concept-row"><span class="concept-key">range(1, 6)</span><span class="concept-val">1, 2, 3, 4, 5. It stops before 6</span></div>
+    <div class="concept-row"><span class="concept-key">range(3, 8)</span><span class="concept-val">3, 4, 5, 6, 7</span></div>
+  </div>
+  <h2>Use the loop variable</h2>
+  <div class="code-wrap">
+    <div class="code-head">a countdown</div>
+    <div class="code">for i in range(3, 0, -1):
+    print(i)
+print("Blast off!")</div>
+  </div>
+  <p>The third number is the <strong>step</strong>. <code>-1</code> means count downwards. Output: <code>3</code> then <code>2</code> then <code>1</code> then <code>Blast off!</code></p>
+  <h2>Check yourself</h2>
+  <p>What does <code>for i in range(2, 6): print(i)</code> print? And how would you print 1 to 10?</p>
+  <button class="hint-btn" data-label="Answers" onclick="toggleHint('afraz-l2')">Show Answers</button>
+  <div class="hint" id="afraz-l2">First one: <code>2</code> then <code>3</code> then <code>4</code> then <code>5</code>.<br><br>1 to 10: <code>for i in range(1, 11):</code> then <code>print(i)</code>. The stop number is always one more than the last number you want.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Loops that do work &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-7">
+  <div class="eyebrow">Loops &middot; Doing Something Useful</div>
+  <h1>Loops With Variables, if and elif</h1>
+  <p>Loops get powerful when the loop variable is used for calculations, or when you combine them with what you already know.</p>
+  <h2>A times table</h2>
+  <div class="code-wrap">
+    <div class="code-head">3 times table</div>
+    <div class="code">for i in range(1, 6):
+    print(f"3 x {i} = {3 * i}")</div>
+  </div>
+  <div class="expected">3 x 1 = 3<br>3 x 2 = 6<br>3 x 3 = 9<br>3 x 4 = 12<br>3 x 5 = 15</div>
+  <h2>Adding things up</h2>
+  <p>Make a variable <strong>before</strong> the loop, and update it every time round:</p>
+  <div class="code-wrap">
+    <div class="code-head">total of 1 to 5</div>
+    <div class="code">total = 0
+
+for i in range(1, 6):
+    total += i
+
+print(total)</div>
+  </div>
+  <p>Total goes 0, then 1, 3, 6, 10, and finally 15. Output: <code>15</code>. The <code>print</code> is outside the loop (not indented), so it shows only the final answer.</p>
+  <h2>Loop plus if / elif</h2>
+  <div class="code-wrap">
+    <div class="code-head">even or odd</div>
+    <div class="code">for n in range(1, 6):
+    if n % 2 == 0:
+        print(n, "is even")
+    else:
+        print(n, "is odd")</div>
+  </div>
+  <div class="expected">1 is odd<br>2 is even<br>3 is odd<br>4 is even<br>5 is odd</div>
+  <p>Notice the two levels of indentation: the <code>if</code> is inside the loop, and its <code>print</code> is inside the <code>if</code>.</p>
+  <div class="code-wrap">
+    <div class="code-head">Fizz / Buzz game</div>
+    <div class="code">for i in range(1, 16):
+    if i % 15 == 0:
+        print("FizzBuzz")
+    elif i % 3 == 0:
+        print("Fizz")
+    elif i % 5 == 0:
+        print("Buzz")
+    else:
+        print(i)</div>
+  </div>
+  <p>Output: <code>1</code> <code>2</code> <code>Fizz</code> <code>4</code> <code>Buzz</code> <code>Fizz</code> <code>7</code> <code>8</code> <code>Fizz</code> <code>Buzz</code> <code>11</code> <code>Fizz</code> <code>13</code> <code>14</code> <code>FizzBuzz</code></p>
+  <div class="fact">This is a famous programming puzzle. Look at why <code>15</code> is checked <strong>first</strong>: 15 is also a multiple of 3 and 5, so if you checked 3 first, you would never see FizzBuzz. That is the order lesson from <code>elif</code>.</div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Predict the output &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-8">
+  <div class="eyebrow">Loops &middot; Practice</div>
+  <h1>Predict the Output</h1>
+  <p>Say the answer before you open it. For tricky ones, write the loop variable value for each round on paper.</p>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">1</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">for i in range(3):
+    print("hi")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-lp1')">Show Answer</button>
+  <div class="hint" id="afraz-lp1"><strong>hi then hi then hi</strong><br>3 times round, so it prints hi three times.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">2</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">for i in range(4):
+    print(i)</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-lp2')">Show Answer</button>
+  <div class="hint" id="afraz-lp2"><strong>0 then 1 then 2 then 3</strong><br>range(4) is 0, 1, 2, 3. It starts at zero.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">3</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">for i in range(2, 5):
+    print(i)</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-lp3')">Show Answer</button>
+  <div class="hint" id="afraz-lp3"><strong>2 then 3 then 4</strong><br>Starts at 2, stops before 5.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">4</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">total = 0
+for i in range(1, 4):
+    total += i
+print(total)</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-lp4')">Show Answer</button>
+  <div class="hint" id="afraz-lp4"><strong>6</strong><br>total goes 0, 1, 3, 6. The print is outside the loop, so it shows only the end.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">5</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">for i in range(3):
+    print("a")
+print("b")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-lp5')">Show Answer</button>
+  <div class="hint" id="afraz-lp5"><strong>a then a then a then b</strong><br>"a" is inside the loop and repeats. "b" is not indented, so it prints once at the end.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">6</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">for i in range(1, 4):
+    print(i * 2)</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-lp6')">Show Answer</button>
+  <div class="hint" id="afraz-lp6"><strong>2 then 4 then 6</strong><br>i is 1, 2, 3 and each is doubled.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">7</div><span class="problem-title">What does it print?</span></div><div class="code-wrap">
+    <div class="code-head">predict</div>
+    <div class="code">for n in range(1, 5):
+    if n % 2 == 0:
+        print("even")
+    else:
+        print("odd")</div>
+  </div><button class="hint-btn" data-label="Answer" onclick="toggleHint('afraz-lp7')">Show Answer</button>
+  <div class="hint" id="afraz-lp7"><strong>odd then even then odd then even</strong><br>n goes 1, 2, 3, 4: odd, even, odd, even.</div></div>
+
+  <button class="next-btn" onclick="afraz_changePage(1)">Fix it and build it &rarr;</button>
+</div>
+
+<div class="page" id="afraz-page-9">
+  <div class="eyebrow">Loops &middot; Final</div>
   <h1>Fix It and Build It</h1>
-  <p>Last page. Do these in Thonny. Nothing to submit - show Raiyan the ones you are proud of.</p>
+  <p>Last page. Use Thonny. Nothing to submit. Show Raiyan what you made.</p>
   <h2>Part 1: Fix the bugs</h2>
-  <div class="problem-card"><div class="problem-header"><div class="problem-num">A</div><span class="problem-title">Missing indent</span></div><div class="code-wrap">
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">A</div><span class="problem-title">Missing colon</span></div><div class="code-wrap">
     <div class="code-head">error</div>
-    <div class="code">age = 12
-if age &gt;= 10:
-print("big kid")</div>
-  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-d1')">Show Fix</button>
-  <div class="hint" id="afraz-d1">The <code>print</code> line must be indented (4 spaces) so it belongs to the <code>if</code>.</div></div>
-  <div class="problem-card"><div class="problem-header"><div class="problem-num">B</div><span class="problem-title">One equals sign</span></div><div class="code-wrap">
+    <div class="code">for i in range(5)
+    print(i)</div>
+  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-lf1')">Show Fix</button>
+  <div class="hint" id="afraz-lf1">The <code>for</code> line needs a colon at the end: <code>for i in range(5):</code></div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">B</div><span class="problem-title">Missing indent</span></div><div class="code-wrap">
     <div class="code-head">error</div>
-    <div class="code">score = 10
-if score = 10:
-    print("perfect")</div>
-  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-d2')">Show Fix</button>
-  <div class="hint" id="afraz-d2">Asking a question needs <code>==</code>, not <code>=</code>: <code>if score == 10:</code></div></div>
-  <div class="problem-card"><div class="problem-header"><div class="problem-num">C</div><span class="problem-title">Forgot to convert</span></div><div class="code-wrap">
-    <div class="code-head">error</div>
-    <div class="code">age = input("Age? ")
-if age &gt;= 10:
-    print("10 or older")</div>
-  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-d3')">Show Fix</button>
-  <div class="hint" id="afraz-d3"><code>input()</code> gives text. Use <code>age = int(input("Age? "))</code>.</div></div>
-  <div class="problem-card"><div class="problem-header"><div class="problem-num">D</div><span class="problem-title">Missing colon</span></div><div class="code-wrap">
-    <div class="code-head">error</div>
-    <div class="code">number = 4
-if number % 2 == 0
-    print("even")
-else:
-    print("odd")</div>
-  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-d4')">Show Fix</button>
-  <div class="hint" id="afraz-d4">The <code>if</code> line is missing its colon at the end: <code>if number % 2 == 0:</code></div></div>
+    <div class="code">for i in range(3):
+print("hello")</div>
+  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-lf2')">Show Fix</button>
+  <div class="hint" id="afraz-lf2">The <code>print</code> must be indented, or Python does not know it belongs to the loop.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">C</div><span class="problem-title">Off by one</span></div><div class="code-wrap">
+    <div class="code-head">wanted 1 to 5 but gets 1 to 4</div>
+    <div class="code">for i in range(1, 5):
+    print(i)</div>
+  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-lf3')">Show Fix</button>
+  <div class="hint" id="afraz-lf3"><code>range</code> stops before the second number. Use <code>range(1, 6)</code>.</div></div>
+  <div class="problem-card"><div class="problem-header"><div class="problem-num">D</div><span class="problem-title">Always zero</span></div><div class="code-wrap">
+    <div class="code-head">wanted the total of 1 to 3, gets 0</div>
+    <div class="code">for i in range(1, 4):
+    total = 0
+    total += i
+print(total)</div>
+  </div><button class="hint-btn" data-label="Fix" onclick="toggleHint('afraz-lf4')">Show Fix</button>
+  <div class="hint" id="afraz-lf4"><code>total = 0</code> is inside the loop, so it resets every round. Move it <strong>above</strong> the loop.</div></div>
   <h2>Part 2: Build these</h2>
-  <div class="card card-yellow"><h3>Snack machine</h3><p>Start with <code>money = 8</code> and <code>price = 6</code>. If there is enough money, subtract the price and print how much is left with an f-string. Otherwise print that there is not enough.</p></div>
-  <div class="card card-blue"><h3>Age gate</h3><p>Ask for the person's age with <code>input()</code> (remember <code>int()</code>). If they are 13 or older print <em>"Welcome!"</em>, otherwise print how many years they need to wait, using an f-string.</p></div>
-  <div class="card card-pink"><h3>Secret word</h3><p>Pick a secret word. Ask the player to guess it, and accept it in any capitals. Print <em>"You got it!"</em> or <em>"Nope, try again"</em>.</p></div>
-  <button class="hint-btn" data-label="Example solutions" onclick="toggleHint('afraz-d5')">Show Example solutions</button>
-  <div class="hint" id="afraz-d5">Snack: <code>if money &gt;= price:</code> then <code>money = money - price</code> and <code>print(f"Left: {money}")</code>, else <code>print("Not enough money")</code>.<br><br>Age gate: <code>age = int(input("Age? "))</code>, <code>if age &gt;= 13:</code> print Welcome, else <code>print(f"Wait {13 - age} more years")</code>.<br><br>Secret word: <code>if guess.lower() == "pizza":</code> ... else ...</div>
-  <div class="fact">You can now make your programs <strong>decide</strong>: ask a True/False question, run one path or the other. Almost every game and app is built from this one idea. Great work, Afraz!</div>
+  <div class="card card-yellow"><h3>Countdown</h3><p>Count from 10 down to 1, then print <em>Happy New Year!</em> once at the end.</p></div>
+  <div class="card card-blue"><h3>Times table</h3><p>Ask which table the person wants (use <code>int(input())</code>), then print that times table from 1 to 10 with an f-string.</p></div>
+  <div class="card card-pink"><h3>Sum machine</h3><p>Add up all the numbers from 1 to 100 and print the total. (The answer is a famous one!)</p></div>
+  <div class="card card-green"><h3>Grades for a class</h3><p>Loop 3 times. Each time, ask for a score and print A, B, C or "Keep practicing" using <code>if / elif / else</code>. This joins both of today's lessons together.</p></div>
+  <button class="hint-btn" data-label="Example solutions" onclick="toggleHint('afraz-lf5')">Show Example solutions</button>
+  <div class="hint" id="afraz-lf5">Countdown: <code>for i in range(10, 0, -1): print(i)</code> then <code>print("Happy New Year!")</code> (not indented).<br><br>Times table: <code>t = int(input("Which table? "))</code>, <code>for i in range(1, 11):</code>, <code>print(f"{t} x {i} = {t * i}")</code>.<br><br>Sum: <code>total = 0</code>, <code>for i in range(1, 101): total += i</code>, <code>print(total)</code> gives <strong>5050</strong>.<br><br>Grades: <code>for i in range(3):</code>, then <code>score = int(input("Score? "))</code> and the <code>if / elif / else</code> chain, all indented inside the loop.</div>
+  <div class="fact">Today you learned two big ideas: choosing between many paths with <code>elif</code>, and repeating with a <code>for</code> loop. Put them together and you can build almost any small game. Great work, Afraz!</div>
 </div>
 
 </div>
@@ -1427,7 +1561,7 @@ function toggleHint(id) {
 
 <script>
 (function() {
-  const TOTAL = 6;
+  const TOTAL = 9;
   let cur = 1;
 
   function buildDots() {
